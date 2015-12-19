@@ -1,0 +1,137 @@
+<link href="/static/css/user.css" rel="stylesheet" type="text/css" >
+<link href="/static/css/control.css" rel="stylesheet" type="text/css" >
+
+
+<div class="bg-grey bg-grey-padding">
+    <div class="wrap clearfix">
+        <div class="user_l">
+	        <div class="head-info">
+	            #set($u=$webUser.getPrincipal())
+	            <a href="javascript:void(0);" class="head-box">
+	            	<img #if($!{u.avatar}) src="$!{u.avatar}" #else src="/static/images/defaultUser1.png" #end>
+	            </a>
+	            <p class="user-name">$!{u.displayName}</p>
+	            <div class="clearfix project-action">
+	                <p class="p-wf p-l">
+	                    <a href="/user/identity" class="identiy">实名认证</a>
+	                    <a href="/user/setting" class="person-info">个人资料</a>
+	                </p>
+	                <p class="p-wf p-r">
+	                    <a href="/address/index" class="message">地址</a>
+	                    <a href="/user/resetpwd" class="set">设置</a>
+	                </p>
+	            </div>
+	        </div>
+	        <div class="project-info">
+		        <ul>
+		            <li><a href="/my/launch/1">我发起的项目</a></li>
+		            <li><a href="/my/invest/1">我认购的项目</a></li>
+		            <li><a href="/my/order/1">我的订单</a></li>
+		            <li><a href="/my/follow/1">关注的项目</a></li>
+		        </ul>
+	    	</div>
+		</div>
+		<div class="user_r">
+		    <ul class="authen-hd clearfix">
+    		   <li> <a style="display:block;width:148px" href="/user/setting">个人信息设置</a></li>
+               <li> <a style="display:block;width:148px" href="/user/identity">实名认证</a></li>
+               <li> <a style="display:block;width:148px" href="/user/resetpwd">修改密码</a></li>
+               <li class="selected"> <a style="display:block;width:148px" href="/address/index">收货地址管理</a></li>
+    		</ul>
+			<div >
+    			<div style="margin-top:10px">
+    		        <a id="id_add_newAddr" class="btn bg-orange" data-disable-with="提交中..." 
+    					style="width: 100px;height: 30px;font-size: 16px;line-height: 30px;">新增收货地址</a>
+				</div>
+			
+    			#foreach($!addr in $!addrList)
+    			<div style="border: 2px solid #e6e6e6;margin: 10px 0 10px;" id="id_table_$!{addr.id}">
+					#if($!{addr.isDefaultAddr()})
+    				<span style="margin: 0 0 0 10px;font-size: 12px;background: #ffaa45;padding: 2px;color: #fff">默认地址</span>
+    				#end
+						<div class="form-list form-list-user_name">
+    				        <label for="">收件人<i>＊</i></label>
+    				        <div class="inp">
+    							$!{addr.consigneeName}
+    				        </div>
+    				    </div>
+    				    
+    				    <div class="form-list form-list-user_name">
+    				        <label for="">手机号<i>＊</i></label>
+    				        <div class="inp">
+    							$!{addr.phone}
+    				        </div>
+    				    </div>
+    				    
+    				    <div class="form-list">
+    				        <label for="">所在地<i>＊</i></label>
+    				        <div class="inp">
+    				                	<span>$!{addr.province}</span>
+                                    	<span>$!{addr.city}</span>
+    				        </div>
+    				    </div>
+    				    
+    				    <div class="form-list form-list-user_name">
+    				        <label for="">详细地址<i>＊</i></label>
+    				        <div class="inp">
+    							$!{addr.detailAddr}
+    				        </div>
+    				    </div>
+    				    
+    				    <div class="form-list form-list-user_name">
+    				        <label for="">邮编<i></i></label>
+    				        <div class="inp">
+    							$!{addr.postCode}
+    				        </div>
+    				    </div>
+    				</div>	
+    				
+    				<div style="width: 125px;float: right;margin-top: -43px;position: relative;">
+						#if(!$!{addr.isDefaultAddr()})
+    					<a style="color:#005ea7;margin-left:10px" onclick="setDefault($!{addr.id})">设为默认</a>
+						#end
+    					<a style="color:#005ea7;margin-left:10px" onclick="del($!{addr.id})">删除</a>
+    				</div>
+    			#end
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+//删除
+function del(id){
+	$.FDConfirm('确定要进行删除？',function(){
+		$.post('/address/delete',{id:id},function(res){
+			if(res.code == 0){
+				$.message('信息提示',res.message,function(){
+					$('#id_table_'+res.data).remove();
+				})
+			}else{
+				$.message('信息提示',res.message);
+			}
+		})
+	})
+}
+
+//设为默认
+function setDefault(id){
+	$.FDConfirm('确定设为默认？',function(){
+		$.post('/address/setDefault',{id:id},function(res){
+			if(res.code == 0){
+				$.message('信息提示',res.message,function(){
+					window.location.reload(true);
+				})
+			}else{
+				$.message('信息提示',res.message);
+			}
+		})
+	})
+}
+
+//添加地址
+$(function(){
+	$('#id_add_newAddr').click(function(){
+    	$.reqHtml('/address/add','',620);
+	})
+})
+</script>

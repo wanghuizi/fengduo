@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<title>股权众筹 - 蜂朵众筹</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<meta http-equiv="Cache-Control" content="no-store" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+
+		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/static/css/head.css" rel="stylesheet">
+		<link href="/static/css/regist.css" rel="stylesheet">
+		<link href="/static/css/dialog.css" rel="stylesheet">
+
+		<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+		<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script src="/static/js/dialog.js"></script>
+		<script src="/static/js/regist.js"></script>
+		<script src="/static/layer/layer.js"></script>
+	</head>
+	<body>
+		#parse("/widget/common/header.vm")
+		
+		$body
+		
+		#parse("/widget/common/footer.vm")
+		<script src="/static/bootstrap/2.3.2/js/bootstrap.min.js" type="text/javascript"></script>
+	</body>
+</html>

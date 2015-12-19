@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fengduo.bee.data.dao.UserSubDao" >
+  	<resultMap id="BaseResultMap" type="com.fengduo.bee.model.entity.UserSub" >
+  		<id 		column="ID" 			property="id" 				jdbcType="DECIMAL" />
+  		<result 	column="CREATE_DATE" 	property="createDate" 		jdbcType="TIMESTAMP" />
+  		<result 	column="UPDATE_DATE" 	property="updateDate" 		jdbcType="TIMESTAMP" />
+
+  		<result 	column="ITEM_ID" 		property="itemId" 			jdbcType="DECIMAL" />
+  		<result 	column="USER_ID" 		property="userId" 			jdbcType="DECIMAL" />
+  		<result 	column="USER_TYPE" 		property="userType" 		jdbcType="DECIMAL" />
+  		<result 	column="REAL_NAME" 		property="realName" 		jdbcType="VARCHAR" />
+  		<result 	column="SUB_AMOUNT" 	property="subAmount" 		jdbcType="FLOAT" />
+  		<result 	column="ADVANCES" 		property="advances" 		jdbcType="FLOAT" />
+  		<result 	column="PERCENT" 		property="percent" 		    jdbcType="FLOAT" />
+  		<result 	column="SUB_DATE" 		property="subDate" 			jdbcType="TIMESTAMP" />
+  		<result 	column="PAY_START" 		property="payStart" 		jdbcType="TIMESTAMP" />
+  		<result 	column="MEMO" 			property="memo" 			jdbcType="VARCHAR" />
+  		<result 	column="HANDLE_STATUS" 	property="handleStatus" 	jdbcType="DECIMAL" />
+  		<result 	column="DEL_FLAG" 		property="delFlag" 			jdbcType="DECIMAL" />
+  	</resultMap>
+  	
+  	<sql id="table_columns_without_id">
+  		CREATE_DATE,UPDATE_DATE,ITEM_ID,USER_ID,USER_TYPE,REAL_NAME,
+  		SUB_AMOUNT,ADVANCES,PERCENT,SUB_DATE,PAY_START,MEMO,HANDLE_STATUS,DEL_FLAG
+   	</sql>
+  
+  	<sql id="columns" >
+  		ID,<include refid="table_columns_without_id"/>
+  	</sql>
+  	
+  	<sql id="table_name" >
+  		user_sub
+  	</sql>
+  	
+  	<sql id="orderby_clause">
+        <if test="sort !=null and sort == '' ">
+			order by ID DESC
+		</if>
+        <if test="sort !=null and sort == 'createDate' ">
+			order by CREATE_DATE DESC
+		</if>
+		<if test="sort !=null and sort == 'updateDate' ">
+			order by UPDATE_DATE DESC
+		</if>
+    </sql>
+    
+  	<sql id="query_where_clause">
+  		<trim prefix="where" prefixOverrides="and|or"> 
+  			<if test="id !=null ">  
+	            ID = #{id, jdbcType=INTEGER}
+	        </if> 
+			<if test="itemId !=null">
+				and ITEM_ID = #{itemId, jdbcType=INTEGER}
+			</if>
+			<if test="userId !=null">
+				and USER_ID = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="userType !=null">
+				and USER_TYPE = #{userType, jdbcType=INTEGER}
+			</if>
+			<if test="handleStatus !=null">
+				and HANDLE_STATUS = #{handleStatus, jdbcType=INTEGER}
+			</if>
+			<if test="subDate !=null">
+				and SUB_DATE = #{subDate, jdbcType=INTEGER}
+			</if>
+			<if test="delFlag !=null">
+				and DEL_FLAG = #{delFlag, jdbcType=INTEGER}
+			</if>
+	    </trim> 
+  	</sql>
+  		
+  	<sql id="update_where_clause">
+		<trim prefix="where" prefixOverrides="and|or"> 
+	        <if test="id !=null ">  
+	            ID = #{id, jdbcType=INTEGER}
+	        </if> 
+			<if test="itemId !=null">
+				and ITEM_ID = #{itemId, jdbcType=INTEGER}
+			</if>
+			<if test="userId !=null">
+				and USER_ID = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="userType !=null">
+				and USER_TYPE = #{userType, jdbcType=INTEGER}
+			</if>
+			<if test="handleStatus !=null">
+				and HANDLE_STATUS = #{handleStatus, jdbcType=INTEGER}
+			</if>
+			<if test="subDate !=null">
+				and SUB_DATE = #{subDate, jdbcType=INTEGER}
+			</if>
+			<if test="delFlag !=null">
+				and DEL_FLAG = #{delFlag, jdbcType=INTEGER}
+			</if>
+	    </trim>
+   	</sql>
+   	
+  	<sql id="update_set_clause">
+  		<trim prefix="set UPDATE_DATE = now()," suffixOverrides=",">  
+	        <if test="itemId !=null">  
+	            ITEM_ID = #{itemId, jdbcType=INTEGER},
+	        </if>
+	        <if test="userId !=null">  
+	            USER_ID = #{userId, jdbcType=INTEGER},
+	        </if>
+	        <if test="userType !=null">  
+	            USER_TYPE = #{userType, jdbcType=INTEGER},
+	        </if>
+	        <if test="realName !=null and realName != ''">  
+	            REAL_NAME = #{realName, jdbcType=VARCHAR},
+	        </if>
+	       
+	        <if test="subAmount !=null">  
+	            SUB_AMOUNT = #{subAmount, jdbcType=FLOAT},
+	        </if>
+	        <if test="advances !=null">  
+	            ADVANCES = #{advances, jdbcType=FLOAT},
+	        </if>
+	        <if test="percent !=null">  
+	            PERCENT = #{percent, jdbcType=FLOAT},
+	        </if>
+	        <if test="subDate !=null">  
+	            SUB_DATE = #{subDate, jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="payStart !=null">  
+	            PAY_START = #{payStart, jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="memo !=null and memo != ''">  
+	            MEMO = #{memo, jdbcType=VARCHAR},
+	        </if>
+	        <if test="handleStatus !=null">  
+	            HANDLE_STATUS = #{handleStatus, jdbcType=INTEGER},
+	        </if>
+	        <if test="delFlag !=null">
+				DEL_FLAG = #{delFlag, jdbcType=INTEGER}
+			</if>
+   		</trim>
+  	</sql>
+  	
+	<insert id="insert" parameterType="com.fengduo.bee.model.entity.UserSub" useGeneratedKeys="true" keyProperty="id" keyColumn="ID" >
+	   	insert into <include refid="table_name" /> (<include refid="table_columns_without_id"/>)
+        values (  now(),now(),
+        		#{itemId,jdbcType=INTEGER},
+                #{userId,jdbcType=INTEGER},
+                #{userType,jdbcType=INTEGER},
+                #{realName,jdbcType=VARCHAR},
+                #{subAmount,jdbcType=FLOAT},
+                #{advances,jdbcType=FLOAT},
+                #{percent,jdbcType=FLOAT},
+                #{subDate,jdbcType=TIMESTAMP},
+                #{payStart,jdbcType=TIMESTAMP},
+                #{memo,jdbcType=VARCHAR},
+                #{handleStatus,jdbcType=INTEGER},
+                0
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+            SELECT last_insert_id() as id
+        </selectKey> 
+   	</insert>
+  		
+  	<select id="list" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+   		select  <include refid="columns" /> 
+   		from <include refid="table_name" /> 
+   		<include refid="query_where_clause"/>
+   		<include refid="orderby_clause"/>
+  	</select>
+  	
+  	<select id="find" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter" >
+  		select <include refid="columns"/>
+        from <include refid="table_name" />
+        <include refid="query_where_clause"/>
+        <include refid="orderby_clause"/>
+        limit 1
+  	</select>
+  
+  	<select id="listPagination" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+		select <include refid="columns"/>
+		from <include refid="table_name" /> 
+		<include refid="query_where_clause"/>
+		<include refid="orderby_clause"/>
+		<include refid="PAGINATION.MYSQL_PAGINATION" />
+  	</select>
+  	
+  	<select id="count" resultType="java.lang.Integer" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+  		select count(1)
+        from <include refid="table_name" />  
+       	<include refid="query_where_clause"/>
+   	</select>
+  	
+   	<update id="update" parameterType="com.fengduo.bee.model.entity.UserSub">
+   		update <include refid="table_name" /> 
+       	<include refid="update_set_clause"/>
+       	<include refid="update_where_clause"/>
+  	</update>
+  	
+  	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Number" >
+  		select <include refid="columns" /> 
+  		from <include refid="table_name" /> 
+  		where ID = #{id,jdbcType=INTEGER} AND DEL_FLAG = 0
+  	</select>
+  
+   	<update id="updateById" parameterType="com.fengduo.bee.model.entity.UserSub">
+   		update <include refid="table_name" /> 
+   		<include refid="update_set_clause"/>
+	    where ID = #{id,jdbcType=INTEGER}
+  	</update>
+  	
+  	<delete id="deleteById" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where ID = #{id,jdbcType=INTEGER}
+  	</delete>
+   	
+   	<select id="queryUnCloseSub" parameterType="com.fengduo.bee.commons.persistence.Parameter" resultMap="BaseResultMap">
+   		select <include refid="columns" /> 
+   		from <include refid="table_name" /> 
+   		where item_id = #{itemId} and user_id = #{userId} 
+   		and handle_status != 3 and del_flag = 0
+   	</select>
+</mapper>

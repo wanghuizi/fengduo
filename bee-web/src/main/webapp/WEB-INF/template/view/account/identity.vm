@@ -1,0 +1,354 @@
+<link href="/static/css/user.css" rel="stylesheet" type="text/css" >
+<link href="/static/css/control.css" rel="stylesheet" type="text/css" >
+
+<style>
+.btn {
+border-width: 1px;
+border-style: solid;
+border-radius: 5px;
+display: inline-block;
+vertical-align: middle;
+text-align: center;
+}
+.bg-orange:hover {
+background-color: #f35621;
+color: #fff;
+}
+.bg-orange {
+background-color: #f63;
+color: #fff;
+}
+h4.page-title {
+  border-bottom: solid 1px #ddd;
+  margin: 30px 30px 20px;
+  font-size: 18px;
+}
+.launch-list-tit {
+  background-color: #eaeef1;
+  color: #333;
+  height: 45px;
+  line-height: 45px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.launch-list-tit .tips {
+  width: 200px;
+  height: 42px;
+  float: left;
+}
+
+.launch-list-tit .switch {
+  background-color: #dce3ea;
+  padding: 0 25px 0 16px;
+  font-size: 13px;
+  color: #51b6f2;
+  cursor: pointer;
+  float: right;
+}
+.launch-list-tit .switch i {
+  background: url(/static/images/show.png);
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  display: inline-block;
+}
+.close_bg {
+	 background-color: #3d4855;
+	 color: #fff;
+}
+.close_bg .switch {
+  background-color: #2e3741;
+}
+.close_bg .switch i {
+  background-position: 0 -21px;
+}
+.c-descr {
+  left: 135px;
+  width: 300px;
+  position: relative;
+  top: 5px;
+  padding: 20px;
+  background: #f8f8f8;
+  border-radius: 5px;
+}
+.c-descr p label{
+	right: 114px;
+  position: relative;
+}
+
+.upload {
+  position: relative;
+  top: 5px;
+  float: left;
+  height: 30px;
+  margin-right: 12px;
+  overflow: hidden;
+}
+.ui-button {
+  box-sizing: content-box;
+  border-radius: 3px;
+  display: inline-block;
+  height: 26px;
+  overflow: visible;
+  padding: 0 20px;
+  border: 1px solid #ea544a;
+  background-color: #ea544a;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  line-height: 26px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.tips {
+  font-size: 14px;
+  line-height: 36px;
+  color: #999;
+}
+.type-file {
+  position: absolute;
+  right: 0;
+  _left: -10px;
+  top: -5px;
+  _top: 0;
+  _width: 100px;
+  height: 40px;
+  _height: 35px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  font-size: 28px;
+}
+</style>
+
+<div class="bg-grey bg-grey-padding">
+    <div class="wrap clearfix">
+        <div class="user_l">
+	        <div class="head-info">
+	            #set($u=$webUser.getPrincipal())
+	            <a href="javascript:void(0);" class="head-box">
+	            	<img #if($!{u.avatar}) src="$!{u.avatar}" #else src="/static/images/defaultUser1.png" #end>
+	            </a>
+	            <p class="user-name">$!{u.displayName}</p>
+	            <div class="clearfix project-action">
+	                <p class="p-wf p-l">
+	                    <a href="/user/identity" class="identiy">实名认证</a>
+	                    <a href="/user/setting" class="person-info">个人资料</a>
+	                </p>
+	                <p class="p-wf p-r">
+	                    <a href="/address/index" class="message">地址</a>
+	                    <a href="/user/resetpwd" class="set">设置</a>
+	                </p>
+	            </div>
+	        </div>
+	        <div class="project-info">
+		        <ul>
+		            <li><a href="/my/launch/1">我发起的项目</a></li>
+		            <li><a href="/my/invest/1">我认购的项目</a></li>
+		            <li><a href="/my/order/1">我的订单</a></li>
+		            <li><a href="/my/follow/1">关注的项目</a></li>
+		        </ul>
+	    	</div>
+		</div>
+		<div class="user_r">
+		   <ul class="authen-hd clearfix">
+               	<li> <a style="display:block;width:148px" href="/user/setting">个人信息设置</a></li>
+               	<li class="selected"> <a style="display:block;width:148px" href="/user/identity">实名认证</a></li>
+               	<li> <a style="display:block;width:148px" href="/user/resetpwd">修改密码</a></li>
+               	<li> <a style="display:block;width:148px" href="/address/index">收货地址管理</a></li>
+    		</ul>
+    		<div class="form-wrap">
+				<form id="identity_info" name="identity_info"  autocomplete="off" >  
+				    #set($u=${webUser.getPrincipal().user})    
+			<div id="id_inverstor_title" class="clearfix launch-list-tit" >
+                投资人基本信息                  
+				<div class="tips"><span><a href=""></a></span></div>
+			<div id="id_switch_inverstor" class="switch Js-switch">
+				<i></i>
+				展开</div>
+            </div>
+			<div id="id_inverstor_info" class="launch-list" style="display:none">
+				<div class="form-list form-list-account_name">
+            			<label for="">名片<i>＊</i></label>
+            			<div class="inp">
+                		<span class="upload">
+                             <input type="button" class="ui-button" value="添加名片">
+                             <input  id="id_card" class="type-file upload_item_img" name="upload" type="file" data-url="/upload?type=businesscard" multiple="">
+                         </span>
+                            <span class="tips">支持小于2M格式为jpg、jpeg、png的图片</span>
+                                <input id="id_card_upload_item_img_value" class="upload_item_img_value" type="hidden" id="id_card" name="identityInfo.businessCard" value="$!{identityInfo.businessCard}">
+                            <div class="form-err">
+                                <font color="red" id="err_projectImgCf"></font>
+                            </div>
+                            <div class="upload-pic mt15">
+                                <img class="upload_item_img_desc" id="id_card_upload_item_img_desc"  #if($!{identityInfo.businessCard}) src="$!{identityInfo.businessCard}" #else src="/static/images/Spang_1.jpg" #end width="200" height="150" title="">
+                            </div>
+            			</div>
+                </div>
+				<div class="form-list form-list-account_name">
+                            <label for="">投资者条件<i>＊</i></label>
+            			<div class="c-descr c-descr1" style="display: block;">
+                            <p><label for="p1"><input type="radio" name="identityInfo.investorCase" id="p1" value="1" #if($!{identityInfo.investorCase} == 1) checked="checked" #else checked="checked" #end>我的金融资产超过100万元</label></p>
+                            <p><label for="p2" style="right:1px"><input type="radio" name="identityInfo.investorCase" id="p2" #if($!{identityInfo.investorCase} == 2) checked="checked" #end value="2">我的年收入超过50万元</label></p>
+                            <p><label for="p3" style="right:1px"><input type="radio" name="identityInfo.investorCase" id="p3" #if($!{identityInfo.investorCase} == 3) checked="checked" #end value="3">我是专业的风险投资人</label></p>
+                            <p><label for="p4" style="right:1px"><input type="radio" name="identityInfo.investorCase" id="p4" #if($!{identityInfo.investorCase} == 4) checked="checked" #end value="4">我不符合上述任一条件</label></p>
+                    </div>
+                </div>
+					<div class="form-list form-list-account_name">
+            			<label for="">所在公司<i>＊</i></label>
+            			<div class="inp">
+                			<input name="identityInfo.investorCompany" placeholder="填写您所在公司全称可以增加审核通过几率"  type="text"  value="$!{identityInfo.investorCompany}" class="wx-inputErrBorder">
+                			<div class="clearfix"></div>
+            			</div>
+                	</div>
+					
+					<div class="form-list form-list-account_name">
+            			<label for="">职位/头衔<i>＊</i></label>
+            			<div class="inp">
+                			<input name="identityInfo.investorTitle" placeholder="填写您的职位/头衔可以增加审核通过几率"  type="text"  value="$!{identityInfo.investorTitle}" class="wx-inputErrBorder">
+                			<div class="clearfix"></div>
+            			</div>
+                	</div>
+					<div class="form-list form-list-account_name">
+            			<label for="">自我描述<i>＊</i></label>
+            			<div class="inp">
+                			<textarea style="height:110px" name="identityInfo.investorIntroduce" id="investorIntroduce" placeholder="请填写您之前的投资经历，或者目前的金融财产情况，以及对股权众筹的看法"></textarea>
+                			<div class="clearfix"></div>
+            			</div>
+                	</div>
+				</div>
+					
+				<h4 class="page-title">
+                    实名认证信息
+                </h4>
+				    <input type="hidden" name="identityInfo.id" value="$!{identityInfo.id}" /> 
+				    <div class="form-list form-list-user_name">
+				        <label for="">真实姓名<i>＊</i></label>
+				        <div class="inp">
+				            <input name="identityInfo.realName" id="user_realName" type="text" placeholder="请输入真实姓名" value="$!{identityInfo.realName}">
+				            <div class="clearfix"></div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list form-list-user_name">
+				        <label for="">身份证号<i>＊</i></label>
+				        <div class="inp">
+				            <input name="identityInfo.idCard" id="user_idCard" type="text" placeholder="请输入身份证号" value="$!{identityInfo.idCard}">
+				            <div class="clearfix"></div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list form-list-user_name">
+				        <label for="">身份证正面<i>＊</i></label>
+				        <div class="inp">
+				        <span class="upload">
+                             <input type="button" class="ui-button" value="添加身份证正面">
+                             <input id="id_frontSide" class="type-file upload_item_img" name="upload" type="file" data-url="/upload?type=identity" multiple="">
+                         </span>
+                            <span class="tips">支持小于2M格式为jpg、jpeg、png</span>
+                                <input id="id_frontSide_upload_item_img_value" class="upload_item_img_value" type="hidden" id="id_frontSide" name="identityInfo.frontSide" value="$!{identityInfo.frontSide}">
+                            <div class="form-err">
+                                <font color="red" id="err_projectImgCf"></font>
+                            </div>
+                            <div class="upload-pic mt15">
+                                <img id="id_frontSide_upload_item_img_desc" class="upload_item_img_desc"  #if($!{identityInfo.frontSide}) src="$!{identityInfo.frontSide}" #else src="/static/images/Spang_1.jpg" #end width="200" height="150" title="">
+                            </div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list form-list-user_name">
+				        <label for="">身份证反面<i>＊</i></label>
+				        <div class="inp">
+				        	<span class="upload">
+                             <input type="button" class="ui-button" value="添加身份证反面">
+                             <input  id="id_backSide" class="type-file upload_item_img" name="upload" type="file" data-url="/upload?type=identity" multiple="">
+                         </span>
+                            <span class="tips">支持小于2M格式为jpg、jpeg、png</span>
+                                <input id="id_backSide_upload_item_img_value" class="upload_item_img_value" type="hidden" id="id_backSide" name="identityInfo.backSide" value="$!{identityInfo.backSide}">
+                            <div class="form-err">
+                                <font color="red" id="err_projectImgCf"></font>
+                            </div>
+                            <div class="upload-pic mt15">
+                                <img id="id_backSide_upload_item_img_desc" class="upload_item_img_desc"  #if($!{identityInfo.backSide}) src="$!{identityInfo.backSide}" #else src="/static/images/Spang_1.jpg" #end width="200" height="150" title="">
+                            </div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list form-list-card_no">
+            			<label for="">银行卡号<i>＊</i></label>
+            			<div class="inp">
+                			<input name="identityInfo.bankCard" id="card_bankCard" type="text" placeholder="请输入银行卡号" value="$!{identityInfo.bankCard}" class="wx-inputErrBorder">
+                			<div class="clearfix"></div>
+            			</div>
+                	</div>
+				                                              
+                	<div class="form-list form-list-bank_name">
+            			<label for="">开户支行名称<i>＊</i></label>
+            			<div class="inp">
+                			<input name="identityInfo.bankNode" id="bank_bankNode" type="text" placeholder="请输入开户支行名称" value="$!{identityInfo.bankNode}" class="wx-inputErrBorder">
+                			<div class="clearfix"></div>
+            			</div>
+                	</div>
+                	
+                	<div class="form-list form-list-account_name">
+            			<label for="">开户支行地址<i>＊</i></label>
+            			<div class="inp">
+                			<input name="identityInfo.bankAddress" id="account_bankAddress" type="text" placeholder="请输入开户支行地址" value="$!{identityInfo.bankAddress}" class="wx-inputErrBorder">
+                			<div class="clearfix"></div>
+            			</div>
+                	</div>
+                    <div class="save-next">
+                        <a onclick="submitForm()" id="id_submit" class="btn bg-orange btn_submit_cls" data-disable-with="提交中...">保存</a>
+                    </div>
+                    
+			    </form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+function submitForm(){
+	var F = $('#identity_info');
+	$.post('/user/saveIdentityInfo',F.serialize(),function(res){
+		$.message('信息提示',res.message);
+	})
+}
+$(function(){
+	$('#id_inverstor_title').addClass('close_bg');
+	$('#id_switch_inverstor').text('收起').prepend('<i></i>')	
+	$('#id_inverstor_info').css("display","block")
+	
+	$('#id_switch_inverstor').click(function(){
+		var isShow = $('#id_inverstor_info').css('display')
+		if(isShow == 'block'){
+			$('#id_inverstor_info').fadeOut(800,function(){
+    			$('#id_inverstor_title').removeClass('close_bg');
+    			$('#id_switch_inverstor').text('展开').prepend('<i></i>')
+			})
+		}else{
+			//未展开
+			$('#id_inverstor_title').addClass('close_bg');
+			$('#id_switch_inverstor').text('收起').prepend('<i></i>')
+    	    $('#id_inverstor_info').fadeIn(800)
+		}
+	})
+	
+	$('.upload_item_img').fileupload({
+		done:function(e,data){
+			 var json=data.result;
+			 if(json.code == 0){
+				var id = $(this).attr('id')
+				$('#'+id+'_upload_item_img_value').val(json.url);
+			 	$('#'+id+'_upload_item_img_desc').attr('src',json.url);
+			 }else{
+			 	$.message('错误提示',json.message);
+			 }
+	    },
+		error:function(e,result){
+			$.message('错误提示','图片上传异常');
+		}
+	})
+})
+</script>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fengduo.bee.data.dao.EquityChangeDao" >
+  	<resultMap id="BaseResultMap" type="com.fengduo.bee.model.entity.EquityChange" >
+  		<id 		column="ID" 			property="id" 				jdbcType="DECIMAL" />
+  		<result 	column="CREATE_DATE" 	property="createDate" 		jdbcType="TIMESTAMP" />
+  		<result 	column="UPDATE_DATE" 	property="updateDate" 		jdbcType="TIMESTAMP" />
+
+  		<result 	column="ITEM_ID" 		property="itemId" 			jdbcType="DECIMAL" />
+  		<result 	column="USER_ID" 		property="userId" 			jdbcType="DECIMAL" />
+  		<result 	column="AMOUNT" 		property="amount" 			jdbcType="FLOAT" />
+  		<result 	column="SUCCESS_DATE" 	property="successDate" 		jdbcType="TIMESTAMP" />
+  		<result 	column="DEADLINE" 		property="deadline" 		jdbcType="TIMESTAMP" />
+  		<result 	column="EQUITY_URL" 	property="equityUrl" 		jdbcType="VARCHAR" />
+  		<result 	column="IS_RECEIVE" 	property="isReceive" 		jdbcType="DECIMAL" />
+  		<result 	column="OPERATOR_ID" 	property="operatorId" 		jdbcType="DECIMAL" />
+  		<result 	column="OPERATOR_DATE" 	property="operatorDate" 	jdbcType="TIMESTAMP" />
+  		<result 	column="DEL_FLAG" 		property="delFlag" 			jdbcType="DECIMAL" />
+  	</resultMap>
+  	
+  	<sql id="table_columns_without_id">
+  		CREATE_DATE,UPDATE_DATE,ITEM_ID,USER_ID,AMOUNT,SUCCESS_DATE,
+  		DEADLINE,EQUITY_URL,IS_RECEIVE,OPERATOR_ID,OPERATOR_DATE,DEL_FLAG
+   	</sql>
+  
+  	<sql id="columns" >
+  		ID,<include refid="table_columns_without_id"/>
+  	</sql>
+  	
+  	<sql id="table_name" >
+  		item_member
+  	</sql>
+  	
+  	<sql id="orderby_clause">
+        <if test="sort !=null and sort == '' ">
+			order by ID DESC
+		</if>
+        <if test="sort !=null and sort == 'createDate' ">
+			order by CREATE_DATE DESC
+		</if>
+		<if test="sort !=null and sort == 'updateDate' ">
+			order by UPDATE_DATE DESC
+		</if>
+    </sql>
+    
+  	<sql id="query_where_clause">
+  		<trim prefix="where" prefixOverrides="and|or"> 
+  			<if test="id !=null ">  
+	            ID = #{id, jdbcType=INTEGER}
+	        </if> 
+			<if test="itemId !=null">
+				and ITEM_ID = #{itemId, jdbcType=INTEGER}
+			</if>
+	        <if test="userId != null">  
+	            and USER_ID = #{userId, jdbcType=INTEGER}
+	        </if> 
+	        <if test="delFlag != null ">  
+	            and DEL_FLAG = #{delFlag, jdbcType=INTEGER}
+	        </if>
+	    </trim> 
+  	</sql>
+  		
+  	<sql id="update_where_clause">
+		<trim prefix="where" prefixOverrides="and|or"> 
+	        <if test="id !=null ">  
+	            ID = #{id, jdbcType=INTEGER}
+	        </if> 
+			<if test="itemId !=null ">
+				and ITEM_ID = #{itemId, jdbcType=INTEGER}
+			</if>
+	        <if test="userId != null">  
+	            and USER_ID = #{userId, jdbcType=INTEGER}
+	        </if> 
+	        <if test="delFlag != null ">  
+	            and DEL_FLAG = #{delFlag, jdbcType=INTEGER}
+	        </if>
+	    </trim>
+   	</sql>
+
+  	<sql id="update_set_clause">
+  		<trim prefix="set UPDATE_DATE = now()," suffixOverrides=",">  
+	        <if test="itemId !=null">  
+	            ITEM_ID = #{itemId, jdbcType=INTEGER},
+	        </if>
+	        <if test="userId !=null ">  
+	            USER_ID = #{userId, jdbcType=INTEGER},
+	        </if>
+	        <if test="amount !=null">  
+	            AMOUNT = #{amount, jdbcType=FLOAT},
+	        </if>
+	        <if test="successDate !=null">  
+	            SUCCESS_DATE = #{successDate, jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="deadline !=null">  
+	            DEADLINE = #{deadline, jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="equityUrl !=null and memo != '' ">  
+	            EQUITY_URL = #{equityUrl, jdbcType=VARCHAR},
+	        </if>
+	        <if test="isReceive !=null">  
+	            IS_RECEIVE = #{isReceive, jdbcType=INTEGER},
+	        </if>
+	        <if test="operatorId !=null">  
+	            OPERATOR_ID = #{operatorId, jdbcType=INTEGER},
+	        </if>
+	        <if test="operatorDate !=null">  
+	            OPERATOR_DATE = #{operatorDate, jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="delFlag !=null">  
+	            DEL_FLAG = #{delFlag, jdbcType=INTEGER},
+	        </if>
+   		</trim>
+  	</sql>
+
+	<insert id="insert" parameterType="com.fengduo.bee.model.entity.EquityChange" useGeneratedKeys="true" keyProperty="id" keyColumn="ID" >
+	   	insert into <include refid="table_name" /> (<include refid="table_columns_without_id"/>)
+        values (  now(),now(),
+        		#{itemId,jdbcType=INTEGER},
+                #{user_id,jdbcType=INTEGER},
+                #{amount,jdbcType=FLOAT},
+                #{success_date,jdbcType=TIMESTAMP},
+                #{deadline,jdbcType=TIMESTAMP},
+                #{equity_url,jdbcType=VARCHAR},
+                #{is_receive,jdbcType=INTEGER},
+                #{operator_id,jdbcType=INTEGER},
+                #{operator_date,jdbcType=TIMESTAMP},
+                0
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+            SELECT last_insert_id() as id
+        </selectKey> 
+   	</insert>
+  		
+  	<select id="list" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+   		select  <include refid="columns" /> 
+   		from <include refid="table_name" /> 
+   		<include refid="query_where_clause"/>
+   		<include refid="orderby_clause"/>
+  	</select>
+  	
+  	<select id="find" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter" >
+  		select <include refid="columns"/>
+        from <include refid="table_name" />
+        <include refid="query_where_clause"/>
+        <include refid="orderby_clause"/>
+        limit 1
+  	</select>
+  
+  	<select id="listPagination" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+		select <include refid="columns"/>
+		from <include refid="table_name" /> 
+		<include refid="query_where_clause"/>
+		<include refid="orderby_clause"/>
+		<include refid="PAGINATION.MYSQL_PAGINATION" />
+  	</select>
+  	
+  	<select id="count" resultType="java.lang.Integer" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+  		select count(1)
+        from <include refid="table_name" />  
+       	<include refid="query_where_clause"/>
+   	</select>
+  	
+   	<update id="update" parameterType="com.fengduo.bee.model.entity.EquityChange">
+   		update <include refid="table_name" /> 
+       	<include refid="update_set_clause"/>
+       	<include refid="update_where_clause"/>
+  	</update>
+  	
+  	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Number" >
+  		select <include refid="columns" /> 
+  		from <include refid="table_name" /> 
+  		where ID = #{id,jdbcType=INTEGER} AND DEL_FLAG = 0
+  	</select>
+  
+   	<update id="updateById" parameterType="com.fengduo.bee.model.entity.EquityChange">
+   		update <include refid="table_name" /> 
+   		<include refid="update_set_clause"/>
+	    where ID = #{id,jdbcType=INTEGER}
+  	</update>
+  	
+  	<delete id="deleteById" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where ID = #{id,jdbcType=INTEGER}
+  	</delete>
+   	
+</mapper>

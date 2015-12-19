@@ -1,0 +1,149 @@
+<link href="/static/css/mycommon.css" rel="stylesheet">
+
+<div class="hot-project">
+    <div class="wrap m-box03">
+		<div class="tx_selectType">
+        	<div class="tx_selectItemBox">
+            	<label class="tx_selectI_label">归属行业：</label>
+                <div class="tx_select_AWrap">
+                    <a href="/projects?progress=$!{progress}&stage=$!{stage}" class="tx_selectI_A #if(!$!{tag} || $!{tag}=='') cur #end">全部</a>
+	                #set($itemTagList=$!{enumViewTools.getallItemTagEnum()})
+	        		#foreach($itemTag in $itemTagList)
+	        			<a class="tx_selectI_A #if($!{tag} && $!{tag} != '' && $!{itemTag.value} == $!{tag}) cur #end" href="/projects?tag=$!{itemTag.value}&progress=$!{progress}&stage=$!{stage}">$!{itemTag.getDesc()}</a>
+	        	    #end
+                </div>
+            </div>
+            <div class="tx_selectItemBox">
+            	<label class="tx_selectI_label">众筹进展：</label>
+                <div class="tx_select_AWrap">
+                    <a href="/projects?tag=$!{tag}&stage=$!{stage}" class="tx_selectI_A #if(!$!{progress} || $!{progress}=='') cur #end">全部</a>
+                    #set($progressList=$!{enumViewTools.getallProgressEnum()})
+	        		#foreach($itemProgress in $progressList)
+	        			<a class="tx_selectI_A #if($!{progress} && $!{progress} != '' && $!{itemProgress.value} == $!{progress}) cur #end" href="/projects?tag=$!{tag}&progress=$!{itemProgress.value}&stage=$!{stage}">$!{itemProgress.getDesc()}</a>
+	        	    #end
+                </div>
+            </div>
+            <div class="tx_selectItemBox">
+            	<label class="tx_selectI_label">项目阶段：</label>
+                <div class="tx_select_AWrap">
+                    <a href="/projects?tag=$!{tag}&progress=$!{progress}" class="tx_selectI_A #if(!$!{stage} || $!{stage}=='') cur #end">全部</a>
+	        	    #set($stageList=$!{enumViewTools.getallStageEnum()})
+	        		#foreach($itemStage in $stageList)
+	        			<a class="tx_selectI_A #if($!{stage} && $!{stage} != '' && $!{itemStage.value} == $!{stage}) cur #end" href="/projects?tag=$!{tag}&progress=$!{progress}&stage=$!{itemStage.value}">$!{itemStage.getDesc()}</a>
+	        	    #end
+                </div>
+            </div>
+        </div>
+		
+		<div class="focus-box">
+			<ul class="focus-con clearfix">
+				#foreach($itemFull in $itemFullList)			
+				<li>
+					<i></i>
+					<div class="list-item">
+					<a href="/$!{itemFull.itemId}/project">
+				    	<span class="s-num unlike"><i></i></span>
+						<img src="$!{itemFull.getImgCf()}">
+		            </a>
+					<div class="z-lump">						
+						<h2 title="$!{itemFull.name}">
+							<a href="/$!{itemFull.itemId}/project">$!{itemFull.name}</a><br>
+							<span title="$!{itemFull.introduce}">
+							<a href="/$!{itemFull.itemId}/project">$!{itemFull.introduce}</a></span>
+						</h2>								
+						<div class="progress-bar">
+							<span class="progress bg-yellow" style="width:$!{itemFull.getRealPercent()}%;"></span>
+						</div>
+						<div class="item-rate clearfix">
+							<span class="rate1">融资目标<b>$!{itemFull.amount}万</b></span>
+							<span class="rate2">已预约<b>$!{itemFull.getRealPercent()}</b>%</span>							
+						</div>
+				    </div>						   
+					</div>
+					<p class="z-assist clearfix">
+					    <!--<a class="assist1" href="javascript:void(0);">zxc</a>-->
+					    <a class="assist2" href="javascript:void(0);">$!{enumViewTools.tagsEnumName($!itemFull.tags)}</a>
+					</p>
+				</li>		
+				#end
+			</ul>			
+		</div>
+	</div>
+
+	<div class="pager">
+	  	<a href="#">首页</a>&nbsp;
+	  	<a class="selected">1</a>&nbsp;
+	  	<a class="common-sprite" href="#">2</a>&nbsp;
+	  	<a class="common-sprite" href="#">3</a>&nbsp;
+	  	<a class="common-sprite" href="#">4</a>&nbsp;
+	  	<a class="common-sprite" href="#">5</a> 
+	    <a href="#">...</a>  
+	    <a href="#">13</a> 
+	    <a class="next" href="#"></a>	 
+	 </div>
+
+</div>
+
+<style>
+/*focus*/
+.hot-project{background: #eceef2;padding-bottom: 20px;}
+.focus-box .focus-con { width: 1250px; overflow: hidden; }
+.focus-box .focus-con li { height:316px;float: left; padding: 0 16px 25px 0; position: relative; }
+.list-item {border-top-right-radius: 5px;border-top-left-radius: 5px; width: 218px; height: 262px; background:#ffffff;padding:13px 13px 0; overflow:hidden; }
+.list-item a {position:relative;display:inline-block;}
+.list-item a.item-figure {display:block; overflow:hidden;position: relative;}
+.list-item a img { width: 218px; height:145px; -webkit-transition: all 0.3s ease-out;-ms-transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -o-transition: all 0.3s ease-out; transition: all 0.3s ease-out;}
+.list-item a:hover img{-webkit-transform:scale(1.04);-moz-transform:scale(1.04);-o-transform:scale(1.04);transform:scale(1.04);}
+.focus-box .focus-con li .being{display: block;width: 66px;height: 63px;top: 0; left: 0; z-index: 2;position: absolute;background: url("../images/icon/being.png");} .hot-list li a{float: left;display: block;position:relative;}
+.focus-box .focus-con li .done{display: block;width: 66px;height: 63px;top: 0; left: 0; z-index: 2;position: absolute;background: url("../images/icon/done.png");} .hot-list li a{float: left;display: block;position:relative;}
+.p-people{font-size: 12px;color:#cccccc;height: 20px;line-height: 20px;margin-top:10px;margin-bottom: 18px;}
+.p-people span{margin-left:8px;color:#333333;display: block;float: left;}
+.p-people span.s-border{padding:0 5px;border-radius:5px;color:#ff6633;border:1px solid #ff6633;margin-left: 0;}
+.d-money{padding-bottom: 16px;border-bottom:1px solid #f2f2f2;margin-bottom: 6px;}
+.d-money p{float: left;padding-top:20px;width: 71px;}
+.d-money p.p-w{width: 88px;}
+.d-money p.padding-right{padding-right: 0;width: 50px;float: right;}
+.d-money p b{color:#000033;font-size: 13px;width: 100%;display: block;margin-bottom:-5px;float: left;}
+.d-money p b.y-color{color:#ff6633;}
+.d-money p span{color:#999999;font-size: 12px;width: 100%;display: block;float: left;}
+.list-item .z-lump { padding: 0 0 15px 0; }
+.list-item .z-lump h2 { font-size: 15px;color: #333333; padding: 0 0 15px 0; height: 34px; margin-bottom: 11px;overflow: hidden;}
+.list-item .z-lumpt h2{height: 22px;padding-bottom: 0;margin-bottom: 5px;}
+.list-item .z-lumpt .p-people{height: 25px;margin-bottom: 10px;margin-top: 0;}
+.list-item .z-lumpt .d-money p{padding-top: 0;}
+.list-item .z-lump h2 span{font-size: 12px;color:#b0b0b0;}
+.list-item .z-lump h2 a { -webkit-transition: all 0.8s ease; -moz-transition: all 0.8s ease; -o-transition: all 0.8s ease; transition: all 0.8s ease; }
+.list-item .z-lump h2 a:hover { color: #51b6f2; }
+.list-item .z-lump h2 span:hover{color:#51b6f2;}
+.list-item .z-lump p.z-raising { font-size: 12px; color: #999; }
+.list-item .z-lump p.z-raising em { font-size: 14px; color: #000; font-weight: bold; }
+.list-item .z-lump p.z-raising i { font-size: 14px; color: #000; font-weight: bold; }
+.list-item .z-lump .progress-bar {border-radius: 5px; width: 218px; height: 6px; line-height: 0px; font-size: 0px; background: #eaeaea; overflow: hidden; margin: 4px 0; }
+.list-item .z-lump .progress-bar span { background: #51b6f2; }
+.list-item .z-lump .progress-bar span.progress {border-radius: 5px; height: 6px; line-height: 0px; font-size: 0px; display: block; }
+.list-item .z-lump .item-rate span.rate1 { float: left; color: #999999;font-size: 12px; }
+.list-item .z-lump .item-rate span.rate1 b{ color: #333333; }
+.list-item .z-lump .item-rate span.rate2 {float: right; color: #999; }
+.list-item .z-lump .item-rate span.rate2 b{ color: #333333; }
+.z-assist {background: #f6f7fa; width:218px;line-height: 25px; padding: 8px 13px;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px; }
+.z-assist a{ color: #666; padding: 0 10px 0 18px; display:inline;}
+.z-assist a.assist1 {cursor: default; background:url(../static/images/icon/person.png) no-repeat 0 3px;}
+.z-assist a.assist2 {cursor: default; background:url(../static/images/icon/pill.png) no-repeat 0 3px;}
+/*focus success*/ 
+.z-document{ float: left;}
+.z-document01{ float: right;}
+.item-succnd{line-height: 30px; width: 230px; background:#ed5f8a; color: #fff;margin: 3px 0 22px -10px;*margin: 3px 0 22px -10px;}
+.item-succnd .rate1{ float: left; padding: 0 0 0 10px;font-weight: bold;font-size: 14px;}
+.item-succnd .rate2{ float: right; padding:0 10px 0 0;}
+.list-item .z-fdbnn{ padding: 0 10px;}
+/*focus online*/
+.z-online{font-size: 12px;color: #333;font-weight: bold;}
+/*browse all*/
+.grey-btn {border-radius:5px;padding: 0 30px; line-height:30px; display: inline-block; font-size: 12px; color: #999999; font-weight: bold; border: 2px #cccccc solid; -webkit-transition: all 0.8s ease; -moz-transition: all 0.8s ease; -o-transition: all 0.8s ease; transition: all 0.8s ease;}
+.grey-btn:hover { opacity: 1 !important; border: 2px #333 solid; color: #333; }
+/*scale public*/
+.img-scale{ overflow:hidden;}
+.img-scale a{ overflow:hidden;}
+.img-scale a img{ -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease;}
+.img-scale a:hover img{-o-transform:scale(1.04);-moz-transform:scale(1.04);-webkit-transform:scale(1.04);transform:scale(1.04);}
+</style>

@@ -1,0 +1,289 @@
+<link href="/static/css/user.css" rel="stylesheet" type="text/css" >
+<link href="/static/css/control.css" rel="stylesheet" type="text/css" >
+
+<script type="text/javascript" src="/static/js/city.js"></script>
+<script type="text/javascript" src="/static/jquery/ajaxfileupload.js"></script>
+
+<script type="text/javascript" src="/static/fengduo/extends.js"></script>
+
+<style>
+.btn {
+border-width: 1px;
+border-style: solid;
+border-radius: 5px;
+display: inline-block;
+vertical-align: middle;
+text-align: center;
+}
+.bg-orange:hover {
+background-color: #f35621;
+color: #fff;
+}
+.bg-orange {
+background-color: #f63;
+color: #fff;
+}
+.mod-head-a {
+float: right;
+margin-right: 40px;
+margin-top: 4px;
+}
+.portrait {
+text-decoration: none;
+color: #99aecb;
+}
+</style>
+
+<style>
+.corner {
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+}
+.avaupload-dialog-content {
+height: 458px;
+background-color: #fff;
+}
+embed[Attributes Style] {
+width: 541px;
+height: 452px;
+}
+Inherited from div#H-avaupload-dialog.upload-dialog.corner
+.upload-dialog {
+text-align: left;
+width: 541px;
+display: none;
+position: absolute;
+background-color: #e6ecf3;
+z-index: 100;
+text-align: left;
+top: 120px;
+}
+.dialog-titlebar {
+position: relative;
+}
+</style>
+<div id="H-avaupload-dialog" class="upload-dialog corner" style="left: 448px; top: 222px; display: none;">
+	<div class="avaupload-dialog-content corner">
+		<object id="GozapToolComponentTest" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="541" height="452">
+			<param name="movie" value="/static/images/upload.swf">
+			<param name="quality" value="high">
+			<param name="allowScriptAccess" value="always">
+			<param name="FlashVars" value="swfId=hasScan&amp;showStyle=0&amp;uploadDataFieldName=upload&amp;uploadSvrURL=/Upload?type=avatar">
+			<embed src="/static/images/upload.swf" id="GozapToolComponentTest" allowscriptaccess="always" swliveconnect="true" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" flashvars="swfId=hasScan&amp;showStyle=0&amp;uploadDataFieldName=upload&amp;uploadSvrURL=/Upload?type=avatar" width="541" height="452">
+		</object>
+ 	</div>
+</div>
+
+<div class="bg-grey bg-grey-padding">
+    <div class="wrap clearfix">
+        <div class="user_l">
+	        <div class="head-info">
+	            <a href="javascript:void(0);" class="head-box">
+	            	<img #if($!{u.avatar}) src="$!{u.avatar}" #else src="/static/images/defaultUser1.png" #end >
+	            </a>
+	            <p class="user-name">$!{u.displayName}</p>
+	            <div class="clearfix project-action">
+	                <p class="p-wf p-l">
+	                    <a href="/user/identity" class="identiy">实名认证</a>
+	                    <a href="/user/setting" class="person-info">个人资料</a>
+	                </p>
+	                <p class="p-wf p-r">
+	                    <a href="/address/index" class="message">地址</a>
+	                    <a href="/user/resetpwd" class="set">设置</a>
+	                </p>
+	            </div>
+	        </div>
+	        <div class="project-info">
+		        <ul>
+		            <li><a href="/my/launch/1">我发起的项目</a></li>
+		            <li><a href="/my/invest/1">我认购的项目</a></li>
+		            <li><a href="/my/order/1">我的订单</a></li>
+		            <li><a href="/my/follow/1">关注的项目</a></li>
+		        </ul>
+	    	</div>
+		</div>
+		<div class="user_r">
+		    <ul class="authen-hd clearfix">
+    		   <li class="selected"> <a style="display:block;width:148px" href="/user/setting">个人信息设置</a></li>
+               <li> <a style="display:block;width:148px" href="/user/identity">实名认证</a></li>
+               <li> <a style="display:block;width:148px" href="/user/resetpwd">修改密码</a></li>
+               <li> <a style="display:block;width:148px" href="/address/index">收货地址管理</a></li>
+    		</ul>
+			<div class="form-wrap">
+				<form id="user_settings" name="user_settings" autocomplete="off" >   
+				    <div class="form-list">
+				        <label for="">我的头像<i>＊</i></label>
+				        <div class="inp add-list-control clearfix">
+				            <div class="fl">
+				                <img width="48" height="48" #if($!{u.avatar}) src="$!{u.avatar}" #else src="/static/images/defaultUser1.png" #end id="personImgUrl">
+				                <input type="hidden" name="user.avatar" id="hidImgUrl" value="$!{u.avatar}" userimgurl="">
+				                <a href="javascript:;" class="portrait mod-head-a" id="modifyPersonPhoto">修改头像</a>
+				            </div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list">
+				        <label for="">手机号<i>＊</i></label>
+				        <div class="inp">$!{u.phone}</div>
+				    </div>
+				    
+				    <div class="form-list form-list-user_name">
+				        <label for="">用户名<i>＊</i></label>
+				        <div class="inp">
+				            <input name="user.nick" id="user_nick" type="text" placeholder="请输入用户名" value="$!{u.nick}">
+				            <div class="clearfix"></div>
+				        </div>
+				        <div class="prompt"><i></i>
+				            <div class="sub">
+				                <div>不能用数字和特殊符号开头，且大于两位</div>
+				            </div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list form-list-user_name">
+				        <label for="">邮箱地址<i>＊</i></label>
+				        <div class="inp">
+				            <input name="user.email" id="user_email" type="text" placeholder="请输入邮箱地址" value="$!{u.email}">
+				            <div class="clearfix"></div>
+				        </div>
+				        <div class="prompt">
+				            <div class="sub">
+				                <div>请使用个人常用邮箱</div>
+				            </div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list">
+				        <label for="">所在城市<i>＊</i></label>
+				        <input type="hidden" id="projectLocal" value="$!{u.province}|$!{u.city}">
+				        <div class="inp">
+				            <div id="address_region_selector" class="clearfix padding-0">           
+				            	<div class="inp inp-region clearfix">
+					                <select style="height: 35px;" id="projectProvince" name="user.province" onchange="select()" class="half selected">
+	                                	<option value="请选择省份">请选择省份</option>
+	                                </select>
+	                                <select style="height: 35px;" id="projectCity" name="user.city" onchange="select()" class="half selected">
+	                                	<option value="请选择城市">请选择城市</option>
+	                                </select>
+					            </div>
+					        </div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list form-list-category">
+				        <label for="">关注领域<i>＊</i></label>
+				        <div class="inp category2_category_boxes">
+				            <div class="clearfix">
+				            	#foreach($atten in $!attentionValueList)
+									<div class="industry clearfix">
+					                	<input class="catebox" type="checkbox" name="user.attentions" #if($!{u.attentions.contains($atten)}) checked="checked" #end value="$atten">
+					                	<label class="cateinfo" for="ind_1">$atten</label>
+					                </div>
+								#end
+				            </div>
+				            <div class="validate-msg" id="wx-validator-category2-required">不能为空</div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list form-list-user_name">
+				        <label for="">微信<i></i></label>
+				        <div class="inp">
+				            <input name="user.wechat" id="user_wechat" type="text" placeholder="请输入个人微信" value="$!{u.wechat}">
+				            <div class="clearfix"></div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list form-list-user_name">
+				        <label for="">微博<i></i></label>
+				        <div class="inp">
+				            <input name="user.weibo" id="user_weibo" type="text" placeholder="请输入个人微博" value="$!{u.weibo}">
+				            <div class="clearfix"></div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list form-list-user_name">
+				        <label for="">个人简介<i></i></label>
+				        <div class="inp">
+				            <textarea rows="5" placeholder="请简单介绍一下你自己 以及在投资领域的相关经验" name="user.memo" style="margin: 0px; width: 506px; height: 106px;">$!{u.memo}</textarea>
+				            <div class="clearfix"></div>
+				        </div>
+				    </div>
+				    
+				    <div class="save-next">
+				        <a id="id_submit"  class="btn bg-orange btn_submit_cls" data-disable-with="提交中..." onclick="submitForm()">保存</a>
+				    </div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+//修改图像
+$("#modifyPersonPhoto").click(function(){
+	var html=$("#H-avaupload-dialog").html();
+	$.html(html,"580px","500px");
+})
+//上传头像，flash回调函数
+//头像上传成功
+function Head_Pic_Rece_URL(str,swfId){
+	if (str == "IOError" || str == "-1") {
+        $.message("出错提示", "图片上传失败，请稍候再试!"); 
+        return;
+    }else {
+        //var p1 = str.lastIndexOf(".");
+        //str = str.substring(0, p1) + "=48x48." + str.substring(p1 + 1);
+        
+        $("#personImgUrl").attr("src", str); //把图片的url地址付给图片src
+        $("#hidImgUrl").val(str);
+        layer.closeAll();
+    }
+}
+//关闭上传弹出框
+function Head_Pic_Cancel(swfId){
+	layer.closeAll();
+}
+//提交
+function submitForm(){
+	var F = $('#user_settings');
+	$.post('/user/saveUserInfo',F.serialize(),function(res){
+		$.message('信息提示',res.message);
+	})
+}
+
+function uploadPic(type,id){
+	var picUrl = '';
+		picUrl = '/upload?type=' + type ;
+	if(id != ''){
+		picUrl = picUrl + "&id=" + id;
+	}
+	$.ajaxFileUpload({
+   	 	url:picUrl,  
+        secureuri:false,                           
+   		fileElementId:'id_file',               
+        dataType:'json',                            
+       	success:function(res, status){           
+    		if(res.error == 0) {
+				var data = res.data;
+    			alert("上传成功");
+				var host = window.location.host;
+				var purl = "http://" + host + data;
+				var aliasName = "<图片" + count + ">";
+				$('#id_avatar_url').val(topicVal+aliasName);
+    		}else {
+    			alert(res.message);
+    		}
+    	},  
+    	error:function(data, status, e){ 
+    		alert("图片上传失败，请重试！");
+    	}  
+	});
+}
+
+$(function(){
+	$('#id_upload_file').click(function(){
+		uploadPic('avatar','');
+	})
+})
+</script>

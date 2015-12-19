@@ -1,0 +1,355 @@
+<link href="/static/css/project.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/static/simditor/simditor.css" />
+
+<script type="text/javascript" src="/static/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.js"></script>
+<!--<script type="text/javascript" src="/static/js/base.js"></script>-->
+<script type="text/javascript" src="/static/simditor/module.js"></script>
+<script type="text/javascript" src="/static/simditor/hotkeys.js"></script>
+<script type="text/javascript" src="/static/simditor/uploader.js"></script>
+<script type="text/javascript" src="/static/simditor/simditor.js"></script>
+
+<script type="text/javascript" src="/static/jquery/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.fileupload.js"></script>
+
+<link href="/static/css/alert.css" rel="stylesheet">
+<script type="text/javascript" src="/static/js/alter.js"></script>
+
+##错误提示信息
+$widget.setTemplate("common/errorTips").addParam('errMsg',$!{errMsg})
+
+<div class="gq-forms-tips">
+    <div class="gq-forms">
+        <div class="gq-form">
+            <ul class="steps">
+                <li class="step">项目信息<span class="line"></span></li>
+                <li class="step cur">融资信息<span class="line"></span></li>
+                <li class="step">成员信息<span class="line"></span></li>
+                <li class="step">确认完成<span class="line"></span></li>
+            </ul>
+            <form action="$!postUrl" method="post" id="frm">
+                <input type="hidden" id="projectId" name="itemId" value="$!{itemId}">
+                <input type="hidden" id="projectId" name="id" value="$!{itemFinance.id}">
+                <div class="infos-lists">
+                    <p class="infos-tit"><i class="finance-icons"></i>融资信息</p>
+                    <div class="info-list mb20">
+                        <label class="info-tit line36"><span class="stars-red">*</span>资金用途：</label>
+                        <input id="capitalUses" maxlength="300" name="capitalUses" value="$!{itemFinance.capitalUses}" type="text" class="ui-input ui-input-XL" placeholder="">
+                        <div class="form-cont">
+                            <font color="red" id="err_capitalUses"></font>
+                        </div>
+                    </div>
+                    <div class="info-list1 hidden mb20">
+                        <div class="info-list1-clo3 fl" style="margin-right:48px;">
+                            <label class="info-tit line36"><span class="stars-red">*</span>融资金额：</label>
+                            <input id="amount" maxlength="250" name="amount" value="$!{itemFinance.amount}" type="text" class="ui-input ui-input-M" placeholder="">万元
+                            <div class="form-err">
+                                <font color="red" id="err_amount"></font>
+                            </div>
+                            <div class="form-err">
+                                <font color="red" id="err_amount_zero"></font>
+                            </div>
+                        </div>
+                        <div class="info-list1-clo3 fl">
+                            <label class="info-tit line36"><span class="stars-red">*</span>募集天数：</label>
+                            <input id="collectDays" maxlength="250" name="collectDays" value="60" disabled="true" type="text" class="ui-input ui-input-M" placeholder="">天
+                            <div class="form-err">
+                                <font color="red" id="err_collectDays"></font>
+                            </div>
+                        </div>
+                        <div class="info-list1-clo3 fr">
+                            <label class="info-tit line36"><span class="stars-red">*</span>出让股份：</label>
+                            <input id="valuation" maxlength="250" name="percent" value="$!{itemFinance.percent}" type="text" class="ui-input ui-input-M" placeholder="">%百分比
+                            <div class="form-err">
+                                <font color="red" id="err_valuation"></font>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-list1 hidden mb20">
+                        <div class="info-list1-clo3 fl" style="margin-right:29px;">
+                            <label class="info-tit line36"><span class="stars-red">*</span>投资份数：</label>
+                            <input id="financingCount" maxlength="250" name="stock" value="$!{itemFinance.stock}" type="text" class="ui-input ui-input-M" placeholder="">份
+                            <div class="form-err">
+                                <font color="red" id="financingCount"></font>
+                            </div>
+                        </div>
+                        <div class="info-list1-clo3 fl">
+                            <label class="info-tit line36" style="width: 124px;">最低起投金额：</label>
+                            <span><i class="red">0</i>万元 <i class="red">(目标金额-领投金额)/(目标人数-1)</i></span>
+                        </div>
+                    </div>
+
+                    <div class="line-dotted"></div>
+                    <p class="infos-tit"><i class="finance1-icons"></i>融资详情</p>
+                    <div class="info-list mb10">
+                        <label class="info-tit line36"><span class="stars-red">*</span>融资计划书：</label>
+                        <span class="upload">
+                            <input type="button" class="ui-button" value="点击上传">
+                            <input id="upload_pptKey" class="type-file" name="upload" type="file" data-url="/upload?type=pdf" multiple="">
+                        </span>
+                        <span class="tips">请选择PDF文件，建议小于10M</span>
+                        <input type="hidden" id="pptKey" name="pdfUrl" value="$!{itemFinance.pdfUrl}">
+                        <div class="form-err">
+                            <span><font color="red" id="pptKey_flag" style="display: none;">&lt;&lt;融资计划书.pdf&gt;&gt;已上传</font></span>
+                        </div>
+                        <div class="form-err">
+                            <font color="red" id="err_pptKey"></font>
+                        </div>
+                    </div>
+
+                    <div class="info-list mb10">
+                        <label class="info-tit line36"><span class="stars-red">*</span>融资资料：</label>
+                        <span class="tips">支持小于2M格式为jpg、jpeg、png的图片,728*X</span>
+                        <div class="info-list1">
+                        	<textarea id="editor" name="exFinance" placeholder="这里输入内容" autofocus>$!{itemFinance.exFinance}</textarea>
+                        </div>
+                        <div class="form-err"><font color="red" id="err_exFinancing"></font></div>
+                        <div class="gq-deal">
+                            <input type="checkbox" name="deals" id="deals">
+                            我已阅读并同意签署
+                            <a href="#" target="_blank"> 《平台服务协议》 </a>
+                            <a href="#" target="_blank"> 《融资人规则协议》 </a>
+                            <a href="#" target="_blank"> 《融资信息披露规则》 </a>
+                            <font color="red" id="err_deals"></font>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="gq-submit">
+            <input type="button" onclick="before();" value="上一步" class="ui-button ui-button-M">
+            <input type="button" onclick="save();" value="下一步" class="ui-button ui-button-M">
+        </div>
+    </div>
+    <div class="gq-tips">
+        <h4 class="xts-tips">小贴士：</h4>
+        <ol class="xts-lists">
+            <li>1.填写项目信息有哪些要求吗?<br><br>
+                答：对于必填选项，融资人应据实完整填写，对于选填选项应当据实尽量填写，建议信息填写完整度不低于80%。
+            </li>
+            <li>2.上传项目中项目标签有什么重要性呢？<br><br>
+                答：项目标签直接体现行业属性，精准的标签分类便于为您推荐更专业的接洽人。
+            </li>
+            <li>3.一定要上传我的商业计划书吗？<br><br>
+                答：优秀商业计划书能提升项目价值，提高审核通过率。
+            </li>
+            <li>4.对项目预计融资金额有什么要求吗？<br><br>
+                答：合理的预计融资金额可对项目审核期待积极作用。
+            </li>
+            <li>5.上传项目信息后要想修改了怎么办？<br><br>
+                答：信息通过审核后不能修改，请反复确认填写信息的准确度，这样才能确保项目上传成功哦。
+            </li>
+        </ol>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<script language="javascript">
+    $(function(){
+        $("#sendbtn").live("click", function() {
+            creatMask.hide();
+            var tvalue = $(".popwin").find("textarea").val();
+            $(".popwin").remove();
+        });
+		
+			   //编辑器图片上传
+   toolbar = [ 'title', 'bold', 'italic', 'underline', 'strikethrough',
+			'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|',
+			'link', 'image', 'hr', '|', 'indent', 'outdent' ];
+	var editor = new Simditor( {
+		textarea : $('#editor'),
+		toolbar : toolbar,  //工具栏
+		defaultImage : 'simditor-2.0.1/images/image.png', 
+		upload : {
+		    url : '/upload', //文件上传的接口地址
+		    params: {'type':'itemFinance'}, //键值对,指定文件上传接口的额外参数,上传的时候随文件一起提交
+		    fileKey: 'upload', //服务器端获取文件数据的参数名
+		    connectionCount: 3,
+		    leaveConfirm: '正在上传文件'
+		} 
+	});
+	   
+    })
+    function save(){
+        if (!checkForm()){
+            return;
+        }else{
+            document.getElementById("frm").submit();
+        }
+    }
+    function before(){
+       var projectId=$("#projectId").val();
+       var url="/item/"+projectId+"/edit";
+       document.location.href=url;
+    }
+    function checkForm(){
+        var cc=true;
+        var jumpflag=0;
+        var winHeight = document.documentElement.clientHeight;
+        $("#err_capitalUses").html('');
+        if($.trim($("#capitalUses").val())==''){
+            $("#err_capitalUses").html('请填写资金用途.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_capitalUses").height();
+                    $("html,body").animate({scrollTop: $("#err_capitalUses").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        var capitalUses =$("#capitalUses").val() ;
+        var lenn_capitalUses = capitalUses.replace(/[^\x00-\xff]/g, "**").length;
+        if(lenn_capitalUses>300){
+            $("#err_capitalUses").html('资金用途不能超出300字符即150个汉字.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_capitalUses").height();
+                    $("html,body").animate({scrollTop: $("#err_capitalUses").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+
+        $("#err_pptKey").html('');
+        if($("#pptKey").val()==''){
+            $("#err_pptKey").html('请上传融资计划书.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_pptKey").height();
+                    $("html,body").animate({scrollTop: $("#err_pptKey").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+
+        $("#err_exFinancing").html('');
+        var string=$.trim($("#editor").val());
+        if(string==''){
+            $("#err_exFinancing").html('请上传融资资料.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_exFinancing").height();
+                    $("html,body").animate({scrollTop: $("#err_exFinancing").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        $("#err_deals").html('');
+        if($("#deals").is(':checked')==false){
+          /*  $("#err_deals").html('请选择仔细阅读并同意协议.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_deals").height();
+                    $("html,body").animate({scrollTop: $("#err_deals").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;*/
+            var btns = '<div class="submit t-center">' +
+                    '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                    '</div>';
+            var json = {
+                "text":"请选择仔细阅读并同意协议!",
+                "btns":btns
+            };
+            openWin(json);
+            cc= false;
+        }
+
+        return cc;
+    }
+</script>
+
+##上传pdf
+<script>
+    $(function () {
+        'use strict';
+        // Change this to the location of your server-side upload handler:
+        var url = '/upload?type=pdf';
+        $('#upload_pptKey').fileupload({
+            dataType:'html',
+            done: function (e, data) {
+                var json=$.parseJSON(data.result);
+                if (json.url==undefined || json.url==null || json.code==1){
+                    var btns = '<div class="submit t-center">' +
+                                '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                                '</div>';
+                    var json = {
+                        "text":"上传失败:"+json.message+"!",
+                        "btns":btns
+                    };
+                    openWin(json);
+                    return;
+                }
+                if (json.code==0){
+                    $("#pptKey").val(json.url);
+                    $("#pptKey_flag").show();
+                    $("#err_pptKey").hide();
+                    var btns = '<div class="submit t-center">' +
+                            '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                            '</div>';
+                    var json = {
+                        "text":"上传成功",
+                        "btns":btns
+                    };
+                    openWin(json);
+                    return;
+                }
+            },
+            error:function(e,data){
+                var json=data.result;
+                try{
+                    json=$.parseJSON(str);
+                }catch (err){
+                    json= e.responseText;
+                    if (json==null || json==undefined){
+                        var btns = '<div class="submit t-center">' +
+                                '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                                '</div>';
+                        var json = {
+                            "text":"上传失败"+json.message+"!",
+                            "btns":btns
+                        };
+                        openWin(json);
+                        return;
+                    }
+                    json=json.substring(0,json.length-64);
+                    json=$.parseJSON(json);
+                }
+                if (json.code==0){
+                    $("#pptKey").val(json.url);
+                    $("#pptKey_flag").show();
+                    $("#err_pptKey").hide();
+                    var btns = '<div class="submit t-center">' +
+                            '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                            '</div>';
+                    var json = {
+                        "text":"上传成功!",
+                        "btns":btns
+                    };
+                    openWin(json);
+                }else{
+                    var btns = '<div class="submit t-center">' +
+                            '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                            '</div>';
+                    var json = {
+                        "text":"上传失败"+json.message+"!",
+                        "btns":btns
+                    };
+                    openWin(json);
+                }
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+            }
+        }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+    });
+</script>

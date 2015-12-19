@@ -1,0 +1,550 @@
+<link href="/static/css/base.css" rel="stylesheet">
+<link href="/static/css/startProject.css" rel="stylesheet">
+<link href="/static/css/alert.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/static/simditor/simditor.css" />
+
+<script type="text/javascript" src="/static/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/static/simditor/module.js"></script>
+<script type="text/javascript" src="/static/simditor/hotkeys.js"></script>
+<script type="text/javascript" src="/static/simditor/uploader.js"></script>
+<script type="text/javascript" src="/static/simditor/simditor.js"></script>
+
+<script type="text/javascript" src="/static/jquery/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.fileupload.js"></script>
+
+<script type="text/javascript" src="/static/js/city.js"></script>
+<script type="text/javascript" src="/static/js/alter.js"></script>
+
+##错误提示信息
+$widget.setTemplate("common/errorTips").addParam('errMsg',$!{errMsg})
+
+<div class="gq-forms-tips">
+    <div class="gq-forms">
+        <div class="gq-form">
+            <ul class="steps">
+                <li class="step cur">项目信息<span class="line"></span></li>
+                <li class="step">融资信息<span class="line"></span></li>
+                <li class="step">成员信息<span class="line"></span></li>
+                <li class="step">确认完成<span class="line"></span></li>
+            </ul>
+            
+            <div class="infos-lists">
+                <p class="infos-tit"><i class="basicinfos-icons"></i>基本信息</p>
+
+                <form action="$!postUrl" method="post" id="frm" enctype="multipart/form-data">
+                    <input type="hidden" id="projectId" name="id" value="$!{itemId}">
+                    <div class="process-form">
+                        <div class="process-form-list">
+                            <input type="hidden" id="tagid" name="tags" value="$!{item.tags}">
+                            <dl class="info-list mb20">
+                            	<dt class="info-tit"><span class="stars-red">*</span>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;签：</dt>
+                                <dd class="gq-tags hidden">
+                            	#set($tagList=$!{enumViewTools.getallItemTagEnum()})
+                            	#foreach($tag in $tagList)
+                            		<a href="javascript:changetag('$!{tag.getValue()}','$!{tag.getValue()}');" id="tagId_$!{tag.getValue()}" title="$!{tag.getDesc()}" value="$!{tag.getDesc()}" #if($!{item.tags} && $!{item.tags}!='' && $!{item.tags}==$!{tag.getValue()}) class="cur" #else class="" #end >$!{tag.getDesc()}</a>
+                            		<input type="hidden" id="choosetag_$!{tag.getValue()}" #if($!{item.tags} && $!{item.tags}!='' && $!{item.tags}==$!{tag.getValue()}) value="$!{item.tags}" #else value="" #end>
+                            	#end
+                                </dd>
+                                <dt></dt>
+                                <dd><font color="red" id="err_tagid"></font></dd>
+                            </dl>
+                        </div>
+
+                        <div class="info-list mb20">
+                            <label class="info-tit line36"><span class="stars-red">*</span>项目名称：</label>
+                                <input id="projectName" maxlength="26" name="name" value="$!{item.name}" type="text" class="ui-input ui-input-XL" placeholder="标题需新颖清晰，吸引人眼球">
+                            <div class="form-err">
+                                <font color="red" id="err_projectName"></font>
+                            </div>
+                        </div>
+
+                        <div class="info-list mb20">
+                            <label class="info-tit line36"><span class="stars-red">*</span>项目简介：</label>
+                            <textarea id="projectIntroduce" name="introduce" placeholder="" class="ui-input ui-textarea">$!{item.name}</textarea>
+                            <div class="form-err">
+                                <font color="red" id="err_projectIntroduce"></font>
+                            </div>
+                        </div>
+
+                        <div class="info-list1 mb20 overflowDefault clearfix">
+                            <div class="info-list1-clo2 fl">
+                                <label class="info-tit line36"><span class="stars-red">*</span>所属阶段： </label>
+                                <select id="projectStage" name="stage" class="selected">
+                                	#set($stageList=$!{enumViewTools.getallStageEnum()})
+                            		#foreach($stage in $stageList)
+                            			<option value="$!{stage.getValue()}" #if($!{item.stage}==$!{stage.getValue()}) selected="selected" #end>$!{stage.getDesc()}</option>
+                            		#end
+                                </select>
+                                <div class="form-err">
+                                    <font color="red" id="err_projectStage"></font>
+                                </div>
+                            </div>
+                            <div class="info-list1-clo2 fr">
+                                <label class="info-tit line36"><span class="stars-red">*</span>团队人数：</label>
+                                <select id="projectTeamcount" name="teamCount" class="selected">
+                                	 #set($teamCountList=$!{enumViewTools.getallTeamCountEnum()})
+                            		 #foreach($teamCount in $teamCountList)
+                            			<option value="$!{teamCount.getValue()}" #if($!{item.teamCount} && $!{item.teamCount}==$!{teamCount.getValue()}) selected="selected" #end>$!{teamCount.getDesc()}</option>
+                            		 #end
+                                </select>
+                                <div class="form-err">
+                                    <font color="red" id="err_projectTeamcount"></font>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="info-list1-clo2 fl">
+                                <label class="info-tit line36"><span class="stars-red">*</span>所在城市：</label>
+                                <select id="projectProvince" name="province" onchange="select()" class="selected">
+                                	<option value="请选择省份">请选择省份</option>
+                                </select>
+                                <select id="projectCity" name="city" onchange="select()" class="selected">
+                                	<option value="请选择城市">请选择城市</option>
+                                </select>
+                                <input type="hidden" id="projectLocal" name="projectLocal" value="$!{item.province}|$!{item.city}">
+                                <div class="form-err">
+                                    <font color="red" id="err_projectLocal"></font>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-list mb20">
+                            <label class="info-tit line36"><span class="stars-red">*</span>首屏图片：</label>
+                            <span class="upload">
+                            	 <!--<input id="id_file" type="file" name="upload" />-->
+                                 <input type="button" class="ui-button" value="添加图片">
+                                 <input class="type-file upload_item_img" name="upload" type="file" data-url="/upload?type=item" multiple="">
+                            </span>
+                                <span class="tips">支持小于2M格式为jpg、jpeg、png的图片, 765*340</span>
+                                <input class="upload_item_img_value" type="hidden" id="projectImgCf" name="imgCf" value="$!{item.imgCf}">
+                            <div class="form-err">
+                                <font color="red" id="err_projectImgCf"></font>
+                            </div>
+                            <div class="upload-pic mt15">
+                                <img class="upload_item_img_desc" id="pti_projectImgCf" #if($!{item.imgCf}) src="$!{item.imgCf}" #else src="/static/images/Spang_1.jpg" #end width="224" height="180" title="">
+                            </div>
+                        </div>
+
+                        <div class="info-list mb20">
+                            <label class="info-tit line36"><span class="stars-red">*</span>列表页图片：</label>
+                            <span class="upload">
+                                <input type="button" class="ui-button" value="添加图片">
+                                <input class="type-file upload_item_img" name="upload" type="file" data-url="/upload?type=item" multiple="">
+                            </span>
+                                <span class="tips">支持小于2M格式为jpg、jpeg、png的图片，380*380</span>
+                                <input class="upload_item_img_value" type="hidden" id="projectImgZf" name="imgZf" value="$!{item.imgZf}">
+                            <div class="form-err">
+                                <font color="red" id="err_projectImgZf"></font>
+                            </div>
+                            <div class="upload-pic mt15">
+                                 <img class="upload_item_img_desc" id="pti_projectImgZf" #if($!{item.imgZf}) src="$!{item.imgZf}" #else src="/static/images/Spang_2.jpg" #end width="120" height="120" title="">
+                            </div>
+                        </div>
+
+                        <div class="info-list mb20">
+                            <label class="info-tit line36"><span class="stars-red">*</span>项目图片：</label>
+                            <span class="upload">
+                                <input type="button" class="ui-button" value="添加图片">
+                                <input class="type-file upload_item_img" name="upload" type="file" data-url="/upload?type=item" multiple="">
+                            </span>
+                                <span class="tips">支持小于2M格式为jpg、jpeg、png的图片，1190X450</span>
+                                <input class="upload_item_img_value" type="hidden" id="projectImg" name="img" value="$!{item.img}">
+                            <div class="form-err">
+                                <font color="red" id="err_projectImg"></font>
+                            </div>
+                            <div class="upload-pic mt15">
+                                 <img class="upload_item_img_desc" id="pti_projectImg"  #if($!{item.img}) src="$!{item.img}" #else src="/static/images/Spang_3.jpg" #end width="516" height="200" title="">
+                            </div>
+                        </div>
+
+                        <div class="line-dotted"></div>
+
+                        <h3 class="infos-tit"><i class="introduce-icons1"></i>项目介绍</h3>
+                        <div class="info-list mb10">
+                            <label class="info-tit line36">视&nbsp;&nbsp;&nbsp;&nbsp;频：</label>
+                            <div class="form-err">
+                                <input id="videoAddr" maxlength="250" name="videoUrl" value="$!{item.videoUrl}" type="text" class="ui-input ui-input-XL" placeholder="">
+                            </div>
+                            <div class="form-err">
+                                <font color="red" id="err_videoAddr"></font>
+                            </div>
+                        </div>
+                        <div class="info-list mb0">
+                            <label class="info-tit line36"><span class="stars-red">*</span>项目信息：</label>
+                            <span class="tips">支持小于2M格式为jpg、jpeg、png的图片,728*X</span>
+                            <div class="info-list1">       
+                                  <textarea id="editor" name="content" placeholder="这里输入内容" autofocus>$!{item.content}</textarea>       
+	                               
+                            </div>
+                            <div class="form-err">
+                                <font color="red" id="err_projectDetails"></font>
+                            </div>
+                        </div>
+                   </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="gq-submit">
+            <input type="button" onclick="save();" value="下一步" class="ui-button ui-button-M">
+        </div>
+    </div>
+
+    <div class="gq-tips">
+        <h4 class="xts-tips">项目信息小贴士：</h4>
+        <ol class="xts-lists">
+            <li>1.填写项目信息有哪些要求吗?<br><br>
+                答：对于必填选项，融资人应据实完整填写，对于选填选项应当据实尽量填写，建议信息填写完整度不低于80%。
+            </li>
+            <li>2.上传项目中项目标签有什么重要性呢？<br><br>
+                答：项目标签直接体现行业属性，精准的标签分类便于为您推荐更专业的接洽人。
+            </li>
+            <li>3.一定要上传我的商业计划书吗？<br><br>
+                答：优秀商业计划书能提升项目价值，提高审核通过率。
+            </li>
+            <li>4.对项目预计融资金额有什么要求吗？<br><br>
+                答：合理的预计融资金额可对项目审核期待积极作用。
+            </li>
+            <li>5.上传项目信息后要想修改了怎么办？<br><br>
+                答：信息通过审核后不能修改，请反复确认填写信息的准确度，这样才能确保项目上传成功哦。
+            </li>
+        </ol>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+
+<script language="javascript">
+    var tagSize=28;
+    function changetag(tid,index){
+        var selectedSize=0;
+        if($("#choosetag_"+index).val()!=null && $("#choosetag_"+index).val()!=""){
+            $("#choosetag_"+index).val("");
+            $("#tagId_"+index).removeClass("cur");
+        }else {
+            for (var i = 1; i <= tagSize; i++) {
+                if ($("#choosetag_" + i).val() != null && $("#choosetag_" + i).val() != "") {
+                    selectedSize++;
+                }
+            }
+            if (selectedSize >= 1) {
+                var btns = '<div class="submit t-center">' +
+                        '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                        '</div>';
+                var json = {
+                    "text":"最多只能选择一个标签",
+                    "btns":btns
+                };
+                openWin(json);
+                return;
+            }
+            $("#tagId_" + index).addClass("cur");
+            $("#choosetag_" + index).val(tid);
+        }
+    }
+	
+
+   $(function(){
+       $("#sendbtn").live("click", function() {
+           creatMask.hide();
+           textValue = $(".popwin").find("textarea").val();
+           $(".popwin").remove();
+       });
+	   
+	   //编辑器图片上传
+   toolbar = [ 'title', 'bold', 'italic', 'underline', 'strikethrough',
+			'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|',
+			'link', 'image', 'hr', '|', 'indent', 'outdent' ];
+	var editor = new Simditor( {
+		textarea : $('#editor'),
+		toolbar : toolbar,  //工具栏
+		defaultImage : 'simditor-2.0.1/images/image.png', 
+		upload : {
+		    url : '/upload', //文件上传的接口地址
+		    params: {'type':'editItem'}, //键值对,指定文件上传接口的额外参数,上传的时候随文件一起提交
+		    fileKey: 'upload', //服务器端获取文件数据的参数名
+		    connectionCount: 3,
+		    leaveConfirm: '正在上传文件'
+		} 
+	});
+	   
+	   
+   })
+    function save(){
+        if (!checkForm()){
+            return;
+        }else{
+            document.getElementById("frm").submit();
+        }
+    }
+    function checkForm(){
+        var cc=true;
+        var jumpflag=0;
+        var selected=0;
+        $("#err_tagid").html("");
+        var choosetags="";
+        for(var i=1;i<=tagSize;i++){
+            if($("#choosetag_"+i).val()!=null && $("#choosetag_"+i).val()!=""){
+                selected++;
+                if(selected<=1){
+                    if(choosetags!=""){
+                        choosetags+="&"+$("#choosetag_"+i).val();
+                    }else{
+                        choosetags=$("#choosetag_"+i).val();
+                    }
+                }
+            }
+        }
+        var winHeight = document.documentElement.clientHeight;
+
+        $("#tagid").val(choosetags);
+        if($("#tagid").val()==''){
+            $("#err_tagid").html("请勾选标签.");
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_tagid").height();
+                    $("html,body").animate({scrollTop: $("#err_tagid").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        $("#err_projectName").html('');
+        if($.trim($("#projectName").val())==''){
+            $("#err_projectName").html('请填写项目名称.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_projectName").height();
+                    $("html,body").animate({scrollTop: $("#err_projectName").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        var projectName =$("#projectName").val() ;
+        var lenn = projectName.replace(/[^\x00-\xff]/g, "**").length;
+        if(lenn>60){
+            $("#err_projectName").html('项目名称不能超出60字符即30个汉字.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_projectName").height();
+                    $("html,body").animate({scrollTop: $("#err_projectName").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        $("#err_projectIntroduce").html('');
+        if($.trim($("#projectIntroduce").val()).length==0){
+            $("#err_projectIntroduce").html('请填写项目简介.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_projectIntroduce").height();
+                    $("html,body").animate({scrollTop: $("#err_projectIntroduce").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        if($.trim($("#projectIntroduce").val()).length>600){
+            $("#err_projectIntroduce").html('请填写项目简介不能超出600字.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_projectIntroduce").height();
+                    $("html,body").animate({scrollTop: $("#err_projectIntroduce").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        $("#err_projectLocal").html('');
+        if($("#projectLocal").val()==''||$("#projectLocal").val()=="|"||$("#projectProvince").val()=="请选择省份名"||$("#projectCity").val()=="请选择城市名"){
+            $("#err_projectLocal").html('请选择所属地域.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_projectLocal").height();
+                    $("html,body").animate({scrollTop: $("#err_projectLocal").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        if($("#projectCity").val()==''){
+            $("#err_projectLocal").html('请选择所属城市.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_projectLocal").height();
+                    $("html,body").animate({scrollTop: $("#err_projectLocal").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        $("#err_projectImgCf").html('');
+        if($("#projectImgCf").val()==''){
+            $("#err_projectImgCf").html('请上传首屏图片.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_projectImgCf").height();
+                    $("html,body").animate({scrollTop: $("#err_projectImgCf").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        $("#err_projectImgZf").html('');
+        if($("#projectImgZf").val()==''){
+            $("#err_projectImgZf").html('请上传列表页图片.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_projectImgZf").height();
+                    $("html,body").animate({scrollTop: $("#err_projectImgZf").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        $("#err_projectImg").html('');
+        if($("#projectImg").val()==''){
+            $("#err_projectImg").html('请上传项目图片.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_projectImg").height();
+                    $("html,body").animate({scrollTop: $("#err_projectImg").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        $("#err_videoAddr").html('');
+        var string=$.trim($("#videoAddr").val());
+        if(string!='') {
+            var str = string.substr(0, 7)
+            if (str != "http://") {
+                $("#err_videoAddr").html('请以"http://"开头');
+                if (jumpflag == 0) {
+                    setTimeout(function () {
+                        var objH = $("#err_videoAddr").height();
+                        $("html,body").animate({scrollTop: $("#err_videoAddr").offset().top - (winHeight - objH) / 2 + "px"}, 1000);
+                    }, 200)
+                    jumpflag = 1;
+                }
+                cc = false;
+            }
+        }
+        $("#err_projectDetails").html('');
+        var string=$.trim($("#editor").val());
+        if(string==''){
+            $("#err_projectDetails").html('请填写项目详情.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_projectDetails").height();
+                    $("html,body").animate({scrollTop: $("#err_projectDetails").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        return cc;
+    }
+</script>
+
+<script>
+    $(function () {
+        'use strict';
+        $('.upload_item_img').fileupload({
+            dataType:'html',
+            done: function (e, data) {
+            	var current=$(this);
+                var json=$.parseJSON(data.result);
+                if (json.url==undefined || json.url==null || json.code==1){
+                    var btns = '<div class="submit t-center">' +
+                                '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                                '</div>';
+                    var json = {
+                        "text":"上传失败:"+json.message+"!",
+                        "btns":btns
+                    };
+                    openWin(json);
+                    return;
+                }
+                if (json.code==0){
+                    //$("#pti_projectImgCf").attr("src",json.url);
+                    //$("#projectImgCf").val(json.url);
+                    
+                    var parent=current.parents('.info-list');
+                    var upload_item_img_value=parent.find('.upload_item_img_value');
+                    var upload_item_img_desc=parent.find('.upload_item_img_desc');
+                    upload_item_img_value.val(json.url);
+                    upload_item_img_desc.attr("src",json.url);
+                    
+                    var btns = '<div class="submit t-center">' +
+                            '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                            '</div>';
+                    var json = {
+                        "text":"上传成功!",
+                        "btns":btns
+                    };
+                    openWin(json);
+                    return;
+                }
+            },
+            error:function(e,data){
+            	var current=$(this);
+                var json=data.result;
+                try{
+                   json=$.parseJSON(str);
+                }catch (err){
+                    json= e.responseText;
+                    if (json==null || json==undefined){
+                        var btns = '<div class="submit t-center">' +
+                                '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                                '</div>';
+                        var json = {
+                            "text":"上传失败",
+                             "btns":btns
+                    };
+                    openWin(json);
+                        return;
+                    }
+                    json=json.substring(0,json.length-64);
+                    json=$.parseJSON(json);
+                }
+                if (json.code==0){
+                    //$("#pti_projectImgCf").attr("src",json.url);
+                    //$("#projectImgCf").val(json.url);
+                    
+                    var parent=current.parents('.info-list');
+                    var upload_item_img_value=parent.find('.upload_item_img_value');
+                    var upload_item_img_desc=parent.find('.upload_item_img_desc');
+                    upload_item_img_value.val(json.url);
+                    upload_item_img_desc.attr("src",json.url);
+                    
+                    var btns = '<div class="submit t-center">' +
+                            '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                            '</div>';
+                    var json = {
+                        "text":"上传成功!",
+                        "btns":btns
+                    };
+                    openWin(json);
+
+                }else{
+                    var btns = '<div class="submit t-center">' +
+                            '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                            '</div>';
+                    var json = {
+                        "text":"上传失败:"+json.message+"!",
+                        "btns":btns
+                    };
+                    openWin(json);
+                }
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+            }
+        }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+    });
+</script>

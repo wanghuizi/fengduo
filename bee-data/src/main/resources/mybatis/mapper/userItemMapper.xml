@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fengduo.bee.data.dao.UserItemDao">
+	<resultMap id="BaseResultMap" type="com.fengduo.bee.model.entity.UserItem">
+		<id column="id" property="id" />
+		<result column="create_date" property="createDate" />
+		<result column="item_id" property="itemId" />
+		<result column="user_id" property="userId" />
+		<result column="handle_type" property="handleType" />
+	</resultMap>
+
+  	<sql id="table_columns_without_id">
+  		create_date,item_id,user_id,handle_type
+   	</sql>
+  
+  	<sql id="columns" >
+  		ID,<include refid="table_columns_without_id"/>
+  	</sql>
+
+	<sql id="table_name" >
+  		user_item
+  	</sql>
+  	
+	<insert id="insert" parameterType="com.fengduo.bee.model.entity.UserItem" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO <include refid="table_name"/> (<include refid="columns"/>)
+		VALUES (#{id},now(),#{itemId},#{userId},#{handleType})
+	</insert>
+  	
+  	<sql id="orderby_clause">
+        <if test="sort !=null and sort == '' ">
+			order by ID DESC
+		</if>
+        <if test="sort !=null and sort == 'id' ">
+			order by ID DESC
+		</if>
+    </sql>
+    
+  	<sql id="query_where_clause">
+  		<trim prefix="where" prefixOverrides="and|or"> 
+  			<if test="id !=null ">  
+	            ID = #{id}
+	        </if> 
+	         <if test="userId != null">  
+	            and user_id = #{userId}
+	        </if> 
+	       <if test="handleType != null">  
+	            and handle_type = #{handleType}
+	        </if> 
+	    </trim> 
+  	</sql>
+  		
+  	<sql id="update_where_clause">
+		<trim prefix="where" prefixOverrides="and|or"> 
+	        <if test="id !=null ">  
+	            ID = #{id}
+	        </if> 
+	    </trim>
+   	</sql>
+  		
+  		
+  	<select id="list" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+   		select  <include refid="columns" /> 
+   		from <include refid="table_name" /> 
+   		<include refid="query_where_clause"/>
+   		<include refid="orderby_clause"/>
+  	</select>
+  	
+  	<select id="find" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter" >
+  		select <include refid="columns"/>
+        from <include refid="table_name" />
+        <include refid="query_where_clause"/>
+        <include refid="orderby_clause"/>
+        limit 1
+  	</select>
+  
+  	<select id="listPagination" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+		select <include refid="columns"/>
+		from <include refid="table_name" /> 
+		<include refid="query_where_clause"/>
+		<include refid="orderby_clause"/>
+		<include refid="PAGINATION.MYSQL_PAGINATION" />
+  	</select>
+  	
+  	<select id="count" resultType="java.lang.Integer" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+  		select count(1)
+        from <include refid="table_name" />  
+       	<include refid="query_where_clause"/>
+   	</select>
+  	
+  	
+  	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Number" >
+  		select <include refid="columns" /> 
+  		from <include refid="table_name" /> 
+  		where ID = #{id}
+  	</select>
+  
+  	<delete id="deleteById" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where ID = #{id}
+  	</delete>
+   	
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+			http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+			http://www.springframework.org/schema/jee 
+			http://www.springframework.org/schema/jee/spring-jee-4.0.xsd 
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+			http://www.springframework.org/schema/util 
+			http://www.springframework.org/schema/util/spring-util-4.0.xsd
+			http://www.springframework.org/schema/jdbc 
+			http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+			http://www.springframework.org/schema/task
+			http://www.springframework.org/schema/task/spring-task-4.0.xsd"
+			default-lazy-init="true">
+			
+	<description>Spring Quartz配置</description>
+	
+	<context:component-scan base-package="com.fengduo" />
+	<task:annotation-driven />
+	<context:annotation-config />  
+	
+	
+	<bean id="emailDetail" 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="targetObject" 	ref="emailJob" />
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod" 	value="doTask" />
+        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+        <property name="concurrent" 	value="false"/>
+    </bean>
+	<!-- 定义触发时间 -->
+    <bean id="emailJobTrigger" 	class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="emailDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>0 * */2 * * ?</value><!-- 每2个小时执行一次 -->
+        </property>
+    </bean>
+	
+	<bean id="notifyPaymentDetail"      class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" 	ref="notifyPaymentJob" />
+        <property name="targetMethod" 	value="doTask" />
+        <property name="concurrent" 	value="false"/>
+    </bean>
+    <bean id="notifyPaymentJobTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="notifyPaymentDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>0 10 0 * * ?</value>
+        </property>
+    </bean>
+    
+    <bean id="itemPhaseJobDetail"       class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" 	ref="itemPhaseJob" />
+        <property name="targetMethod" 	value="doTask" />
+        <property name="concurrent" 	value="false"/>
+    </bean>
+    <bean id="itemPhaseJobTrigger"  	class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="itemPhaseJobDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>0 10 0 * * ?</value><!-- 每天凌晨10分执行 -->
+        </property>
+    </bean>
+	
+	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
+    <!-- 如果lazy-init='true',则需要实例化该bean才能执行调度程序 -->
+    <bean name="startQuertz" lazy-init="true" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="emailJobTrigger" />
+                <ref bean="notifyPaymentJobTrigger" />
+                <ref bean="itemPhaseJobTrigger" />
+            </list>
+        </property>
+        <property name="autoStartup" value="false"/>  
+    </bean>
+</beans>	

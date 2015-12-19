@@ -1,0 +1,237 @@
+<style>
+.clearfix:after {
+content: ".";
+display: block;
+height: 0;
+clear: both;
+visibility: hidden;
+}
+.project-sideBar, .float-wx {
+border-radius: 3px;
+background-color: #fff;
+}
+.project-sideBar {
+width: 280px;
+padding: 0 20px;
+float: left;
+}
+.clearfix {
+display: block;
+}
+.pro-promoters, .pro-plan, .financing-list, .appointment-money, .financing-btns {
+padding: 20px 0 16px 0;
+border-bottom: 1px solid #f1f1f1;
+}
+div {
+display: block;
+}
+.financing-btns {
+margin-right: -10px;
+}
+.pro-promoters>dt {
+width: 50px;
+height: 50px;
+margin-bottom: 20px;
+}
+.pro-promoters dt {
+float: left;
+border-radius: 50%;
+overflow: hidden;
+border: 2px solid #51b6f2;
+margin-right: 8px;
+}
+.pro-promoters dd {
+float: left;
+width: 77%;
+line-height: 24px;
+}
+.fs14 {
+font-size: 14px;
+}
+.fb {
+font-weight: bold;
+}
+.pro-promoters dd em {
+padding-right: 8px;
+}
+.project-sideBar em {
+color: #999;
+}
+i, em {
+font-style: normal;
+}
+.pro-promoters dd i {
+margin-left: 5px;
+font-size: 11px;
+}
+.btn-green {
+color: #51b6f2;
+}
+.btn-small {
+padding: 0 5px;
+height: 18px;
+line-height: 18px;
+overflow: hidden;
+}
+.btn {
+border-width: 1px;
+border-style: solid;
+border-radius: 5px;
+display: inline-block;
+vertical-align: middle;
+}
+.fs16 {
+font-size: 16px;
+}
+.pro-plan i {
+padding: 20px 0 6px 0;
+display: inline-block;
+}
+.fs36 {
+font-size: 36px;
+}
+.project-sideBar em {
+color: #999;
+}
+i, em {
+font-style: normal;
+}
+.financing-list li {
+text-align: center;
+float: left;
+padding: 10px 0 0;
+font-size: 36px;
+}
+.w80 {
+width: 33%;
+border-right: 1px solid #f5f7f9;
+}
+.financing-list li i {
+font-size: 14px;
+}
+.financing-list li em {
+display: block;
+padding-top: 10px;
+font-size: 12px;
+}
+.project-sideBar em {
+color: #999;
+}
+.w73 {
+width: 30%;
+border-right: 1px solid #f5f7f9;
+}
+.w33 {
+width: 32%;
+}
+.fs14 {
+font-size: 14px;
+}
+.financing-progress {
+background-color: #f1f1f1;
+border-radius: 8px;
+overflow: hidden;
+width: 267px;
+height: 10px;
+margin-top: 12px;
+position: relative;
+}
+.financing-progress i {
+height: 100%;
+border-radius: 0 8px 8px 0;
+background-color: #51b6f2;
+position: absolute;
+top: 0;
+left: 0;
+}
+.fb {
+font-weight: bold;
+}
+.fl {
+float: left;
+}
+.financing-btns a.last {
+border-style: none;
+width: 95%;
+font-size: 18px;
+color: #fff;
+height: 50px;
+line-height: 50px;
+}
+.financing-btns a {
+margin: 0 10px 10px 0;
+}
+.bg-orange {
+background-color: #f63;
+}
+.btn-big {
+text-align: center;
+}
+.btn {
+border-width: 1px;
+border-radius: 5px;
+display: inline-block;
+vertical-align: middle;
+}
+</style>
+
+<div class="project-sideBar">
+    <dl class="pro-promoters clearfix">
+        <dt><img src="/static/images/defult_sys_avatar_s.png"></dt>
+        <dd class="fs14 fb">用户$!{itemUser.getDisplayName()}<i class="btn btn-small btn-green fn">发起人</i></dd>
+        <dd><em>项目开始发起时间</em>${dateViewTools.format($!itemFull.createDate,'yyyy-MM-dd')}</dd>
+    </dl>
+    <div class="pro-plan">
+        <p class="fs16">融资计划</p>
+        <p><i class="fs36">$!{itemFull.amount}</i>万元</p>
+        <p><em>融资资金</em></p>
+    </div>
+    <ul class="financing-list clearfix">
+        <li class="w80 "><span id="Js-stakes">$!{itemFull.percent}</span><i>%</i><em>出让股份</em></li>		
+        <li class="w73">$!{itemFull.suberNum}<i>人</i><em>预约人数</em></li>		
+        <li class="w33">$!{itemFull.stock}<i>份</i><em>可预约总份数</em></li>
+    </ul>
+    <div class="appointment-money clearfix">
+        <p class="fs14"><em>预约金额</em><span class="fb">$!{itemFull.realSub}万元</span></p>
+        <div class="financing-progress"><i class="fb" style="width:$!{itemFull.getRealPercent()}%"></i></div>
+        <p class="financing-info"><i class="fl fb">$!{itemFull.getRealPercent()}%</i></p>
+    </div>
+
+    <div id="Js-action" class="financing-btns" data-id=""> 
+        <a href="javascript:void(0);"  class="btn btn-big btn-orange bg-orange last" onclick="invest(1,$!{itemFull.itemId})">基石投资者</a>
+        <a href="javascript:void(0);" class="btn btn-big btn-orange bg-orange last" onclick="invest(2,$!{itemFull.itemId})">我要跟投</a>
+    </div>
+    
+    <!--       
+    <div class="promoters-tit">投资人列表</div>
+    <div class="Js-long">
+                                            
+        <dl class="pro-promoters clearfix">
+            <dt><img src="/static/images/defult_sys_avatar_s.png"></dt>
+            <dd class="fs14 fb"></dd>
+            <dd class="fs14 fb">zhaijunie</dd>
+            <dd><em>预约金额</em><span class="fb">3万</span></dd>
+            <dd><em>预约时间</em>2015-06-11</dd>
+        </dl>
+
+    </div>
+    -->
+    
+</div>
+<script>
+
+function invest(subType,itemId){
+	var url = '/sub/check?subType='+subType + '&itemId=' + itemId
+	$.get(url,function(res){
+		if(res.code == 2){
+			login();
+		}else if(res.code == 11){
+			$.message('信息提示',res.message);
+		}else if(res.code == 0){
+			window.location.href='/sub/index?itemId='+itemId + '&subType=' + subType
+		}else{
+			$.message('信息提示',res.message);
+		}
+	})
+}
+</script>

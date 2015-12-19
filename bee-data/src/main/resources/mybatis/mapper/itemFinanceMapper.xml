@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fengduo.bee.data.dao.ItemFinanceDao" >
+  	<resultMap id="BaseResultMap" type="com.fengduo.bee.model.entity.ItemFinance" >
+  		<id 		column="ID" 			property="id" 				jdbcType="DECIMAL" />
+  		<result 	column="CREATE_DATE" 	property="createDate" 		jdbcType="TIMESTAMP" />
+  		<result 	column="UPDATE_DATE" 	property="updateDate" 		jdbcType="TIMESTAMP" />
+
+  		<result 	column="ITEM_ID" 		property="itemId" 			jdbcType="DECIMAL" />
+  		<result 	column="AMOUNT" 		property="amount" 			jdbcType="VARCHAR" />
+  		<result 	column="PERCENT" 		property="percent" 			jdbcType="FLOAT" />
+  		<result 	column="STOCK" 			property="stock" 			jdbcType="VARCHAR" />
+  		<result 	column="CAPITAL_USES" 	property="capitalUses" 		jdbcType="VARCHAR" />
+  		<result 	column="PDF_URL" 		property="pdfUrl" 			jdbcType="VARCHAR" />
+  		<result 	column="EX_FINANCE" 	property="exFinance" 		jdbcType="VARCHAR" />
+  		<result 	column="PER_STOCK" 		property="perStock" 		jdbcType="FLOAT" />
+  		<result 	column="PER_PERCENT" 	property="perPercent" 		jdbcType="FLOAT" />
+  		<result 	column="REAL_SUB" 		property="realSub" 			jdbcType="FLOAT" />
+  		<result 	column="REAL_PAY" 		property="realPay" 			jdbcType="FLOAT" />
+  		<result 	column="SUBER_NUM" 		property="suberNum" 		jdbcType="INTEGER" />
+  	</resultMap>
+  	
+  	<sql id="table_columns_without_id">
+  		CREATE_DATE,UPDATE_DATE,ITEM_ID,AMOUNT,PERCENT,STOCK,
+  		CAPITAL_USES,PDF_URL,EX_FINANCE,PER_STOCK,PER_PERCENT,
+  		REAL_SUB,REAL_PAY,SUBER_NUM
+   	</sql>
+  
+  	<sql id="columns" >
+  		ID,<include refid="table_columns_without_id"/>
+  	</sql>
+  	
+  	<sql id="table_name" >
+  		item_finance
+  	</sql>
+  	
+  	<sql id="orderby_clause">
+        <if test="sort !=null and sort == '' ">
+			order by ID DESC
+		</if>
+        <if test="sort !=null and sort == 'createDate' ">
+			order by CREATE_DATE DESC
+		</if>
+		<if test="sort !=null and sort == 'updateDate' ">
+			order by UPDATE_DATE DESC
+		</if>
+    </sql>
+
+  	<sql id="query_where_clause">
+  		<trim prefix="where" prefixOverrides="and|or"> 
+  			<if test="id !=null ">  
+	            ID = #{id, jdbcType=INTEGER}
+	        </if> 
+			<if test="itemId !=null">
+				and ITEM_ID = #{itemId, jdbcType=INTEGER}
+			</if>
+	    </trim> 
+  	</sql>
+  		
+  	<sql id="update_where_clause">
+		<trim prefix="where" prefixOverrides="and|or"> 
+	        <if test="id !=null ">  
+	            ID = #{id, jdbcType=INTEGER}
+	        </if> 
+	        <if test="itemId !=null">
+				and ITEM_ID = #{itemId, jdbcType=INTEGER}
+			</if>
+	    </trim>
+   	</sql>
+   	
+  	<sql id="update_set_clause">
+  		<trim prefix="set UPDATE_DATE = now()," suffixOverrides=",">  
+	        <if test="itemId !=null ">  
+	            ITEM_ID = #{itemId, jdbcType=INTEGER},
+	        </if>
+	        <if test="amount !=null ">  
+	            AMOUNT = #{amount, jdbcType=INTEGER},
+	        </if>
+	        <if test="percent !=null ">  
+	            PERCENT = #{percent, jdbcType=FLOAT},
+	        </if>
+	        <if test="stock !=null ">  
+	            STOCK = #{stock, jdbcType=INTEGER},
+	        </if>
+	        <if test="capitalUses !=null and capitalUses != ''">  
+	            CAPITAL_USES = #{capitalUses, jdbcType=VARCHAR},
+	        </if>
+	        <if test="pdfUrl !=null and pdfUrl != ''">  
+	            PDF_URL = #{pdfUrl, jdbcType=VARCHAR},
+	        </if>
+	        <if test="exFinance !=null and exFinance != ''">  
+	            EX_FINANCE = #{exFinance, jdbcType=VARCHAR},
+	        </if>
+	        <if test="perStock !=null ">  
+	            PER_STOCK = #{perStock, jdbcType=FLOAT},
+	        </if>
+	        <if test="perPercent !=null ">  
+	            PER_PERCENT = #{perPercent, jdbcType=FLOAT},
+	        </if>
+	        <if test="realSub !=null ">  
+	            REAL_SUB = #{realSub, jdbcType=FLOAT},
+	        </if>
+	        <if test="realPay !=null ">  
+	            REAL_PAY = #{realPay, jdbcType=FLOAT},
+	        </if>
+	        <if test="suberNum !=null ">  
+	            SUBER_NUM = #{suberNum, jdbcType=INTEGER},
+	        </if>
+   		</trim>
+  	</sql>
+  	
+	<insert id="insert" parameterType="com.fengduo.bee.model.entity.ItemFinance" useGeneratedKeys="true" keyProperty="id" keyColumn="ID" >
+	   	insert into <include refid="table_name" /> (<include refid="table_columns_without_id"/>)
+        values (  now(),now(),
+        		#{itemId,jdbcType=INTEGER},
+                #{amount,jdbcType=INTEGER},
+                #{percent,jdbcType=FLOAT},
+                #{stock,jdbcType=INTEGER},
+                #{capitalUses,jdbcType=VARCHAR},
+                #{pdfUrl,jdbcType=VARCHAR},
+                #{exFinance,jdbcType=VARCHAR},
+                #{perStock,jdbcType=FLOAT},
+                #{perPercent,jdbcType=FLOAT},
+                #{realSub,jdbcType=FLOAT},
+                #{realPay,jdbcType=FLOAT},
+                #{suberNum,jdbcType=INTEGER}
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+            SELECT last_insert_id() as id
+        </selectKey> 
+   	</insert>
+  		
+  	<select id="list" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+   		select  <include refid="columns" /> 
+   		from <include refid="table_name" /> 
+   		<include refid="query_where_clause"/>
+   		<include refid="orderby_clause"/>
+  	</select>
+  	
+  	<select id="find" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter" >
+  		select <include refid="columns"/>
+        from <include refid="table_name" />
+        <include refid="query_where_clause"/>
+        <include refid="orderby_clause"/>
+        limit 1
+  	</select>
+  
+  	<select id="listPagination" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+		select <include refid="columns"/>
+		from <include refid="table_name" /> 
+		<include refid="query_where_clause"/>
+		<include refid="orderby_clause"/>
+		<include refid="PAGINATION.MYSQL_PAGINATION" />
+  	</select>
+  	
+  	<select id="count" resultType="java.lang.Integer" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+  		select count(1)
+        from <include refid="table_name" />  
+       	<include refid="query_where_clause"/>
+   	</select>
+  	
+   	<update id="update" parameterType="com.fengduo.bee.model.entity.ItemFinance">
+   		update <include refid="table_name" /> 
+       	<include refid="update_set_clause"/>
+       	<include refid="update_where_clause"/>
+  	</update>
+  	
+  	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Number" >
+  		select <include refid="columns" /> 
+  		from <include refid="table_name" /> 
+  		where ID = #{id,jdbcType=INTEGER}
+  	</select>
+  
+   	<update id="updateById" parameterType="com.fengduo.bee.model.entity.ItemFinance">
+   		update <include refid="table_name" /> 
+   		<include refid="update_set_clause"/>
+	    where ID = #{id,jdbcType=INTEGER}
+  	</update>
+  	
+  	<delete id="deleteById" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where ID = #{id,jdbcType=INTEGER}
+  	</delete>
+   	
+  	<delete id="deleteByItemId" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where ITEM_ID = #{itemId,jdbcType=INTEGER}
+  	</delete>
+</mapper>

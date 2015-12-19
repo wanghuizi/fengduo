@@ -1,0 +1,63 @@
+<link href="/static/css/startProject.css" rel="stylesheet">
+<link href="/static/css/base.css" rel="stylesheet">
+
+##错误提示信息
+$widget.setTemplate("common/errorTips").addParam('errMsg',$!{errMsg})
+
+<div class="gq-forms-tips">
+    <div class="gq-forms">
+        <div class="gq-form">
+            
+            <ul class="steps">
+                <li class="step">项目信息<span class="line"></span></li>
+                <li class="step">融资信息<span class="line"></span></li>
+                <li class="step">成员信息<span class="line"></span></li>
+                <li class="step cur">确认完成<span class="line"></span></li>
+            </ul>
+            
+            <div class="result-infos">
+                
+                <div class="scenery">
+                    <div class="circle-mask">
+                        <div class="cloud"></div>
+                    </div>
+                    <div class="rocket"></div>
+                    <div class="man"></div>
+                </div>
+                <div class="result-info">
+                    <p class="result-anoce mb15">
+                        <i class="result-s-cions"></i>
+                        您的项目已经提交成功！
+                    </p>
+                    <p class="result-tips mb30">您能在个人中心 — 发起的项目中看到的审核结果。</p>
+                    <p class="go-btns">
+                        <a href="/" class="ui-button">去个人中心页</a>
+                        <a href="/" class="go-index">返回首页</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="gq-tips">
+        <h4 class="xts-tips">小贴士：</h4>
+        <ol class="xts-lists">
+            <li>1.填写项目信息有哪些要求吗?<br><br>
+                答：对于必填选项，融资人应据实完整填写，对于选填选项应当据实尽量填写，建议信息填写完整度不低于80%。
+            </li>
+            <li>2.上传项目中项目标签有什么重要性呢？<br><br>
+                答：项目标签直接体现行业属性，精准的标签分类便于为您推荐更专业的接洽人。
+            </li>
+            <li>3.一定要上传我的商业计划书吗？<br><br>
+                答：优秀商业计划书能提升项目价值，提高审核通过率。
+            </li>
+            <li>4.对项目预计融资金额有什么要求吗？<br><br>
+                答：合理的预计融资金额可对项目审核期待积极作用。
+            </li>
+            <li>5.上传项目信息后要想修改了怎么办？<br><br>
+                答：信息通过审核后不能修改，请反复确认填写信息的准确度，这样才能确保项目上传成功哦。
+            </li>
+        </ol>
+    </div>
+    <div class="clearfix"></div>
+</div>

@@ -1,0 +1,506 @@
+<link href="/static/css/base.css" rel="stylesheet">
+<link href="/static/css/item.css" rel="stylesheet">
+<link href="/static/css/topics.css" rel="stylesheet">
+<link href="/static/css/rightSdideBar.css" rel="stylesheet">
+<link href="/static/css/alertindex.css" rel="stylesheet">
+
+<link href="/static/css/project.css" rel="stylesheet">
+
+<script type="text/javascript" src="/static/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.js"></script>
+
+<script type="text/javascript" src="/static/jquery/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.pagination.js"></script>
+
+<script type="text/javascript" src="/static/js/tab.js"></script>
+<script type="text/javascript" src="/static/js/circle.js"></script>
+<script type="text/javascript" src="/static/js/raphael.js"></script>
+<script type="text/javascript" src="/static/js/JrTools.js"></script>
+<script type="text/javascript" src="/static/js/proTools.js"></script>
+<script type="text/javascript" src="/static/js/detail.js"></script>
+
+<style type="text/css">
+    div.imgText-intro div.img-list img{ max-width:782px;}
+    div.data-intro div.intro-noRight img{ max-width:782px;}
+
+    .imgHolder { width: 100%; display: none; position: absolute; z-index: 2000; height: 0; left: 0; top: 0; max-width:782px;}
+    .imgHolder div{ position: absolute;color: #000000;max-width:782px;}
+    .imgHolder div span{
+        position: absolute;
+        right: -30px;
+        top: 0;
+        background: #000;
+        opacity: .5;
+        filter: alpha(opacity=50);
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        color: #fff;
+    }
+    .loading { width: 50px; height: 50px; position: absolute; left: 50%; margin-left: -25px; background: #ccc; display: none }
+    .b_pic {max-width:782px;}
+</style>
+
+<div class="container mb20">
+    <div class="stake-speed">
+        <img width="1200" height="450" src="$!{itemFull.getImg()}">
+        <div class="stake-mask"></div>
+        <div class="s-speed-infos">
+            <div class="holder" data-value="0">
+            	<svg height="96" version="1.1" width="96" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;">
+            		<desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc>
+            		<defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs>
+            		<circle cx="48" cy="48" r="40" fill="none" stroke="#e5e5e5" stroke-width="8" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+            		</circle>
+            		<path fill="none" stroke="#eb544b" d="M48,8A40,40,0,0,1,48,8" stroke-width="8" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+            		</path>
+            	</svg>
+                <span class="number">$!{itemFull.getRealPercent()}<i style="font-size:12px">%</i></span>
+            </div>
+            <div class="s-speed-text">
+                <h2 class="s-s-tit">$!{itemFull.name}</h2>
+                <table class="s-s-cont" width="620">
+                    <tbody>
+                        <tr>
+                            <td>融资目标：<span> ￥ $!{itemFull.amount}.00万</span></td>
+                        </tr>
+                        <tr>
+                            <td>已筹集：<span> ￥ $!{itemFull.realSub}万</span></td>
+                            <td>剩余时间：<span>尚未开始</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="status statu-ing">$!{enumViewTools.verifyStatusEnumName($!itemFull.verifyStatus)}<i class="status-icons"></i></div>
+    </div>
+    
+    <div class="stake-orderdo">
+        <div class="share fl padl20" style="z-index:9999;">
+            <b class="fl">分享到:</b>
+            <span class="ui-share">
+                 <a target="_blank" class="ui-share-item ui-share-weibo" data-type="weibo" clstag="jr|keycount|gq_xmy|gq_xlwb" href="http://service.weibo.com/share/share.php?url=http://dj.jd.com/funding/details/2712.html&amp;title=你好  你好&amp;source=京东金融&amp;sourceUrl=http://dj.jd.com/funding/details/2712.html&amp;pic=http://img30.360buyimg.com/cf/jfs/t1393/228/364112273/171808/5819c711/557862b1N9f712201.jpg">
+                 </a>
+                 <a target="_blank" class="ui-share-item ui-share-qqweibo" data-type="qqweibo" clstag="jr|keycount|gq_xmy|gq_txwb" href="http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;title=你好&amp;site=http://dj.jd.com/&amp;pic=http://img30.360buyimg.com/cf/jfs/t1393/228/364112273/171808/5819c711/557862b1N9f712201.jpg&amp;url=http://dj.jd.com/funding/details/2712.html&amp;title=你好&amp;pics=http://img30.360buyimg.com/cf/jfs/t1393/228/364112273/171808/5819c711/557862b1N9f712201.jpg&amp;summary=你好">
+                 </a>
+                 <a target="_blank" class="ui-share-item ui-share-qzone" data-type="qzone" clstag="jr|keycount|gq_xmy|gq_qqkj" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://dj.jd.com/funding/details/2712.html&amp;title=你好&amp;pics=http://img30.360buyimg.com/cf/jfs/t1393/228/364112273/171808/5819c711/557862b1N9f712201.jpg&amp;summary=你好">
+                 </a>
+                <a target="_blank" class="ui-share-item ui-share-renren" data-type="renren" clstag="jr|keycount|gq_xmy|gq_rrw" href="http://widget.renren.com/dialog/share?resourceUrl=http://dj.jd.com/funding/details/2712.html&amp;title=你好&amp;images=http://img30.360buyimg.com/cf/jfs/t1393/228/364112273/171808/5819c711/557862b1N9f712201.jpg&amp;description=你好">
+                </a>
+                <a target="_blank" class="ui-share-item ui-share-douban" data-type="douban" clstag="jr|keycount|gq_xmy|gq_dbw" href="http://www.douban.com/share/service?image=http://img30.360buyimg.com/cf/jfs/t1393/228/364112273/171808/5819c711/557862b1N9f712201.jpg&amp;href=http://dj.jd.com/funding/details/2712.html&amp;name=你好&amp;text=你好">
+                </a>
+            </span>
+        </div>
+        <div class="stake-btns fr padr20"></div>
+    </div>
+
+    <div class="stake-details">
+        <div class="stake-tabs">
+            <ul class="tabs-wrap">
+                <li>
+                    <a href="/$!{id}/project" id="projectDetailTop" clstag="jr|keycount|gq_xmy|gq_xmgk">
+                        项目概况
+                        <span class="hline hline-s"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/$!{id}/topic" class="cur" id="projectTopicTop" clstag="jr|keycount|gq_xmy|gq_ht">
+                        话题
+                        <span class="hline hline-s"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/$!{id}/investor" id="projectInvestorTop" clstag="jr|keycount|gq_xmy|gq_tzlb">
+                        投资列表
+                        <span class="hline hline-s"></span>
+                    </a>
+                </li>
+            </ul>
+            <div class="hline hline-l"></div>
+        </div>
+        <div class="stake-infos clearfix">
+            
+            <div id="projectTopicList" class="col-left J-details-infos" style="display: block;">
+                <div class="cover" id="showTopicList">
+                <link href="http://static.360buyimg.com/finance/crowdfunding/StakeRise/item/1.0.0/css/topics.css" rel="stylesheet">
+                <style type="text/css">
+                    .thickframe {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        z-index: 10000000;
+                        width: 100%;
+                        height: 100%;
+                        background: #000;
+                        border: 0;
+                        filter: alpha(opacity=0);
+                        opacity: 0
+                    }
+
+                    .thickdiv {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        z-index: 10000001;
+                        width: 100%;
+                        height: 100%;
+                        background: #000;
+                        border: 0;
+                        filter: alpha(opacity=15);
+                        opacity: .15
+                    }
+
+                    .thickbox {
+                        position: absolute;
+                        z-index: 10000002;
+                        overflow: hidden;
+                        padding: 0;
+                        min-width: 150px
+                    }
+
+                    .thicktitle {
+                        height: 44px;
+                        line-height: 44px;
+                        font-size: 14px;
+                        font-weight: bold;
+                        padding: 0 15px;
+                        position: relative;
+                        background: #ededed
+                    }
+
+                    .thickclose:link,.thickclose:visited {
+                        display: inline-block;
+                        background: url(http://static.360buyimg.com/finance/skin/i/close01.png) no-repeat;
+                        width: 22px;
+                        height: 22px;
+                        position: absolute;
+                        right: 15px;
+                        top: 10px;
+                        line-height: 9999px;
+                        overflow: hidden
+                    }
+
+                    .thickcon {
+                        overflow: auto;
+                        background: #fff;
+                        padding: 10px
+                    }
+
+                    .thickloading {
+                        background: url(http://static.360buyimg.com/finance/skin/i/loading.gif) #fff no-repeat center center;
+                        min-height: 80px;
+                        min-width: 200px
+                    }
+
+                    .thickcountdown {
+                        height: 20px;
+                        padding-right: 6px;
+                        margin-top: -20px;
+                        text-align: right;
+                        color: #999
+                    }
+
+                    *html .thickframe {
+                        position: absolute
+                    }
+
+                    *html .thickdiv {
+                        position: absolute
+                    }
+
+                    .thickcon .btn-group {
+                        text-align: center
+                    }
+
+                    .thickcon .btn {
+                        height: 26px;
+                        padding-left: 15px;
+                        padding-right: 15px;
+                        font-weight: normal;
+                        font-size: 12px
+                    }
+
+                    .thickcon .btn-vice {
+                        height: 26px;
+                        padding-left: 15px;
+                        padding-right: 15px;
+                        font-weight: normal;
+                        font-size: 12px
+                    }
+                    .topiclists.topiclists-secondary {
+                        margin-bottom: 10px;
+                        padding-left: 20px;
+                        margin-left: -20px
+                    }
+                    .topiclists .replays .shuo{
+                        display:inline-block;
+                        width:67px;
+                        height:25px;
+                        padding-left:25px;
+                        color:#333;
+                        line-height:24px;
+                        text-align:left;
+                        background-position:0 -107px;
+                        position: relative;
+                        top: -12px
+                    }
+                </style>
+
+                    <input type="hidden" id="projectId" value="$!id">
+                    
+                    <div class="tabs-intro">
+                        <a href="javascript:;" class="cur" clstag="jr|keycount|gq_xmy|gq_pjjh">评价与交互</a>
+                    </div>
+                    <div class="topics" style="">
+                        <div class="login-plane pulishTopicEmoji">
+                            <div class="login-tit">
+                                <span class="l-tit-slogan"></span>
+                                <span class="l-tit-count">还可以输入<span class="word-number" id="topic_word_number">140</span>字</span>
+                            </div>
+                            <div class="login-area">
+                                <textarea name="publishTopic" id="topic_publishTopic" class="ui-textarea" placeholder="有什么想说的？"></textarea>
+                            </div>
+                            <div class="login-foot">      
+                                <div class="login-state">
+                                	#set($u=$webUser.getPrincipal())
+                                    <!--未登陆  -->
+									#if(!$u)
+                                    <p style="display: none;" id="topic_unlogin">请<a href="javascript:;" class="div_reg">注册</a>或<a href="javascript:;" id="div_login">登录</a></p>
+                                    <!-- 已登录 -->
+                                    #else
+                                    <p style="display: block;" id="topic_login"><input value="提交" class="ui-button ui-button-red ui-button-s" type="button" id="saveTopicBtn"></p>
+                                    #end
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="topicTopArea" class="topic-lists"></div>
+                        <div id="topicEssenceArea" class="topic-lists"></div>
+                        <div id="topicArea" class="topic-lists">
+                    	#foreach($comment in $!{listItemComment})
+	                		<div class="topiclists topiclists-first" id="topicBlock_$velocityCount">
+	                			<input type="hidden" class="commentId" name="id" value="$!{comment.id}">
+	                			<input type="hidden" class="commentItemId" name="id" value="$!{comment.itemId}">
+								<div class="head head-L">
+									<img src="$!{comment.avatar}" alt="" height="56" width="55">
+									<div class="tmask mask-L">
+									</div>
+								</div>
+								<div class="topicCont">
+									<a name="topicAnchor$velocityCount" id="topicAnchor$velocityCount"></a>
+									<h6>
+										<span class="name-first">$!{comment.userName}</span>
+										<span class="time">$!{dateViewTools.format($!comment.createDate,'yyyy-MM-dd HH:mm')}</span>
+										<span class="topIcon"></span>
+									</h6>
+									<p>$!{comment.context}</p>
+									#if($!{comment.parentContext})<p style="color: #a5a5a5;">$!{comment.parentContext}</p>#end
+									<div id="commentBlockPage_$velocityCount" class="topicmore mt20" type="1" style="display: block;">
+										<div class="replays">
+											<a href="javascript:;" class="shuo replay">评论下</a>
+										</div>
+									</div>
+								</div>
+							</div>	
+                    	#end
+                        </div>
+                        <div class="page" id="accidentPage" style="display: none;">
+
+                        </div>
+
+                    </div>
+                    <div class="intro-noRight" style="display: none;" id="noRight">
+                        <div class="i-noRight-tips">
+                            <p class="mb20"><i class="i-noRight-icons"></i>您没有查看话题区的权限</p>
+                            <p><a class="ui-button ui-button-green ui-button-s" href="javascript:;">认证合格投资人</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+			<!-- 侧边栏 -->
+            <div class="col-right s-details-supports">
+            	$widget.setTemplate("product/sideBar").addParam('itemUser',$!{itemUser}).addParam('itemFull',$!{itemFull})
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+//提交话题
+$("#saveTopicBtn").click(function () {
+    var topicContent = $("#topic_publishTopic").val();
+    var projectId = $("#projectId").val();
+    var len = topicContent.length;
+    if (len > 140) {
+        alert("输入字符不能超过140字！请重新输入！");
+        return;
+    }
+    if (topicContent != "") {
+        var url = "/item/comment";
+        jQuery.ajax({
+            type: "post",
+            url: url,
+            data: {itemId: projectId, context: $.trim(topicContent)},
+            dataType: "json",
+            timeout: 50000,
+            success: function (data) {
+                if (data["code"] == "0") {
+                    $("#topic_publishTopic").val("");
+                    $("#topic_word_number").html(140);
+                    location.reload();
+                } else {
+                    alert(data["message"]);
+                }
+            },
+            error: function (e) {
+                alert("发布失败");
+            }
+        });
+    } else {
+        alert("请输入话题内容！");
+    }
+});
+//评论回复
+$(".replay").click(function () {
+	var topiclists = $(this).parents('.topiclists');
+	var replyItemId = topiclists.find('.commentItemId').val();
+	var parentId = topiclists.find('.commentId').val();
+	var html ='';
+	html = html + '<div class=\"replyFormBox\">';
+	html = html + '<form class=\"col-sm-12 row mb-20 reply_form\">';
+	html = html + '<div class=\"form-group\">';
+	html = html + '<textarea class=\"form-control reply_textarea\" rows=\"5\" placeholder=\"请输入评论\">';
+	html = html + '</textarea></div>';
+	html = html + '<input type=\"hidden\" class=\"replyItemId\" name=\"replyItemId\" value=\"'+replyItemId+'\">';
+	html = html + '<input type=\"hidden\" class=\"parentId\" name=\"parentId\" value=\"'+parentId+'\">';
+	html = html + '<span class=\"btn btn-info pull-right reply_submit\" onclick=\"reply();\">确认</span>';
+	html = html + '<span class=\"btn btn-default pull-right cancel_submit\" onclick=\"layer.closeAll();\">取消</span>';
+	html = html + '</form></div>';
+    $.html(html);
+});
+function reply(){
+	var context = $('.reply_textarea').val();
+	var replyItemId = $('.replyItemId').val();
+	var parentId = $('.parentId').val();
+	if ( replyItemId == null || parentId == null ) {
+		alert("参数错误！");
+	}
+	var len = context.length; 
+    if (len > 140) {
+        alert("输入字符不能超过140字！请重新输入！");
+        return;
+    }
+    if (context != "") {
+        var url = "/item/reply";
+        jQuery.ajax({
+            type: "post",
+            url: url,
+            data: {itemId: replyItemId, parentId: parentId, context: $.trim(context)},
+            dataType: "json",
+            timeout: 50000,
+            success: function (data) {
+                if (data["code"] == "0") {
+                    location.reload();
+                } else {
+                    alert(data["message"]);
+                }
+            },
+            error: function (e) {
+                alert("发布失败");
+            }
+        });
+    } else {
+        alert("请输入话题内容！");
+    }
+}
+</script>
+
+<style>
+.form-control {
+display: block;
+width: 400px;
+height: 34px;
+padding: 6px 12px;
+font-size: 14px;
+line-height: 1.42857143;
+color: #555;
+background-color: #fff;
+background-image: none;
+border: 1px solid #ccc;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+-webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+margin-left: 20px;
+margin-top: 10px;
+}
+.form-group {
+margin-bottom: 15px;
+}
+.btn-info {
+color: #fff;
+background-color: #5bc0de;
+border-color: #46b8da;
+}
+.btn {
+display: inline-block;
+margin-bottom: 0;
+font-weight: normal;
+text-align: center;
+vertical-align: middle;
+touch-action: manipulation;
+cursor: pointer;
+background-image: none;
+border: 1px solid transparent;
+white-space: nowrap;
+padding: 6px 12px;
+font-size: 14px;
+line-height: 1.42857143;
+border-radius: 4px;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+margin-left: 120px;
+}
+.btn-default {
+color: #333;
+background-color: #fff;
+border-color: #ccc;
+}
+textarea {
+-webkit-appearance: textarea;
+background-color: white;
+border: 1px solid;
+border-image-source: initial;
+border-image-slice: initial;
+border-image-width: initial;
+border-image-outset: initial;
+border-image-repeat: initial;
+-webkit-rtl-ordering: logical;
+-webkit-user-select: text;
+flex-direction: column;
+resize: auto;
+cursor: auto;
+padding: 2px;
+white-space: pre-wrap;
+word-wrap: break-word;
+}
+.col-sm-12 {
+width: 100%;
+}
+textarea.form-control {
+height: auto;
+}
+</style>

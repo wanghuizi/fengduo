@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fengduo.bee.data.dao.IdentityInfoDao">
+	<resultMap id="BaseResultMap" type="com.fengduo.bee.model.entity.IdentityInfo">
+		<id column="id" property="id" />
+		<result column="create_date" property="createDate" />
+		<result column="update_date" property="updateDate" />
+		<result column="user_id" property="userId" />
+		<result column="real_name" property="realName" />
+		<result column="id_card" property="idCard" />
+		<result column="front_side" property="frontSide" />
+		<result column="back_side" property="backSide" />
+		<result column="bank_card" property="bankCard" />
+		<result column="bank_phone" property="bankPhone" />
+		<result column="bank_node" property="bankNode" />
+		<result column="bank_address" property="bankAddress" />
+		<result column="business_card" property="businessCard" />
+		<result column="investor_case" property="investorCase" />
+		<result column="investor_company" property="investorCompany" />
+		<result column="investor_title" property="investorTitle" />
+		<result column="investor_introduce" property="investorIntroduce" />
+	</resultMap>
+
+  	<sql id="table_columns_without_id">
+  		create_date,update_date,user_id,real_name,id_card,front_side,back_side,
+  		bank_card,bank_phone,bank_node,bank_address,business_card,investor_case,
+  		investor_company,investor_title,investor_introduce
+   	</sql>
+  
+  	<sql id="columns" >
+  		ID,<include refid="table_columns_without_id"/>
+  	</sql>
+
+	<sql id="table_name" >
+  		identity_info
+  	</sql>
+  	
+	<insert id="insert" parameterType="com.fengduo.bee.model.entity.IdentityInfo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO <include refid="table_name"/> (<include refid="columns"/>)
+		VALUES (#{id},now(),now(),#{userId},#{realName},#{idCard},#{frontSide},#{backSide},
+		       #{bankCard},#{bankPhone},#{bankNode},#{bankAddress},#{businessCard},#{investorCase}
+		       ,#{investorCompany},#{investorTitle},#{investorIntroduce})
+	</insert>
+  	
+  	<sql id="orderby_clause">
+        <if test="sort !=null and sort == '' ">
+			order by ID DESC
+		</if>
+        <if test="sort !=null and sort == 'id' ">
+			order by ID DESC
+		</if>
+    </sql>
+    
+  	<sql id="query_where_clause">
+  		<trim prefix="where" prefixOverrides="and|or"> 
+  			<if test="id !=null ">  
+	            ID = #{id}
+	        </if> 
+	         <if test="userId != null">  
+	            and user_id = #{userId}
+	        </if> 
+	        <if test="realName != null and realName != '' ">  
+	            and real_name like CONCAT('%', #{realName}, '%') 
+	        </if> 
+	    </trim> 
+  	</sql>
+  		
+  	<sql id="update_where_clause">
+		<trim prefix="where" prefixOverrides="and|or"> 
+	        <if test="id !=null ">  
+	            ID = #{id}
+	        </if> 
+	    </trim>
+   	</sql>
+  		
+  	<sql id="update_set_clause">
+  		<trim prefix="set" suffixOverrides=",">  
+  			update_date = now(),
+	         <if test="bankCard !=null and bankCard != '' ">  
+	            bank_card = #{bankCard},
+	        </if>
+	        <if test="bankPhone !=null and bankPhone != '' ">  
+	            bank_phone = #{bankPhone},
+	        </if>
+	        <if test="bankNode !=null and bankNode != '' ">  
+	            bank_node = #{bankNode},
+	        </if>
+	        <if test="bankAddress !=null and bankAddress != '' ">  
+	            bank_address = #{bankAddress},
+	        </if>
+	         <if test="businessCard !=null and businessCard != '' ">  
+	            business_card = #{businessCard},
+	        </if>
+	         <if test="investorCase !=null and investorCase != '' ">  
+	            investor_case = #{investorCase},
+	        </if>
+	         <if test="investorCompany !=null and investorCompany != '' ">  
+	            investor_company = #{investorCompany},
+	        </if>
+	         <if test="investorTitle !=null and investorTitle != '' ">  
+	            investor_title = #{investorTitle},
+	        </if>
+	        <if test="investorIntroduce !=null and investorIntroduce != '' ">  
+	            investor_introduce = #{investorIntroduce},
+	        </if>
+   		</trim>
+  	</sql>
+  	
+  		
+  	<select id="list" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+   		select  <include refid="columns" /> 
+   		from <include refid="table_name" /> 
+   		<include refid="query_where_clause"/>
+   		<include refid="orderby_clause"/>
+  	</select>
+  	
+  	<select id="find" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter" >
+  		select <include refid="columns"/>
+        from <include refid="table_name" />
+        <include refid="query_where_clause"/>
+        <include refid="orderby_clause"/>
+        limit 1
+  	</select>
+  
+  	<select id="listPagination" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+		select <include refid="columns"/>
+		from <include refid="table_name" /> 
+		<include refid="query_where_clause"/>
+		<include refid="orderby_clause"/>
+		<include refid="PAGINATION.MYSQL_PAGINATION" />
+  	</select>
+  	
+  	<select id="count" resultType="java.lang.Integer" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+  		select count(1)
+        from <include refid="table_name" />  
+       	<include refid="query_where_clause"/>
+   	</select>
+  	
+   	<update id="update" parameterType="com.fengduo.bee.model.entity.User">
+   		update <include refid="table_name" /> 
+       	<include refid="update_set_clause"/>
+       	<include refid="update_where_clause"/>
+  	</update>
+  	
+  	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Number" >
+  		select <include refid="columns" /> 
+  		from <include refid="table_name" /> 
+  		where ID = #{id}
+  	</select>
+  
+   	<update id="updateById" parameterType="com.fengduo.bee.model.entity.User">
+   		update <include refid="table_name" /> 
+   		<include refid="update_set_clause"/>
+	    where ID = #{id}
+  	</update>
+  	
+  	
+  	<delete id="deleteById" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where ID = #{id}
+  	</delete>
+   	
+ 
+</mapper>

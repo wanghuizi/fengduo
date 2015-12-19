@@ -1,0 +1,22 @@
+body {
+	font-size:12px;
+	font-family:"Microsoft YaHei";
+}
+* {
+	margin:0px;
+	padding:0px;
+}
+ul {
+	list-style:none;
+}
+img {
+	border:none;
+	outline:medium;
+	outline:transparent;
+}
+a:focus {
+	outline:none;
+	-moz-outline:none;
+	cursor:pointer;
+}
+.inpt{border:0;outline:none;/*去除蓝色边框*/}

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+            http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+			http://www.springframework.org/schema/util 
+			http://www.springframework.org/schema/util/spring-util-2.5.xsd 
+            http://www.springframework.org/schema/context  
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd  
+            http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+	<!-- 自动扫描且只扫描@Controller -->
+	<context:component-scan base-package="com.fengduo.bee.web.controller" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+	
+	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" >
+   		<mvc:argument-resolvers>  
+           <bean class="com.fengduo.bee.commons.component.FormModelMethodArgumentResolver"/>  
+        </mvc:argument-resolvers>
+   	</mvc:annotation-driven>
+	
+	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+		<mvc:message-converters register-defaults="true">
+			<!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+		    	<constructor-arg value="UTF-8" />
+			</bean>
+			<!-- 将Jackson2HttpMessageConverter的默认格式化输出设为true -->
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="prettyPrint" 		 value="true"/>
+                <property name="supportedMediaTypes" >  
+                    <list>  
+                        <value>text/plain;charset=UTF-8</value>  
+                    </list>  
+                </property> 
+            </bean>
+  		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- REST中根据URL后缀自动判定Content-Type及相应的View -->
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+	    <property name="ignoreAcceptHeader" value="true" />
+        <property name="defaultContentType" value="application/json" />
+	    <property name="mediaTypes" >
+	        <value>
+	            json=application/json
+	            xml=application/xml
+	            atom=application/atom+xml  
+	            html=text/html  
+	            json=application/json  
+	            *=*/* 
+	        </value>
+	    </property>
+	</bean>
+	
+	<!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL-->
+	<mvc:default-servlet-handler/>
+	
+	<!-- 定义无需Controller的url<->view直接映射 -->
+	<!-- <mvc:view-controller path="/" view-name="redirect:/index"/> -->
+	
+	<!-- 将Controller抛出的异常转到特定View, 保持SiteMesh的装饰效果 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+		<property name="exceptionMappings">  
+			<props>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">error/403</prop>
+				<prop key="java.lang.Throwable">error/500</prop>
+            </props>  
+		</property>  
+    </bean> 
+    
+	<!-- 支持 Shiro对Controller的方法级AOP安全控制  begin-->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+	
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    	<property name="securityManager" ref="securityManager"/>
+	</bean>
+	<!-- end -->
+
+	<!-- 定义Velocity文件的位置 -->  
+	<bean name="velocityConfig"		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="/WEB-INF/template/"/> 
+		<property name="velocityProperties">
+			<props>
+				<prop key="input.encoding">UTF-8</prop>
+				<prop key="output.encoding">UTF-8</prop>
+				<prop key="resource.loader">file</prop>
+				<prop key="directive.set.null.allowed">true</prop>
+				<prop key="directive.if.tostring.nullcheck">false</prop>
+				<prop key="file.resource.loader.cache">false</prop>
+				<prop key="velocimacro.library">common/securitymacro.vm</prop>
+				<prop key="velocimacro.library.autoreload">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="viewResolver" 		class="com.fengduo.bee.commons.velocity.CustomVelocityLayoutViewResolver">
+		<property name="contentType" 			value="text/html;charset=UTF-8" />
+	    <property name="cache" 					value="false" /> <!-- 开发 不设置缓存 -->
+		<property name="suffix" 				value=".vm" />
+		<property name="screenContentKey" 		value="body" />
+	</bean>
+	
+	<bean id="dateViewTools" 	    			class="com.fengduo.bee.commons.util.DateViewTools"/>
+	<bean id="currencyFormattor" 				class="com.fengduo.bee.commons.util.CurrencyFormatter"/>
+	<bean id="webUser" 							class="com.fengduo.bee.commons.shiro.Permission"/>
+	<bean id="enumViewTools"					class="com.fengduo.bee.web.utils.EnumViewTools"/>
+	<bean id="picTools"							class="com.fengduo.bee.web.utils.PicTools"/>
+	
+	<bean class="com.fengduo.bee.commons.velocity.ViewToolsFactory">
+		<property name="viewTools">
+			<map>
+				<entry key="dateViewTools"  		value-ref="dateViewTools" />
+				<entry key="currencyFormattor"  	value-ref="currencyFormattor" />
+				<entry key="webUser"  				value-ref="webUser" />
+				<entry key="enumViewTools"  		value-ref="enumViewTools" />
+				<entry key="picTools"  				value-ref="picTools" />
+			</map>
+		</property>
+	</bean>
+</beans>

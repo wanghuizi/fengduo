@@ -1,0 +1,23 @@
+.account-background {
+background-color:#f7f7f7;
+-moz-box-shadow:0px 2px 2px rgba(0,0,0,0.3);
+-webkit-box-shadow:0px 2px 2px rgba(0,0,0,0.3);
+box-shadow:0px 2px 2px rgba(0,0,0,0.3);
+padding:0 100px;
+margin-top: 50px;
+margin-bottom:50px
+}
+.regist-title-text{
+height: 50px;
+line-height: 50px;
+}
+.third-login-background {
+background-color:#f9f9f9;
+-moz-box-shadow:0px 2px 2px rgba(0,0,0,0.3);
+-webkit-box-shadow:0px 2px 2px rgba(0,0,0,0.3);
+box-shadow:0px 2px 2px rgba(0,0,0,0.3);
+padding:20px;
+}
+.checkbox-label{
+width:100%;
+}

@@ -1,0 +1,156 @@
+<style>
+.head-band {
+height: 44px;
+background-color: #143494;
+}
+div {
+display: block;
+}
+.head-content {
+width: 1016px;
+margin: 0 auto;
+line-height: 44px;
+height: 44px;
+background-color: #143494;
+}
+.digg-logo {
+width: 100px;
+height: 23px;
+float: left;
+font-size: 20px;
+color: #eeeeee;
+}
+.action-menu {
+float: left;
+line-height: 43px\9;
+margin-left: 20px;
+font-size: 12px;
+}
+.action-nav .nav-L {
+float: left;
+margin-top: 1px;
+margin-top: 3px\9;
+}
+.action-nav {
+float: right;
+position: relative;
+margin-right: 15px;
+font-size: 12px;
+line-height: 43px\9;
+}
+.action-menu a.active {
+color: #fff;
+background-color: #204982;
+}
+.action-menu a.tb {
+color: #c0cddf;
+margin-left: -3px;
+padding: 0 13px 0 16px;
+display: inline-block;
+vertical-align: 1px\9;
+}
+a {
+text-decoration: none;
+}
+.action-nav a {
+color: #c7d1dc;
+padding: 0 15px;
+display: inline-block;
+vertical-align: 1px\9;
+}
+.nologin-sel-area {
+height: 40px;
+line-height: 30px;
+color: #B4B4B4;
+}
+form {
+display: block;
+margin-top: 0em;
+}
+.nav-search-a .span {
+color: #97A8BC;
+position: absolute;
+right: 27px;
+top: 8px;
+}
+input {
+outline: none;
+}
+.key-sera a.i span {
+background-position: 0 -197px;
+display: block;
+height: 12px;
+margin-left: 11px;
+margin-top: 9px;
+width: 11px;
+_overflow: hidden;
+}
+form a {
+color: #369;
+}
+.search-txt-s {
+background-color: #f4f4f4;
+border: 1px solid #E0E0E0;
+color: #333;
+height: 25px;
+line-height: 25px\9;
+padding: 2px 2px 2px 5px;
+width: 101px;
+float: left;
+}
+.key-sera {
+float: right;
+margin-top: 6px;
+}
+</style>
+
+<div class="head-band">
+	<div class="head-content">
+		<a href="/" class="digg-logo" >蜂朵众筹</a>
+	    <input type="hidden" id="newIntoHotCount" value="0">
+        <input value="1" type="hidden" class="isBan">
+		
+        	<div class="action-menu">
+				<a href="/" class="tb active">首页</a>
+				<a href="/projects" class="tb">浏览项目</a>
+				<a href="/item/create" class="tb">发起项目</a>
+				<a href="/" class="tb">投资人</a>	
+				<a href="/help/help" class="tb">帮助</a>	
+			</div>
+		<div class="key-sera">
+			<form action="/search/show" method="post" name="searchFrm2" id="searchFrm2">
+				<input type="text" class="search-txt-s" name="words" id="txtSearch2" autocomplete="off">
+				<a href="javascript:;" class="i" name="searchBtn_2" id="searchBtn_3"></a>								
+				<input type="hidden" value="1" id="page" name="page">
+			</form>			
+		</div>
+		
+		#set($u=$webUser.getPrincipal())
+		#if($u)
+			<div class="action-nav">
+					<li><a href="#" onclick="clickMenu()" >您好，${u.displayName}</a></li>
+				<ul id="id_menu" style="display:none;position:fixed;background-color:rgb(73, 53, 197)">
+					<li><a href="/my/launch/1" >个人中心</a></li>
+					<li><a href="/user/setting" >设置</a></li>
+					<li><a href="/user/identity" >实名认证</a></li>
+					<li><a href="/logout" >退出</a></li>
+				</ul>
+			</div>
+		#else
+			<div class="action-nav">
+				<a href="/register" class="login-btn-a" id="reg-link-a">注册</a>
+				<a href="/login" class="login-btn-a" id="login-link-a">登录</a>
+			</div>
+		#end
+	</div>
+</div>
+<script>
+function clickMenu(){
+	var isShow = $('#id_menu').css("display");
+	if(isShow == 'none'){
+		$('#id_menu').css("display","block")
+	}else{
+		$('#id_menu').css("display","none")
+	}
+}
+</script>

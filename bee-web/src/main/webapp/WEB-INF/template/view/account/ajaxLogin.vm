@@ -1,0 +1,120 @@
+  <style>
+	.logo_form {
+		float: left;
+		margin: 50px 84px 54px 74px;
+		width: 328px;
+	}
+	.logo_form h5 {
+          padding-bottom: 10px;
+          border-bottom: 2px solid #eaeef1;
+          margin-bottom: 20px;
+          color: #333333;
+          line-height: 29px;
+	}
+   .clearfix {
+		display: block;
+	}
+	.logo_form h5 span {
+      font-size: 24px;
+      display: block;
+      float: left;
+	 }
+	 .logo_form h5 em {
+          font-size: 14px;
+          display: block;
+          float: right;
+	}
+	.logo_form h5 em a {
+		color: #ff6633;
+	}
+.logo_form input[type="text"], .logo_form input[type="password"] {
+      border: 1px solid #d1d8dc;
+      border-radius: 5px;
+      width: 314px;
+      height: 38px;
+      line-height: 38px\9;
+      margin-bottom: 12px;
+      padding-left: 14px;
+}
+.logo_form .verifity-code {
+  margin-bottom: 12px;
+}
+.logo_form .verifity-code input {
+  width: 192px;
+  float: left;
+  margin-right: 14px;
+  margin-bottom: 0;
+}
+.logo_form .p-login .a-login-btn {
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  background: #ff6633;
+  color: #ffffff;
+  font-size: 14px;
+  text-align: center;
+  width: 96px;
+  border-radius: 5px;
+  margin-right: 14px;
+  text-decoration: none;
+}
+.logo_form .p-login .forget-password {
+  color: #ff6633;
+}
+  </style>
+  <script src="/static/fengduo/common.js"></script>
+  <div class="logo_form">
+	  	<h5 class="clearfix">
+	  		<span>登录</span> 
+	  		<em>没有账号，<a href="/register">马上注册</a></em>
+	  	</h5>
+	  	<form id="id_ajaxLoginForm"  name="loginForm"  >
+	  		<div id="error" class="error-text"></div>
+	  		<input type="text" name="username" placeholder="手机号/邮箱/用户名">
+	  		<input type="password" name="password" placeholder="密码">
+	        <p class="verifity-code clearfix">
+	          <input type="text" name="captcha"  placeholder="请输入图形验证码">
+	          <img src="/verify/code" id="codeImg" onclick="this.src='/verify/code?t='+new Date().getTime()">
+	        </p>
+            <p>
+                <input type="checkbox" name="rememberMe" value="true">记住用户
+            </p>
+	  		<p class="p-login">
+	  			<a  id="id_submitLogin" href="javascript:;" type="submit" class="now_login_submit" >立即登录</a>
+	  			<a href="/findpwd" class="forget-password">忘记密码</a>
+	  		</p>
+	  	</form>
+	  </div>
+
+<style>
+.now_login_submit {
+display: inline-block;
+height: 40px;
+line-height: 40px;
+background: #ff6633;
+color: #ffffff;
+font-size: 14px;
+text-align: center;
+width: 96px;
+border-radius: 5px;
+margin-right: 14px;
+text-decoration: none;
+}
+</style>
+	  
+<script>
+$(function(){
+	$('#id_submitLogin').click(function(){
+		var F = $('#id_ajaxLoginForm');
+		$.post('/login',F.serialize(),function(res){
+			if(res.code == 0){
+				$.message('登入提示',res.message,function(){
+					window.location.reload(true);
+				});
+			}else{
+				$.message('登入提示',res.message);
+			}
+		})
+	})
+})
+</script>

@@ -1,0 +1,104 @@
+@charset "UTF-8";
+.forget-password{
+	height: 460px;
+	background: #ffffff;
+	border-radius: 5px;
+	width: 100%;
+	margin:58px 0 93px;
+	padding:46px 0 0;
+}
+.login_logo{
+	float: left;
+}
+.forget_form{
+	float: left;
+	margin:50px 84px 54px 74px;
+	width: 328px;
+}
+.forget_form h5{
+	padding-bottom: 10px;
+	border-bottom:2px solid #eaeef1;
+	margin-bottom: 20px;
+	color:#333333;
+	text-align: center;
+	font-size: 24px;
+}
+.forget_form input{
+	border:1px solid #d1d8dc;
+	border-radius: 5px;
+	width: 314px;
+	height: 38px;
+	line-height: 38px;
+	margin-top: 12px;	
+	padding-left: 14px;
+}
+.forget_form input:focus{
+	border-color:#fe8077;
+}
+.forget_form .verifity-code{
+	margin-top: 12px;
+}
+.forget_form .verifity-code img{
+	margin-top: 8px;
+	width: 100px;
+}
+.forget_form .verifity-code input{
+	width: 192px;
+	float: left;
+	margin-right: 14px;
+	margin-bottom: 0;
+}
+.forget_form .verifity-code a{
+	width: 104px;
+	height: 38px;
+	border:1px solid #ff6633;
+	float: left;
+	text-align: center;
+	line-height: 38px;
+	color:#ff6633;
+	border-radius: 5px;
+	margin-top: 12px;
+	text-decoration: none;
+}
+.forget_form .p-login .a-login-btn{
+   display: inline-block;
+   height: 40px;
+   line-height: 40px;
+   background: #ff6633;
+   color:#ffffff;
+   font-size: 14px;
+   text-align: center;
+   width: 96px;
+   border-radius: 5px;
+   margin-right: 14px;
+   text-decoration: none;
+}
+.forget_form .p-login{
+	margin-top: 8px;
+}
+.forget_form .p-login .forget-password{
+	color:#ff6633;
+}
+.forget_form{
+	float:none;
+	width: 332px;
+	margin:0 auto;
+}
+.forget_form .a-register-btn{
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	background: #ff6633;
+	color: #ffffff;
+	font-size: 14px;
+	text-align: center;	
+	border-radius: 5px;
+	width: 100%;
+	margin-top: 14px;
+}
+.forget_form .a-register-btn:hover{
+	text-decoration: none;
+}
+.forget_form .wx-inputErrBorder {
+    border-color: red;
+}

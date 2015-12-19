@@ -1,0 +1,125 @@
+
+$widget.setTemplate("common/errorTips").addParam('errMsg',$!{errMsg})
+
+<div class="container">
+	<div class="col-md-12 account-background">
+		<h2 class="regist-title-text text-center">注册或使用第三方平台进行登录</h3>
+		<h5 class="text-center">创业者或公司可以发起项目，认证成为投资人后可以进行投资</h5>
+		<hr>
+		<div class="container">
+			<div class="col-md-6">
+				<form action="/register" method="post">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-1 span4">
+							</div>
+							<div class="col-md-5 span8">
+								<label id="nickname-error" class=""></label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-1 span3">
+								<label class="vertical-center text-center">手机号</label>
+							</div>
+							<div class="col-md-4 span9">
+								<input id="id_phone" type="text" name="user.phone" value="$!phone" class="regist-textarea" >
+								<button id="id_ckd" class="btn btn-success" type="button">获取短信验证码</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-1 span3">
+								<label class="vertical-center text-center">验证码</label>
+							</div>
+							<div class="col-md-4 span9">
+								<input type="text" name="checkCode" class="regist-textarea">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-1 span3">
+							</div>
+							<div class="col-md-4 span9">
+								<label id="password-error" class=""></label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-1 span3">
+								<label class="vertical-center">密码</label>
+							</div>
+							<div class="col-md-4 span9">
+								<input type="password" name="user.password" class="regist-textarea" >
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-1 span3">
+								<label class="vertical-center">确认密码</label>
+							</div>
+							<div class="col-md-4 span9">
+								<input type="password" name="confirmPassword" class="regist-textarea">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-1 span3">
+							</div>
+							<div class="col-md-4 span9">
+								<label id="contract-error" class=""></label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-1 span3">
+							</div>
+							<div class="col-md-4 span9">
+								<input id="id_ckb_readTerm" type="checkbox" style="width:20px" name="isRead" value="0" />
+								<a href="#">《蜂朵网用户条款》</a>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<!--<a href="/register?type=mail">试试用邮箱注册</a>-->
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-1 span3">
+							</div>
+							<div class="col-md-4 span9">
+								<label id="password-error" class=""></label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-1">
+							</div>
+							<div class="col-md-11">
+								<button class="btn btn-success" type="submit">同意以上条款并注册</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-4 third-login-background span2">
+				<h4 class="text-center">第三方合作平台登录</h4><br/>
+				<a href="#" class="btn btn-success fit-parrent-width">微信登录</a><br/>
+				<a href="#" class="btn btn-info fit-parrent-width">微博登录</a><br/>
+				<a href="#" class="btn btn-warning fit-parrent-width">QQ登录</a>
+			</div>
+		</div>
+		<hr>
+	</div>
+</div>
+<script>
+$(function(){
+	$('#id_ckb_readTerm').click(function(){
+		var isChecked = $(this).is(':checked');
+		if(isChecked ){
+			$(this).val("1")
+		}
+	})
+	
+	$('#id_ckd').click(function(){
+		var phone = $('#id_phone').val();
+		if(phone == ''){
+			alert('请输入手机号！');
+		}else{
+    		$.get("/getSmsCode?phone=" + phone,function(res){
+				alert(res.message);
+			})
+		}
+	})
+})
+</script>

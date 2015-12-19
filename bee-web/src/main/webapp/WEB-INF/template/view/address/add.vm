@@ -1,0 +1,75 @@
+<script type="text/javascript" src="/static/js/city.js"></script>
+<div class="form-wrap" style="width:620px">
+				<form id="id_addrForm" >   
+					
+					<div class="form-list form-list-user_name">
+				        <label for="">收件人<i>＊</i></label>
+				        <div class="inp">
+				            <input name="consigneeName" id="address_consigneeName" type="text" placeholder="请输入收件人姓名" >
+				            <div class="clearfix"></div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list form-list-user_name">
+				        <label for="">手机号<i>＊</i></label>
+				        <div class="inp">
+				            <input name="phone" id="address_phone" type="text" placeholder="请输入收件人手机号" >
+				            <div class="clearfix"></div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list">
+				        <label for="">所在地<i>＊</i></label>
+				        <div class="inp">
+				            <div id="address_region_selector" class="clearfix padding-0">           
+				            	<div class="inp inp-region clearfix">
+				                	<select style="height: 35px;" id="projectProvince" name="province" onchange="select()" class="half selected">
+                                		<option value="请选择省份">请选择省份</option>
+                                	</select>
+                                	<select style="height: 35px;" id="projectCity" name="city"  class="half selected">
+                                		<option value="请选择城市">请选择城市</option>
+                               	 	</select>
+				            	</div>
+				        	</div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list form-list-user_name">
+				        <label for="">详细地址<i>＊</i></label>
+				        <div class="inp">
+				            <input name="detailAddr" id="address_detail" type="text" placeholder="请输入收件人详细地址" >
+				            <div class="clearfix"></div>
+				        </div>
+				    </div>
+				    
+				    <div class="form-list form-list-user_name">
+				        <label for="">邮编<i></i></label>
+				        <div class="inp">
+				            <input name="postCode" id="address_code" type="text" placeholder="请输入收件人邮编" >
+				            <div class="clearfix"></div>
+				        </div>
+				    </div>
+				    
+				    <div class="save-next">
+				        <a id="id_submit" class="btn bg-orange" data-disable-with="提交中...">保存</a>
+				    </div>
+					
+				</form>
+			</div>
+<script>
+$(function(){
+	$('#id_submit').click(function(){
+		var F = $('#id_addrForm');
+		$.post('/address/save',F.serialize(),function(res){
+			if(res.code == 0){
+				$.message('添加地址',res.message,function(){
+    				window.location.href = '/address/index';
+				})
+			}else{
+				$.tips(res.message,'#id_submit',3000);
+			}
+		})
+		
+	})
+})
+</script>

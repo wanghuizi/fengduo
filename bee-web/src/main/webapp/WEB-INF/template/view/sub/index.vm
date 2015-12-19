@@ -1,0 +1,153 @@
+<link href="/static/css/yuanshihui/purchase.css?v=20150309" rel="stylesheet" type="text/css">
+<!--main content-->
+<div class="wrap">
+	<h6 class="project-h6">项目名称<span>  >投资订单</span></h6>
+	<div class="clearfix">
+		<p class="grey-line"></p>
+		<div class="project-content">
+			<h5>$!{itemFull.name}</h5>
+			<p class="p-info" >$!{itemFull.introduce}</p>
+			<p class="p-money"><span id="Js-money">$!{itemFull.amount}</span>万元</p>
+			<em class="em-text">融资资金</em>			
+			<ul class="money-list clearfix">
+				<li class="w112"><span class="js-zgb">$!{itemFull.percent}</span><i>%</i><em>出让股权比例</em></li>
+				<li class="w160">$!{itemFull.suberNum}<i>人</i><em>认购人数</em></li>
+				<li class="w118" id="Js-lowmoney">$!{itemFull.perStock}<i>万</i><em>每份投资额</em></li>				
+			</ul>			
+			<p class="yy-money">已认购总额<span>$!{itemFull.realSub}万元</span></p>
+			<div class="money-progress"><i  style="width:$!{subProgress}%"></i></div>
+			<p class="money-info">
+			  <i class="fl fb" style="color:red">$!{subProgress}%</i>
+			  <em class="fr">剩余认购<span class="fb">?</span>天</em>			</p>
+		</div>
+		<div class="form-list">
+			<em></em>
+			<form id="id_subForm" name="createOrder" >
+			  <div class="form-input">
+				<div class="row-input">
+					<label>投资金额</label>
+					<input id="id_subAmount" type="text" class="tz-money" name="subAmount" placeholder="" wx-validator-rule="required|digits" value=""/>
+					<i class="unit">万元</i>
+				</div>
+					<i class="unit">注意：填写每份投资额的整数倍</i>
+			
+				#if($!{subType} == 2)
+                 <div class="row-input">
+					<label>保证金金额</label>
+					<input id="id_advances" type="text" readonly="true" class="tz-money" name="advances" value=""/>
+					<i class="unit">万元</i>
+				</div>  
+				#end
+				 <div class="row-input">
+					<label>手续费</label>
+					<input  type="text" readonly="true" class="tz-money" name="handlingCost" placeholder="" wx-validator-rule="required|digits" value="0"/>
+					<i class="unit">万元</i>
+				</div>  
+			
+				<div class="row-input" style="margin-right: 0px;">
+					<label></label>
+					<input id="id_article" type="checkbox" class="checkbox"  name="article" wx-validator-article-nocheck="请阅读协议"/>
+					<span class="agree">我已详细阅读并同意<a href="/publish/priview/dealId/1806" target="_blank">《发行方案》</a>
+					<a href="http://ustatic.yuanshihui.com/agreement/201506/15/17/557e9856b2db8.doc" target="_blank"> 《增资扩股协议》</a>
+										<a href="http://ustatic.yuanshihui.com/agreement/201506/15/17/557e985c6a2b6.doc" target="_blank"> 《有限合伙协议》</a>
+					                        <a href="/subscribe/confirmletter/deal_id/1806" target="_blank">《投资意向确认书》</a>
+					</span>
+				</div>
+				<div class="row-input" style="display: block;position: relative;margin-top: 60px;">
+					<label></label>
+					<div class="span-color s-m">实际打款<i>¥</i><i id="Js-amount"></i>万元</div>;
+				</div>
+				<div class="row-input">
+					<label></label>
+					<div class="span-color">占股比例<i id="Js-rate"></i>%</div>
+				</div>
+				<div class="row-input">
+					<label></label>
+					<input name="itemId" value="$!{itemFull.itemId}" class="hidden">
+					<input id="id_subType" name="subType" value="$!{subType}" class="hidden">
+					<a href="javascript:;" type="button" class="sure-order" onclick="confirmSub()">确定认购</a>
+				</div>
+
+			  </div>
+
+			</form>
+		</div>
+		</div>
+
+		<div class="d-marginTB clearfix" style="margin-top:70px">
+		<p class="grey-line line-height"></p>
+		<div class="d-bg">
+			<h4>账户安全</h4>
+			<p class="p-orange">账户安全: 原始会全程加密，确保资料和交易安全有效</p>
+			<p class="p-dark">资金如何监管：平台引进第三方支付——先锋支付，所有资金流转均经过央行监管的第三方支付公司，而不经过原始会账户。<br/>
+			什么时候向项目方拨款：项目方需先根据本轮投资约定进行工商变更，原始会将于收到营业执照复印件后的三个工作日内向项目方拨款。<br/>
+			如果项目发行失败：如果项目发行阶段融资额，未达到项目启动所需的最低金额，原始会经由第三方支付将全部款项退回投资人本人银行卡内。</p>
+			<i class="i-image01"></i>
+		</div>
+	</div>
+	</div>
+	
+	<script>
+		var percent = 0;
+	</script>
+<!--main content-->
+<script type="text/javascript" src="http://istatic.yuanshihui.com/angelpc/v3/static/js/pay.js?v=20150309"></script>
+
+<script>
+$(function(){
+	$('#id_subAmount').blur( function() {
+
+        var val = $("#id_subAmount").val();
+		var perStock = $!{itemFull.perStock};
+		if(perStock == ''){
+			return;
+		}
+		var fold = parseFloat(val / perStock)
+		var perPercent = $!{itemFull.perPercent}
+		var reg = /^[1-9][0-9]*$/;
+		if(reg.test(fold)){
+			var amount =  $!{itemFull.amount}
+			if(val >= amount){
+				$.message('认购提示','认购金额不能大于筹资目标！');
+				return;
+			}
+			var subType = $('#id_subType').val()
+			if(subType == 1){
+				if(val < amount * 0.1){
+					$.message('认购提示','基石投资者认购金额至少要融资额的10%');
+					return;
+				}
+				$('#Js-amount').text(val);
+			}else if(subType == 2){
+				$('#Js-amount').text(val * 0.05);
+				$('#id_advances').val(val * 0.05);
+			}
+			$('#Js-rate').text(perPercent * fold);
+		}else{
+			$.message('认购提示','请输入每份投资额的整数倍');
+		}
+	});
+})
+
+function confirmSub(){
+	var isChecked = $('#id_article').is(':checked');
+		if(!isChecked ){
+			$.tips('请阅读协议',$('#id_article'),3000);
+			return;
+		}
+	
+	var F = $('#id_subForm');
+	$.post("/sub/add",F.serialize(),function(res){
+		if(res.code==0){
+			var data = res.data;
+			console.debug(data);			
+			window.location.href="/order/index?itemId=" 
+			+ data.itemId + "&orderId=" + data.orderId +"&subId=" +data.subId;
+		}else{
+    		$.message('认购信息',res.message);
+		}
+	})
+}
+
+</script>
+

@@ -1,0 +1,189 @@
+<link href="/static/css/base.css" rel="stylesheet">
+<link href="/static/css/item.css" rel="stylesheet">
+<link href="/static/css/topics.css" rel="stylesheet">
+<link href="/static/css/rightSdideBar.css" rel="stylesheet">
+<link href="/static/css/alertindex.css" rel="stylesheet">
+
+<link href="/static/css/project.css" rel="stylesheet">
+
+<script type="text/javascript" src="/static/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.js"></script>
+
+<script type="text/javascript" src="/static/jquery/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.pagination.js"></script>
+
+<script type="text/javascript" src="/static/js/tab.js"></script>
+<script type="text/javascript" src="/static/js/circle.js"></script>
+<script type="text/javascript" src="/static/js/raphael.js"></script>
+<script type="text/javascript" src="/static/js/JrTools.js"></script>
+<script type="text/javascript" src="/static/js/proTools.js"></script>
+<script type="text/javascript" src="/static/js/detail.js"></script>
+
+<style type="text/css">
+    div.imgText-intro div.img-list img{ max-width:782px;}
+    div.data-intro div.intro-noRight img{ max-width:782px;}
+
+    .imgHolder { width: 100%; display: none; position: absolute; z-index: 2000; height: 0; left: 0; top: 0; max-width:782px;}
+    .imgHolder div{ position: absolute;color: #000000;max-width:782px;}
+    .imgHolder div span{
+        position: absolute;
+        right: -30px;
+        top: 0;
+        background: #000;
+        opacity: .5;
+        filter: alpha(opacity=50);
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        color: #fff;
+    }
+    .loading { width: 50px; height: 50px; position: absolute; left: 50%; margin-left: -25px; background: #ccc; display: none }
+    .b_pic {max-width:782px;}
+</style>
+
+<div class="container mb20">
+    <div class="stake-speed">
+        <img width="1200" height="450" src="$!{itemFull.getImg()}">
+        <div class="stake-mask"></div>
+        <div class="s-speed-infos">
+            <div class="holder" data-value="0">
+            	<svg height="96" version="1.1" width="96" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;">
+            		<desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc>
+            		<defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs>
+            		<circle cx="48" cy="48" r="40" fill="none" stroke="#e5e5e5" stroke-width="8" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+            		</circle>
+            		<path fill="none" stroke="#eb544b" d="M48,8A40,40,0,0,1,48,8" stroke-width="8" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+            		</path>
+            	</svg>
+                <span class="number">$!{itemFull.getRealPercent()}<i style="font-size:12px">%</i></span>
+            </div>
+            <div class="s-speed-text">
+                <h2 class="s-s-tit">$!{itemFull.name}</h2>
+                <table class="s-s-cont" width="620">
+                    <tbody>
+                       <tr>
+                        <td>融资目标：<span> ￥ $!{itemFull.amount}.00万</span></td>
+                       </tr>
+                        <tr>
+                            <td>已筹集：<span> ￥ $!{itemFull.realSub}万</span></td>
+                            <td>剩余时间：<span>尚未开始</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="status statu-ing">$!{enumViewTools.verifyStatusEnumName($!itemFull.verifyStatus)}<i class="status-icons"></i></div>
+    </div>
+    
+    <div class="stake-orderdo">
+        <div class="share fl padl20" style="z-index:9999;">
+            <b class="fl">分享到:</b>
+            <span class="ui-share">
+                 <a target="_blank" class="ui-share-item ui-share-weibo" data-type="weibo" clstag="jr|keycount|gq_xmy|gq_xlwb" href="http://service.weibo.com/share/share.php?url=http://dj.jd.com/funding/details/2712.html&amp;title=你好  你好&amp;source=京东金融&amp;sourceUrl=http://dj.jd.com/funding/details/2712.html&amp;pic=http://img30.360buyimg.com/cf/jfs/t1393/228/364112273/171808/5819c711/557862b1N9f712201.jpg">
+                 </a>
+                 <a target="_blank" class="ui-share-item ui-share-qqweibo" data-type="qqweibo" clstag="jr|keycount|gq_xmy|gq_txwb" href="http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;title=你好&amp;site=http://dj.jd.com/&amp;pic=http://img30.360buyimg.com/cf/jfs/t1393/228/364112273/171808/5819c711/557862b1N9f712201.jpg&amp;url=http://dj.jd.com/funding/details/2712.html&amp;title=你好&amp;pics=http://img30.360buyimg.com/cf/jfs/t1393/228/364112273/171808/5819c711/557862b1N9f712201.jpg&amp;summary=你好">
+                 </a>
+                 <a target="_blank" class="ui-share-item ui-share-qzone" data-type="qzone" clstag="jr|keycount|gq_xmy|gq_qqkj" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://dj.jd.com/funding/details/2712.html&amp;title=你好&amp;pics=http://img30.360buyimg.com/cf/jfs/t1393/228/364112273/171808/5819c711/557862b1N9f712201.jpg&amp;summary=你好">
+                 </a>
+                <a target="_blank" class="ui-share-item ui-share-renren" data-type="renren" clstag="jr|keycount|gq_xmy|gq_rrw" href="http://widget.renren.com/dialog/share?resourceUrl=http://dj.jd.com/funding/details/2712.html&amp;title=你好&amp;images=http://img30.360buyimg.com/cf/jfs/t1393/228/364112273/171808/5819c711/557862b1N9f712201.jpg&amp;description=你好">
+                </a>
+                <a target="_blank" class="ui-share-item ui-share-douban" data-type="douban" clstag="jr|keycount|gq_xmy|gq_dbw" href="http://www.douban.com/share/service?image=http://img30.360buyimg.com/cf/jfs/t1393/228/364112273/171808/5819c711/557862b1N9f712201.jpg&amp;href=http://dj.jd.com/funding/details/2712.html&amp;name=你好&amp;text=你好">
+                </a>
+            </span>
+        </div>
+        <div class="stake-btns fr padr20"></div>
+    </div>
+
+    <div class="stake-details">
+        <div class="stake-tabs">
+            <ul class="tabs-wrap">
+                <li>
+                    <a href="/$!{id}/project" id="projectDetailTop" clstag="jr|keycount|gq_xmy|gq_xmgk">
+                        项目概况
+                        <span class="hline hline-s"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/$!{id}/topic" id="projectTopicTop" clstag="jr|keycount|gq_xmy|gq_ht">
+                        话题
+                        <span class="hline hline-s"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/$!{id}/investor" class="cur"  id="projectInvestorTop" clstag="jr|keycount|gq_xmy|gq_tzlb">
+                        投资列表
+                        <span class="hline hline-s"></span>
+                    </a>
+                </li>
+            </ul>
+            <div class="hline hline-l"></div>
+        </div>
+        <div class="stake-infos clearfix">
+            
+            <div id="projectProInvestorList" class="col-left J-details-infos" style="display: block;">
+                <div class="cover" id="investorListDiv">
+                    <table class="stakelists" width="100%" cellspacing="0" cellpadding="0">
+                        <colgroup>
+                            <col width="120">
+                            <col width="">
+                        </colgroup>
+
+						#if($!listUserSub && $!listUserSub.size()==0)
+                        <tbody id="showInvestorList">
+                            <div class="i-noRight-tips"><p class="mb20"><i class="i-noRight-icons"></i>该项目还没有投资人</p></div>
+                        </tbody>
+						#else
+                        <tbody id="investorMoreBody">
+                        	<tr>
+						        <th width="60">图像</th>
+						        <th width="100">姓名</th>
+						        <th width="200">认购信息</th>
+						        <th >说明</th>
+						    </tr>
+						    #foreach($userSub in $!listUserSub)
+						    <tr>
+						        <td>
+						        	<a href="#" target="_blank">
+							            <img src="$!{userSub.getAvatar()}" class="img-circle" data-src="holder.js/64x64" style="width: 64px;height: 64px">
+							        </a>
+						        </td>
+						        <td>
+						        	<strong class="text-danger">跟投人</strong>
+							        <br>
+							        <a href="#" target="_blank">$!{userSub.realName}</a>
+						        </td>
+						        <td>
+						        	<strong>认投金额：</strong>$!{userSub.subAmount}万元 <br>
+							        <strong>认投时间：</strong>$!{dateViewTools.format($!userSub.subDate,'yyyy年MM月dd日')}
+						        </td>
+						        <td>
+						        	<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+						        </td>
+						    </tr>
+						    #end
+                        </tbody>
+                        #end 
+                    </table>
+                </div>
+            </div>
+
+			<!-- 侧边栏 -->
+            <div class="col-right s-details-supports">
+                $widget.setTemplate("product/sideBar").addParam('itemUser',$!{itemUser}).addParam('itemFull',$!{itemFull})
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+
+</script>

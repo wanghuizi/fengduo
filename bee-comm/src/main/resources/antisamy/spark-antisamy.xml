@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<anti-samy-rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="antisamy.xsd">
+
+	<directives>
+		<directive name="omitXmlDeclaration" value="true" />
+		<directive name="omitDoctypeDeclaration" value="true" />
+		<directive name="formatOutput" value="true" />
+		<directive name="embedStyleSheets" value="false"/>
+	</directives>
+	
+	<common-regexps>
+		<regexp name="URL" value="(\s)*((ht|f)tp(s?)://|mailto:)[\p{L}\p{N}]+[\p{L}\p{N}\p{Zs}\.\#@\$%\+&amp;;:\-_~,\?=/!\(\)]*(\s)*"/>
+		<regexp name="colorName" value="(aqua|black|blue|fuchsia|gray|grey|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)"/>
+		<regexp name="colorCode" value="(#([0-9a-fA-F]{6}|[0-9a-fA-F]{3}))"/>
+		<regexp name="rgbCode" value="rgb\(([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\)"/>
+		<regexp name="systemColor" value="(activeborder|activecaption|appworkspace|background|buttonface|buttonhighlight|buttonshadow|buttontext|captiontext|graytext|highlight|highlighttext|inactiveborder|inactivecaption|inactivecaptiontext|infobackground|infotext|menu|menutext|scrollbar|threeddarkshadow|threedface|threedhighlight|threedlightshadow|threedshadow|window|windowframe|windowtext)"/>
+		<regexp name="length" value="[0-9]+(\.[0-9]+)?(em|ex|px|in|cm|mm|pt|pc)"/>
+	</common-regexps>
+
+	<tag-rules>
+		<tag name="script" action="remove"/>
+		<tag name="noscript" action="remove"/>
+		
+		<tag name="div" action="validate"/>	
+		<tag name="p" action="validate"/>	
+		<tag name="i" action="validate"/>
+		<tag name="b" action="validate"/>
+		<tag name="u" action="validate"/>
+		<tag name="span" action="validate"/>
+		<tag name="font" action="validate"/>
+		
+		<tag name="a" action="validate">
+			<attribute name="href">
+				<regexp-list>
+					<regexp name="URL"/>
+					<regexp value="#gotoreply[0-9]+"/>
+				</regexp-list>
+			</attribute>
+			<attribute name="target">
+				<literal-list>
+					<literal value="_blank"/>
+				</literal-list>
+			</attribute>
+		</tag>
+		<tag name="img" action="validate">
+			<attribute name="src">
+				<regexp-list>
+					<regexp name="URL"/>
+				</regexp-list>
+			</attribute>
+		</tag>
+		<tag name="embed" action="validate">
+			<attribute name="src">
+				<regexp-list>
+					<regexp value="http://player\.youku\.com/player\.php/sid/[0-9a-zA-Z=]+/v\.swf"/>
+					<regexp value="http://www.tudou.com/.+"/>
+					<regexp value="http://player\.video\.qiyi\.com/.+"/>
+					<regexp value="http://i7\.imgs\.letv\.com/player/swfplayer\.swf\?.+"/>
+					<regexp value="http://share\.vrs\.sohu\.com/.+"/>
+					<regexp value="http://static\.video\.qq\.com/tpout\.swf.+"/>
+					<regexp value="http://player\.56\.com/v_[0-9a-zA-Z]+\.swf"/>
+					<regexp value="http://f\.v\.17173cdn\.com/player_f2/[0-9a-zA-Z]+\.swf"/>
+					<regexp value="http://play\.wasu\.cn/[0-9a-zA-Z]+\.swf"/>
+					<regexp value="http://static\.acfun\.mm111\.net/player/acflashplayer\.out\.swf.+"/>
+					<regexp value="http://share\.acg\.tv/flash.swf?.+"/>
+				</regexp-list>
+			</attribute>
+			<attribute name="type">
+				<literal-list>
+					<literal value="application/x-shockwave-flash"/>
+				</literal-list>
+			</attribute>
+			<attribute name="quality">
+				<literal-list>
+					<literal value="high"/>
+				</literal-list>
+			</attribute>
+			<attribute name="allowFullScreen">
+				<literal-list>
+					<literal value="true"/>
+				</literal-list>
+			</attribute>
+			<attribute name="width">
+				<literal-list>
+					<literal value="420"/>
+				</literal-list>
+			</attribute>
+			<attribute name="height">
+				<literal-list>
+					<literal value="280"/>
+				</literal-list>
+			</attribute>
+		</tag>
+		
+		<tag name="br" action="truncate"/>
+		<tag name="em" action="truncate"/>
+		<tag name="strong" action="truncate"/>
+		
+	</tag-rules>
+
+	<css-rules>
+		
+		<property name="text-decoration">
+			<literal-list>
+				<literal value="none"/>
+				<literal value="underline"/>
+				<literal value="overline"/>
+				<literal value="line-through"/>
+				<literal value="blink"/>
+			</literal-list>
+		</property>
+		<property name="text-indent">
+			<regexp-list>
+				<regexp name="length"/>
+			</regexp-list>
+		</property>
+		<property name="text-align">
+			<literal-list>
+				<literal value="left"/>
+				<literal value="right"/>
+				<literal value="center"/>		
+			</literal-list>
+		</property>
+		<property name="line-height">
+			<regexp-list>
+				<regexp name="length"/>
+			</regexp-list>
+		</property>
+		<property name="font-size">
+			<regexp-list>
+				<regexp name="length"/>
+			</regexp-list>
+		</property>
+		<property name="font-weight">
+			<literal-list>
+				<literal value="normal"/>
+				<literal value="bold"/>
+				<literal value="bolder"/>
+				<literal value="lighter"/>
+				<literal value="100"/>
+				<literal value="200"/>
+				<literal value="300"/>
+				<literal value="400"/>
+				<literal value="500"/>
+				<literal value="600"/>
+				<literal value="700"/>
+				<literal value="800"/>
+				<literal value="900"/>
+			</literal-list>
+		</property>
+		<property name="font-style">
+			<literal-list>
+				<literal value="normal"/>
+				<literal value="italic"/>
+				<literal value="oblique"/>
+			</literal-list>
+		</property>
+		<property name="color">
+			<regexp-list>
+				<regexp name="colorName"/>
+				<regexp name="colorCode"/>
+				<regexp name="rgbCode"/>
+				<regexp name="systemColor"/>
+			</regexp-list>
+		</property>
+		<property name="background-color">
+			<regexp-list>
+				<regexp name="colorName"/>
+				<regexp name="colorCode"/>
+				<regexp name="rgbCode"/>
+				<regexp name="systemColor"/>
+			</regexp-list>
+		</property>
+	
+	</css-rules>
+	
+</anti-samy-rules>

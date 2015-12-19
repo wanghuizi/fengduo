@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fengduo.bee.data.dao.ConsigneeAddrDao">
+	<resultMap id="BaseResultMap" type="com.fengduo.bee.model.entity.ConsigneeAddr">
+		<id column="id" property="id" />
+		<result column="create_date" property="createDate" />
+		<result column="update_date" property="updateDate" />
+		<result column="del_flag" property="delFlag" />
+		<result column="user_id" property="userId" />
+		<result column="consignee_name" property="consigneeName" />
+		<result column="province" property="province" />
+		<result column="city" property="city" />
+		<result column="detail_addr" property="detailAddr" />
+		<result column="phone" property="phone" />
+		<result column="post_code" property="postCode" />
+		<result column="default_flag" property="defaultFlag" />
+	</resultMap>
+
+  	<sql id="table_columns_without_id">
+  		`create_date`,`update_date`,`del_flag`,`user_id`,`consignee_name`,`province`,`city`,
+  		`detail_addr`,`phone`,`post_code`,`default_flag`
+   	</sql>
+  
+  	<sql id="columns" >
+  		ID,<include refid="table_columns_without_id"/>
+  	</sql>
+
+	<sql id="table_name" >
+  		consignee_addr
+  	</sql>
+  	
+	<insert id="insert" parameterType="com.fengduo.bee.model.entity.ConsigneeAddr" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO <include refid="table_name"/> (<include refid="columns"/>)
+		VALUES (#{id},now(),now(),0,#{userId},#{consigneeName},#{province},#{city},
+		       #{detailAddr},#{phone},#{postCode},#{defaultFlag})
+	</insert>
+  	
+  	<sql id="orderby_clause">
+        <if test="sort !=null and sort == '' ">
+			order by DEFAULT_FLAG ASC , ID DESC
+		</if>
+        <if test="sort !=null and sort == 'id' ">
+			order by ID DESC
+		</if>
+    </sql>
+    
+  	<sql id="query_where_clause">
+  		<trim prefix="where" prefixOverrides="and|or"> 
+  			<if test="id !=null ">  
+	            ID = #{id}
+	        </if> 
+	         <if test="userId != null">  
+	            and user_id = #{userId}
+	        </if> 
+	        <if test="delFlag != null">  
+	           and del_flag = #{delFlag}
+	        </if> 
+	        <if test="defaultFlag != null">  
+	           and default_flag = #{defaultFlag}
+	        </if> 
+	    </trim> 
+  	</sql>
+  		
+  	<sql id="update_where_clause">
+		<trim prefix="where" prefixOverrides="and|or"> 
+	        <if test="id !=null ">  
+	            ID = #{id}
+	        </if> 
+	    </trim>
+   	</sql>
+  		
+  	<sql id="update_set_clause">
+  		<trim prefix="set" suffixOverrides=",">  
+  			update_date = now(),
+	         <if test="delFlag !=null">  
+	            del_flag = #{delFlag},
+	        </if>
+	        <if test="userId !=null">  
+	            user_id = #{userId},
+	        </if>
+	         <if test="consigneeName !=null and consigneeName != ''">  
+	            consignee_name = #{consigneeName},
+	        </if>
+	         <if test="province !=null and province != ''">  
+	            province = #{province},
+	        </if>
+	         <if test="city !=null and city != ''">  
+	            city = #{city},
+	        </if>
+	        <if test="detailAddr !=null and detailAddr != ''">  
+	            detail_addr = #{detailAddr},
+	        </if>
+	        <if test="phone !=null and phone != ''">  
+	            phone = #{phone},
+	        </if>
+	         <if test="postCode !=null and postCode != ''">  
+	            post_code = #{postCode},
+	        </if>
+	        <if test="defaultFlag !=null">  
+	            default_flag = #{defaultFlag}
+	        </if>
+   		</trim>
+  	</sql>
+  	
+  		
+  	<select id="list" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+   		select  <include refid="columns" /> 
+   		from <include refid="table_name" /> 
+   		<include refid="query_where_clause"/>
+   		<include refid="orderby_clause"/>
+  	</select>
+  	
+  	<select id="find" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter" >
+  		select <include refid="columns"/>
+        from <include refid="table_name" />
+        <include refid="query_where_clause"/>
+        <include refid="orderby_clause"/>
+        limit 1
+  	</select>
+  
+  	<select id="listPagination" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+		select <include refid="columns"/>
+		from <include refid="table_name" /> 
+		<include refid="query_where_clause"/>
+		<include refid="orderby_clause"/>
+		<include refid="PAGINATION.MYSQL_PAGINATION" />
+  	</select>
+  	
+  	<select id="count" resultType="java.lang.Integer" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+  		select count(1)
+        from <include refid="table_name" />  
+       	<include refid="query_where_clause"/>
+   	</select>
+  	
+   	<update id="update" parameterType="com.fengduo.bee.model.entity.ConsigneeAddr">
+   		update <include refid="table_name" /> 
+       	<include refid="update_set_clause"/>
+       	<include refid="update_where_clause"/>
+  	</update>
+  	
+  	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Number" >
+  		select <include refid="columns" /> 
+  		from <include refid="table_name" /> 
+  		where ID = #{id} AND del_flag = 0
+  	</select>
+  
+   	<update id="updateById" parameterType="com.fengduo.bee.model.entity.ConsigneeAddr">
+   		update <include refid="table_name" /> 
+   		<include refid="update_set_clause"/>
+	    where ID = #{id}
+  	</update>
+  	
+  	
+  	<delete id="deleteById" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where ID = #{id}
+  	</delete>
+   	
+ 
+</mapper>

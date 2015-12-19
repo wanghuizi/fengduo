@@ -1,0 +1,123 @@
+
+<link href="/static/css/yuanshihui/base.css?v=20150309" rel="stylesheet" type="text/css">
+<link href="/static/css/yuanshihui/common.css?v=20150309" rel="stylesheet" type="text/css">
+
+            <script>
+                $.getScript('http://guquan.zhongchou.com/about/go?'+Math.random(), function(){    
+                    $.post("/about/login",{'userId':cookieUser.userId,'userToken':cookieUser.userToken,'logTime':cookieUser.logTime},function(data){
+                        if(data.status==0){
+                            //不变
+                            return;
+                        }else if(data.status==1){
+                                //登录
+                                $('#siteLRBox').hide();
+                                $('#siteLogined').find('.siteLgInner').html(data.userName+'<i></i>');
+                                $('#Js-header-loginBtn .pull-down em').text(data.userName);
+                                $('#siteLogined,#Js-header-loginBtn').show();
+                                
+
+                                $('#RSLg_w_Box').hide();
+                                $('#RSLg_y_Box>img').attr('src',data.avatar);
+                                $('#RSLg_y_Box').show();
+                        }else if(data.status==-1){
+                                //未登录
+                                $('#siteLRBox').show();
+                                $('#siteLogined,#Js-header-loginBtn').hide();
+
+                                $('#RSLg_w_Box').show();
+                                $('#RSLg_y_Box').hide();
+                        }
+                    },'json');
+                });
+            </script>
+                    <script>
+                $.getScript('http://www.zhongchou.com/user-yshAsyn?'+Math.random(), function(){    
+                    $.post("/about/login",{'userId':userInfo.userId,'userToken':userInfo.userToken,'logTime':userInfo.logTime},
+                    function(data){
+                        if(data.status==0){
+                            //不变
+                            return;
+                        }else if(data.status==1){
+                                //登录
+                                $('#siteLRBox').hide();
+                                $('#siteLogined').find('.siteLgInner').html(data.userName+'<i></i>');
+                                $('#Js-header-loginBtn .pull-down em').text(data.userName);
+                                $('#siteLogined,#Js-header-loginBtn').show();
+                                
+
+                                $('#RSLg_w_Box').hide();
+                                $('#RSLg_y_Box>img').attr('src',data.avatar);
+                                $('#RSLg_y_Box').show();
+                        }else if(data.status==-1){
+                                //未登录
+                                $('#siteLRBox').show();
+                                $('#siteLogined,#Js-header-loginBtn').hide();
+
+                                $('#RSLg_w_Box').show();
+                                $('#RSLg_y_Box').hide();
+                        }
+                    },'json')
+                    }
+                );
+             </script>
+
+<link rel="stylesheet" type="text/css" href="http://istatic.yuanshihui.com/angelpc/v3/static/css/cashier.css?v=20150309">
+<div class="wrap-1024">
+    <div class="cashier" id="cashier">
+        <div class="cashier-top cashier-top2">
+            <div class="dd-top clearfix">
+                <div class="cashier-info">
+                    <h2>$!{item.name}</h2>
+                    <p>$!{item.introduce}</p>
+                </div>
+               
+                <div class="d-r">
+                    <span>投资金额<em><span id="js-zt-money" style="color: #f63;font-weight: bolder;">$!{sub.subAmount}</span></em>万元</span>
+                </div>
+                
+                <input type='hidden' name='order_id' value="4294">
+            </div>
+            <ul class="cashier-hd clearfix" id="Js-switch-tab">
+                <li id="id_switch_offline" data-id="Js-switch-offline" class="selected">线下支付</li>
+                <div class="cashier-order cashier-order2"><em>订单号</em>：<span id="js-order-num">$!{order.orderNo}</span></div>
+            </ul>
+     
+            <!--线下支付-->
+            <div id="Js-switch-offline" class="Js-switch-list cashier-bd ">
+                <div class="offline-list">
+                    <ul>
+                            <li><em>收款人：</em>蜂朵互联网金融信息服务公司</li>
+                            <li><em>收款账号：</em>21201501200053039817</li>
+                            <li><em>开户行：</em>招商银行陆家嘴支行</li>
+                            <li><em>投资金额：</em><em>¥<span id="js-zt-money" style="color: #f63;font-weight: bolder;">$!{order.getActualAmount2User()}</span></em>万元</span></li>
+                    </ul>
+                    <p>点击【完成】操作后，打款信息已同步发送至您注册账号时使用的手机</p> 
+
+                </div>
+            
+                <div class="cashier-footer">
+                    <div class="cashier-money clearfix">
+                        <a href="javascript:void(0)" class="btn bg-orange js-sure-btn" onclick="offlineSubmit()">完成</a>
+                        <p>支付<em>¥<span>$!{order.getActualAmount2User()}</span></em>万元</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="http://istatic.yuanshihui.com/angelpc/v3/static/js/pay.js?v=20150309"></script>
+<script>
+function offlineSubmit(){
+	var orderId = $!{order.id}
+	$.post('/order/offline/submit',{orderId:orderId},function(res){
+		$.message('信息',res.message,function(){
+    		if(res.code == 0){
+    			window.location.href="/my/order/1" 
+    		}
+		});
+	})
+}
+</script>
+

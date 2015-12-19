@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fengduo.bee.data.dao.ItemDao" >
+  	<resultMap id="BaseResultMap" type="com.fengduo.bee.model.entity.Item" >
+  		<id 		column="ID" 				property="id" 				jdbcType="DECIMAL" />
+  		<result 	column="CREATE_DATE" 		property="createDate" 		jdbcType="TIMESTAMP" />
+  		<result 	column="UPDATE_DATE" 		property="updateDate" 		jdbcType="TIMESTAMP" />
+  		
+  		<result 	column="USER_ID" 			property="userId" 			jdbcType="DECIMAL" />
+  		<result 	column="TAGS" 				property="tags" 			jdbcType="VARCHAR" />
+  		<result 	column="NAME" 				property="name" 			jdbcType="VARCHAR" />
+  		<result 	column="INTRODUCE" 			property="introduce" 		jdbcType="VARCHAR" />
+  		<result 	column="STAGE" 				property="stage" 			jdbcType="DECIMAL" />
+  		<result 	column="TEAM_COUNT" 		property="teamCount" 		jdbcType="DECIMAL" />
+  		<result 	column="PROVINCE" 			property="province" 		jdbcType="VARCHAR" />
+  		<result 	column="CITY" 				property="city" 			jdbcType="VARCHAR" />
+  		<result 	column="VIDEO_URL" 			property="videoUrl" 		jdbcType="VARCHAR" />
+  		<result 	column="CONTENT" 			property="content" 			jdbcType="VARCHAR" />
+  		<result 	column="IMG_CF" 			property="imgCf" 			jdbcType="VARCHAR" />
+  		<result 	column="IMG_ZF" 			property="imgZf" 			jdbcType="VARCHAR" />
+  		<result 	column="IMG" 				property="img" 				jdbcType="VARCHAR" />
+  		<result 	column="PROGRESS" 			property="progress" 		jdbcType="DECIMAL" />
+  		<result 	column="IS_COMPANY" 		property="isCompany" 		jdbcType="DECIMAL" />
+  		<result 	column="COMPANY_NAME" 		property="companyName" 		jdbcType="VARCHAR" />
+  		<result 	column="REGISTER_CAPITAL" 	property="registerCapital"  jdbcType="FLOAT" />
+  		<result 	column="EMPLOYEE" 			property="employee" 		jdbcType="DECIMAL" />
+  		
+  		<result 	column="VERIFY_STATUS" 		property="verifyStatus" 	jdbcType="DECIMAL" />
+  		<result 	column="VERIFY_DATE" 		property="verifyDate" 		jdbcType="TIMESTAMP" />
+  		<result 	column="ITEM_TYPE" 			property="itemType" 		jdbcType="DECIMAL" />
+  		<result 	column="DEL_FLAG" 			property="delFlag" 			jdbcType="DECIMAL" />
+  	</resultMap>
+  	
+  	<resultMap id="FullBaseResultMap" type="com.fengduo.bee.model.entity.ItemFull" >
+  		<result 	column="ITEM_ID" 			property="itemId" 			jdbcType="DECIMAL" />
+  		<result 	column="CREATE_DATE" 		property="createDate" 		jdbcType="TIMESTAMP" />
+  		<result 	column="USER_ID" 			property="userId" 			jdbcType="DECIMAL" />
+  		
+  		<result 	column="TAGS" 				property="tags" 			jdbcType="VARCHAR" />
+  		<result 	column="NAME" 				property="name" 			jdbcType="VARCHAR" />
+  		<result 	column="INTRODUCE" 			property="introduce" 		jdbcType="VARCHAR" />
+  		<result 	column="STAGE" 				property="stage" 			jdbcType="DECIMAL" />
+  		<result 	column="TEAM_COUNT" 		property="teamCount" 		jdbcType="DECIMAL" />
+  		<result 	column="PROVINCE" 			property="province" 		jdbcType="VARCHAR" />
+  		<result 	column="CITY" 				property="city" 			jdbcType="VARCHAR" />
+  		<result 	column="VIDEO_URL" 			property="videoUrl" 		jdbcType="VARCHAR" />
+  		<result 	column="CONTENT" 			property="content" 			jdbcType="VARCHAR" />
+  		<result 	column="IMG_CF" 			property="imgCf" 			jdbcType="VARCHAR" />
+  		<result 	column="IMG_ZF" 			property="imgZf" 			jdbcType="VARCHAR" />
+  		<result 	column="IMG" 				property="img" 				jdbcType="VARCHAR" />
+  		<result 	column="PROGRESS" 			property="progress" 		jdbcType="DECIMAL" />
+  		<result 	column="IS_COMPANY" 		property="isCompany" 		jdbcType="DECIMAL" />
+  		<result 	column="COMPANY_NAME" 		property="companyName" 		jdbcType="VARCHAR" />
+  		<result 	column="REGISTER_CAPITAL" 	property="registerCapital"  jdbcType="FLOAT" />
+  		<result 	column="EMPLOYEE" 			property="employee" 		jdbcType="DECIMAL" />
+  		
+  		<result 	column="VERIFY_STATUS" 		property="verifyStatus" 	jdbcType="DECIMAL" />
+  		<result 	column="VERIFY_DATE" 		property="verifyDate" 		jdbcType="TIMESTAMP" />
+  		<result 	column="ITEM_TYPE" 			property="itemType" 		jdbcType="DECIMAL" />
+  		<result 	column="DEL_FLAG" 			property="delFlag" 			jdbcType="DECIMAL" />
+  		
+  		<result 	column="AMOUNT" 			property="amount" 			jdbcType="VARCHAR" />
+  		<result 	column="PERCENT" 			property="percent" 			jdbcType="FLOAT" />
+  		<result 	column="STOCK" 				property="stock" 			jdbcType="VARCHAR" />
+  		<result 	column="CAPITAL_USES" 		property="capitalUses" 		jdbcType="VARCHAR" />
+  		<result 	column="PDF_URL" 			property="pdfUrl" 			jdbcType="VARCHAR" />
+  		<result 	column="EX_FINANCE" 		property="exFinance" 		jdbcType="VARCHAR" />
+  		<result 	column="PER_STOCK" 			property="perStock" 		jdbcType="FLOAT" />
+  		<result 	column="PER_PERCENT" 		property="perPercent" 		jdbcType="FLOAT" />
+  		<result 	column="REAL_SUB" 			property="realSub" 			jdbcType="FLOAT" />
+  		<result 	column="REAL_PAY" 			property="realPay" 			jdbcType="FLOAT" />
+  		<result 	column="SUBER_NUM" 			property="suberNum" 	    jdbcType="INTEGER" />
+  	</resultMap>
+  	
+  	<sql id="table_columns_without_id">
+  		CREATE_DATE,UPDATE_DATE,USER_ID,TAGS,NAME,INTRODUCE,STAGE,TEAM_COUNT,PROVINCE,
+  		CITY,VIDEO_URL,CONTENT,IMG_CF,IMG_ZF,IMG,PROGRESS,IS_COMPANY,COMPANY_NAME,
+  		REGISTER_CAPITAL,EMPLOYEE,VERIFY_STATUS,VERIFY_DATE,ITEM_TYPE,DEL_FLAG
+   	</sql>
+  
+  	<sql id="columns" >
+  		ID,<include refid="table_columns_without_id"/>
+  	</sql>
+  	
+  	<sql id="full_columns" >
+  		item.ID as ITEM_ID,item.CREATE_DATE,item.UPDATE_DATE,item.USER_ID,TAGS,NAME,
+  		INTRODUCE,STAGE,TEAM_COUNT,PROVINCE,CITY,VIDEO_URL,CONTENT,IMG_CF,IMG_ZF,
+  		IMG,PROGRESS,IS_COMPANY,COMPANY_NAME,REGISTER_CAPITAL,EMPLOYEE,VERIFY_STATUS,
+  		VERIFY_DATE,ITEM_TYPE,DEL_FLAG,AMOUNT,PERCENT,STOCK,CAPITAL_USES,PDF_URL,EX_FINANCE,
+  		PER_STOCK,PER_PERCENT,REAL_SUB,REAL_PAY,SUBER_NUM
+  	</sql>
+  	
+  	<sql id="table_name" >
+  		item
+  	</sql>
+  	
+  	<sql id="orderby_clause">
+        <if test="sort !=null and sort == '' ">
+			order by ID DESC
+		</if>
+        <if test="sort !=null and sort == 'createDate' ">
+			order by CREATE_DATE DESC
+		</if>
+		<if test="sort !=null and sort == 'updateDate' ">
+			order by UPDATE_DATE DESC
+		</if>
+    </sql>
+    
+  	<sql id="query_where_clause">
+  		<trim prefix="where" prefixOverrides="and|or"> 
+  			<if test="id !=null ">  
+	            item.ID = #{id, jdbcType=INTEGER}
+	        </if> 
+	        <if test="itemId !=null ">  
+	            item.ID = #{itemId, jdbcType=INTEGER}
+	        </if> 
+	        <if test="userId != null ">  
+	            and item.USER_ID = #{userId, jdbcType=INTEGER}
+	        </if> 
+          	<if test="name != null and name != '' ">  
+	            and item.NAME = #{name, jdbcType=VARCHAR}
+	        </if>
+	        <if test="nameLike != null and nameLike != '' ">  
+	            and item.NAME like CONCAT('%',#{nameLike, jdbcType=VARCHAR},'%')
+	        </if>
+	        <if test="stage != null ">  
+	            and item.STAGE = #{stage, jdbcType=INTEGER}
+	        </if>
+	        <if test="tags != null and tags != '' ">  
+	            and item.TAGS = #{tags, jdbcType=VARCHAR}
+	        </if>
+	        <if test="teamCount != null ">  
+	            and item.TEAM_COUNT = #{teamCount, jdbcType=INTEGER}
+	        </if>
+	        <if test="progress != null ">  
+	            and item.PROGRESS = #{progress, jdbcType=INTEGER}
+	        </if>
+	        <if test="verifyStatus != null">  
+	            and item.VERIFY_STATUS = #{verifyStatus, jdbcType=INTEGER}
+	        </if>
+	        <if test="delFlag != null">  
+	            and item.DEL_FLAG = #{delFlag, jdbcType=INTEGER}
+	        </if>
+	    </trim> 
+  	</sql>
+  		
+  	<sql id="update_where_clause">
+		<trim prefix="where" prefixOverrides="and|or"> 
+	        <if test="id !=null ">  
+	            ID = #{id, jdbcType=INTEGER}
+	        </if> 
+	        <if test="userId != null ">  
+	            and USER_ID = #{userId, jdbcType=INTEGER}
+	        </if> 
+          	<if test="name != null and name != '' ">  
+	            and NAME = #{name, jdbcType=VARCHAR}
+	        </if>
+	        <if test="progress != null ">  
+	            and PROGRESS = #{progress, jdbcType=INTEGER}
+	        </if>
+	        <if test="verifyStatus != null">  
+	            and VERIFY_STATUS = #{verifyStatus, jdbcType=INTEGER}
+	        </if>
+	        <if test="delFlag != null">  
+	            and DEL_FLAG = #{delFlag, jdbcType=INTEGER}
+	        </if>
+	    </trim>
+   	</sql>
+   	
+  	<sql id="update_set_clause">
+  		<trim prefix="set UPDATE_DATE = now()," suffixOverrides=","> 
+	        <if test="userId !=null">  
+	            USER_ID = #{userId, jdbcType=INTEGER},
+	        </if>
+	        <if test="tags !=null and tags != ''">  
+	            TAGS = #{tags, jdbcType=VARCHAR},
+	        </if>
+	        <if test="name !=null and name != '' ">  
+	            NAME = #{name, jdbcType=VARCHAR},
+	        </if>
+	        <if test="introduce !=null and introduce != '' ">  
+	            INTRODUCE = #{introduce, jdbcType=VARCHAR},
+	        </if>
+	         <if test="stage !=null">  
+	            STAGE = #{stage, jdbcType=INTEGER},
+	        </if>
+	        <if test="teamCount !=null">  
+	            TEAM_COUNT = #{teamCount, jdbcType=INTEGER},
+	        </if>
+	        <if test="province !=null and province != '' ">  
+	            PROVINCE = #{province, jdbcType=VARCHAR},
+	        </if>
+	        <if test="city !=null and city != '' ">  
+	            CITY = #{city, jdbcType=VARCHAR},
+	        </if>
+	        <if test="videoUrl !=null and videoUrl != '' ">  
+	            VIDEO_URL = #{videoUrl, jdbcType=VARCHAR},
+	        </if>
+	        <if test="content !=null and content != '' ">  
+	            CONTENT = #{content, jdbcType=VARCHAR},
+	        </if>
+	        <if test="imgCf !=null and imgCf != '' ">  
+	            IMG_CF = #{imgCf, jdbcType=VARCHAR},
+	        </if>
+	        <if test="imgZf !=null and imgZf != '' ">  
+	            IMG_ZF = #{imgZf, jdbcType=VARCHAR},
+	        </if>
+	        <if test="img !=null and img != '' ">  
+	            IMG = #{img, jdbcType=VARCHAR},
+	        </if>
+	        <if test="progress !=null">  
+	            PROGRESS = #{progress, jdbcType=INTEGER},
+	        </if>
+	        <if test="verifyStatus !=null">  
+	            VERIFY_STATUS = #{verifyStatus, jdbcType=INTEGER},
+	        </if>
+	        <if test="itemType !=null">  
+	            ITEM_TYPE = #{itemType, jdbcType=INTEGER},
+	        </if>
+	        <if test="delFlag !=null">  
+	            DEL_FLAG = #{delFlag, jdbcType=INTEGER},
+	        </if>
+   		</trim>
+  	</sql>
+  	
+  	<select id="listFull" resultMap="FullBaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+   		select  <include refid="full_columns" /> 
+   		from item left join item_finance on(item.ID = item_finance.ITEM_ID) 
+   		<include refid="query_where_clause"/>
+   		<include refid="orderby_clause"/>
+  	</select>
+  	
+  	<select id="findFull" resultMap="FullBaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter" >
+  		select <include refid="full_columns"/>
+        from item left join item_finance on(item.ID = item_finance.ITEM_ID) 
+        <include refid="query_where_clause"/>
+        <include refid="orderby_clause"/>
+        limit 1
+  	</select>
+  
+  	<select id="listPaginationFull" resultMap="FullBaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+		select <include refid="full_columns"/>
+		from item left join item_finance on(item.ID = item_finance.ITEM_ID) 
+		<include refid="query_where_clause"/>
+		<include refid="orderby_clause"/>
+		<include refid="PAGINATION.MYSQL_PAGINATION" />
+  	</select>
+  	
+  	<select id="countFull" resultType="java.lang.Integer" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+  		select count(1)
+        from item left join item_finance on(item.ID = item_finance.ITEM_ID) 
+       	<include refid="query_where_clause"/>
+   	</select>
+  	
+	<insert id="insert" parameterType="com.fengduo.bee.model.entity.Item" useGeneratedKeys="true" keyProperty="id" keyColumn="ID" >
+	   	insert into <include refid="table_name" /> (<include refid="table_columns_without_id"/>)
+        values ( now(), now(),
+        		#{userId,jdbcType=INTEGER},
+                #{tags,jdbcType=VARCHAR},
+                #{name,jdbcType=VARCHAR},
+                #{introduce,jdbcType=VARCHAR},
+                #{stage,jdbcType=INTEGER},
+                #{teamCount,jdbcType=INTEGER},
+                #{province,jdbcType=VARCHAR},
+                #{city,jdbcType=VARCHAR},
+                #{videoUrl,jdbcType=VARCHAR},
+                #{content,jdbcType=VARCHAR},
+                #{imgCf,jdbcType=VARCHAR},
+                #{imgZf,jdbcType=VARCHAR},
+                #{img,jdbcType=VARCHAR},
+                #{progress,jdbcType=INTEGER},
+                #{isCompany,jdbcType=INTEGER},
+                #{companyName,jdbcType=VARCHAR},
+                #{resgisterCaptial,jdbcType=FLOAT},
+                #{employee,jdbcType=INTEGER},
+                #{verifyStatus,jdbcType=INTEGER},
+                #{verifyDate,jdbcType=TIMESTAMP},
+                #{itemType,jdbcType=INTEGER},
+                0
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+            SELECT last_insert_id() as id
+        </selectKey> 
+   	</insert>
+  		
+  	<select id="list" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+   		select  <include refid="columns" /> 
+   		from <include refid="table_name" /> 
+   		<include refid="query_where_clause"/>
+   		<include refid="orderby_clause"/>
+  	</select>
+  	
+  	<select id="find" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter" >
+  		select <include refid="columns"/>
+        from <include refid="table_name" />
+        <include refid="query_where_clause"/>
+        <include refid="orderby_clause"/>
+        limit 1
+  	</select>
+  
+  	<select id="listPagination" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+		select <include refid="columns"/>
+		from <include refid="table_name" /> 
+		<include refid="query_where_clause"/>
+		<include refid="orderby_clause"/>
+		<include refid="PAGINATION.MYSQL_PAGINATION" />
+  	</select>
+  	
+  	<select id="count" resultType="java.lang.Integer" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+  		select count(1)
+        from <include refid="table_name" />  
+       	<include refid="query_where_clause"/>
+   	</select>
+  	
+   	<update id="update" parameterType="com.fengduo.bee.model.entity.Item">
+   		update <include refid="table_name" /> 
+       	<include refid="update_set_clause"/>
+       	<include refid="update_where_clause"/>
+  	</update>
+  	
+  	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Number" >
+  		select <include refid="columns" /> 
+  		from <include refid="table_name" /> 
+  		where ID = #{id,jdbcType=INTEGER} AND DEL_FLAG = 0
+  	</select>
+  
+   	<update id="updateById" parameterType="com.fengduo.bee.model.entity.Item">
+   		update <include refid="table_name" /> 
+   		<include refid="update_set_clause"/>
+	    where ID = #{id,jdbcType=INTEGER}
+  	</update>
+  	
+  	<delete id="deleteById" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where ID = #{id,jdbcType=INTEGER}
+  	</delete>
+   	
+  	<delete id="deleteByUserId" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where USER_ID = #{userId,jdbcType=INTEGER}
+  	</delete>
+</mapper>

@@ -1,0 +1,23 @@
+<link href="/static/css/news.css" rel="stylesheet">
+<link href="/static/css/mycommon.css" rel="stylesheet">
+
+<style type="text/css">
+    .news-detail span{
+        font-weight: normal;
+    }
+</style>
+
+<div class="wrap">
+    <div class="news-content clearfix">
+        
+        $widget.setTemplate("cms/nav").addParam('name',$!{name})
+        
+        <div class="news-r">
+            <div class="news-detail">
+                <p class="MsoNormal">
+                	平台协议
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

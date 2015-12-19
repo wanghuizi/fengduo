@@ -1,0 +1,2 @@
+/* @update: 2015-3-19 15:41:41 */ 
+function tab(){var a=$(".tabs-wrap").find("li"),s=$(".J-details-infos");a.click(function(){$(".tabs-wrap").find("a").removeClass("cur"),s.css("display","none");var a=$(this).index();$(this).find("a").addClass("cur"),s.eq(a).css("display","block")})}tab();

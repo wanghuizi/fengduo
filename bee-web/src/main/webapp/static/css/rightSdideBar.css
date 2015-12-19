@@ -1,0 +1,17 @@
+.s-l-low{}
+.stake-details .col-right .s-l-low{background:url(../images/item01.png);background-repeat:no-repeat;margin-bottom: 20px;}
+.stake-details .col-right .s-l-nub{margin-bottom: 20px;}
+.stake-details .col-right .s-l-p-text{font-size: 14px;}
+.stake-details .col-right .s-l-p-text i{font-style:normal;font-weight:bold;color:#c35308;}
+.stake-details .col-right .s-l-d-text{padding-left: 120px;}
+.cor_t{color: #ff6454;font-style:normal;}
+.s-l-d-text-ul{padding-left: 0px;margin: 0px;padding-left: 120px;}
+.s-l-d-text-ul li{padding-left: 0px;margin: 0px;list-style-type:none;line-height: 20px;text-overflow: ellipsis;}
+.s-l-d-text-ul li.text_ul_btn,.s-l-d-text-ul li.text_ul_btn_t{/*background: #ff6454;*/-webkit-border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;border-radius: 5px;text-align: center;margin:15px 0px 0px 0px;}
+.s-l-d-text-ul li.text_ul_btn a,.s-l-d-text-ul li.text_ul_btn_t a{height: 40px;line-height: 40px;cursor: pointer;display: inline-block;color: #fff;font-size: 16px;display:block;}
+.s-l-d-text-ul li.text_ul_btn_t{margin-bottom: 20px;}
+.s-l-d-text-ul a{color: #7aa7ff;}
+.lightgreen {color: #2651a6;}
+.gray{background-color:#ccc;}
+.red{background: #ff6454;}
+.holder {position: absolute; left: 60px; top: 7px; width: 100px; height: 100px; }

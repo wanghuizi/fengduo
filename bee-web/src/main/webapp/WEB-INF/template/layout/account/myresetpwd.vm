@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<title>修改我的个人密码 - 股权众筹 蜂朵金融互联网理财综合服务平台！</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<meta http-equiv="Cache-Control" content="no-store" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		
+		<link href="/static/css/base.css" rel="stylesheet">
+		<link href="/static/css/mycommon.css" rel="stylesheet" type="text/css" >
+		
+		<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+		<script src="/static/layer/layer.js"></script>
+		<script src="/static/fengduo/extends.js"></script>
+	</head>
+	<body>
+		#parse("/widget/common/myheader.vm")
+		
+		$body
+		
+		#parse("/widget/common/myfooter.vm")
+	</body>
+</html>

@@ -1,0 +1,584 @@
+<link href="/static/css/startProject.css" rel="stylesheet">
+<link href="/static/css/base.css" rel="stylesheet">
+<link href="/static/css/alert.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/static/simditor/simditor.css" />
+
+<script type="text/javascript" src="/static/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.js"></script>
+
+<script type="text/javascript" src="/static/js/alter.js"></script>
+<script type="text/javascript" src="/static/simditor/module.js"></script>
+<script type="text/javascript" src="/static/simditor/hotkeys.js"></script>
+<script type="text/javascript" src="/static/simditor/uploader.js"></script>
+<script type="text/javascript" src="/static/simditor/simditor.js"></script>
+
+<script type="text/javascript" src="/static/jquery/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.fileupload.js"></script>
+
+##错误提示信息
+$widget.setTemplate("common/errorTips").addParam('errMsg',$!{errMsg})
+
+<div class="gq-forms-tips">
+    <div class="gq-forms">
+        <div class="gq-form">
+            <ul class="steps">
+                <li class="step">项目信息<span class="line"></span></li>
+                <li class="step">融资信息<span class="line"></span></li>
+                <li class="step cur">成员信息<span class="line"></span></li>
+                <li class="step">确认完成<span class="line"></span></li>
+            </ul>
+
+            <form action="$!postUrl" method="post" id="frm"> 
+            	<input type="hidden" name="itemId" id="projectId" value="$!itemId">
+            	<input type="hidden" name="flag" id="flag" value="">
+                <div class="infos-lists">
+                    <p class="infos-tit"><i class="memberinfos-icons"></i>团队成员信息</p>
+                    <div id="actionAppend">
+                    #if($!{itemMemberList.size()} == 0)
+                        <input type="hidden" name="teamImg" id="teamImg0" value="">
+                        <input type="hidden" name="ptId" id="ptId0" value="">
+                        <input type="hidden" name="editTag" id="editTag0" value="0">
+                        <input type="hidden" name="teamNames" id="teamNames0" value="">
+                        <input type="hidden" name="teamTitles" id="teamTitles0" value="">
+                        <input type="hidden" name="teamIntroduces" id="teamIntroduces0" value="">
+                        <div class="add-member mt25" node-type="un-ready" id="div0">
+                            <div class="add" node-type="add" style="display:block;">
+                                <div class="editor-infos-btn" node-type="editor">
+                                    <a href="javascript:saveTeam(0);" node-type="j_confirm" style="visibility:visible">确定</a>
+                                </div>
+                                <div class="add-member-infos fl">
+                                    <div class="add-member-btn upload-btn upload-btn-L pr">
+                                        <img id="pti_Img0" src="" width="100" height="100" title="">
+                                        <input id="upload_teamImg0" class="type-file" style="height:100px" name="upload" type="file" data-url="/upload?type=item" multiple="">
+                                        <p class="upload-tips">头像100*100</p>
+                                    </div>
+                                    <div id="divPti_Img0" style="display: none">
+                                        
+                                    </div>
+                                    <div class="add-member-text">
+                                        <input type="text" class="ui-input ui-input-XM" name="teamName" maxlength="60" id="teamName0" value="" placeholder="姓名" node-type="i-name">
+                                        <input type="text" class="ui-input ui-input-XM" name="teamTitle" maxlength="40" id="teamTitle0" value="" placeholder="职位" node-type="i-position">
+                                    </div>
+                                </div>
+                                <div class="add-member-intro fl">
+                                    <div class="v-line"></div>
+                                    <textarea class="intro-textarea ml15 mt10" name="teamIntroduce" id="teamIntroduce0" placeholder="个人简介" node-type="t-intro"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    #else
+                    #foreach($member in $!{itemMemberList})
+                    	<input type="hidden" name="tindex" id="tindex" value="$velocityCount">
+					    <input type="hidden" name="teamImg" id="teamImg$velocityCount" value="$!{member.avatar}">
+					    <input type="hidden" name="ptId" id="ptId$velocityCount" value="$!{member.id}">
+					    <input type="hidden" name="editTag" id="editTag$velocityCount" value="1">
+					    <input type="hidden" name="teamNames" id="teamNames$velocityCount" value="$!{member.name}">
+					    <input type="hidden" name="teamTitles" id="teamTitles$velocityCount" value="$!{member.title}">
+					    <input type="hidden" name="teamIntroduces" id="teamIntroduces$velocityCount" value="$!{member.memo}">
+					    <div class="add-member mt25" node-type="un-ready" id="div$velocityCount">
+					        <div class="show" node-type="show" style="display:block;">
+					            <div class="editor-infos-btn" node-type="editor">
+					                <a href="javascript:updateTeam('$velocityCount');" node-type="j_edit" style="visibility:visible">编辑</a>
+					                <a href="javascript:deleteTeam('$velocityCount');" node-type="j_del" style="visibility:visible">删除</a>
+					            </div>
+					            <div class="add-member-infos fl">
+					                <div class="upload-pic fl">
+					                    <img src="$!{member.avatar}" width="100" height="100"></div>
+					                <div class="add-member-text">
+					                    <div class="show-info">
+					                        <p class="show-name" node-type="show-name">$!{member.name}</p>
+					                        <p class="show-position" node-type="show-position">$!{member.title}</p></div></div></div>
+					            <div class="add-member-intro fl">
+					                <div class="v-line"></div>
+					                <div class="intro-text ml15 mt10" node-type="show-intro">$!{member.memo}</div>
+					            </div>
+					        </div>
+					     </div>
+                    #end
+                    #end  
+                    </div>
+                    <a href="javascript:addTeam();" class="add-btn fl" node-type="addBtn">添加成员</a>
+                </div>
+            </form>
+        </div>
+        
+        <div class="gq-submit">
+            <input type="button" class="ui-button ui-button-M" value="上一步" onclick="before();">
+            <!--<input type="button" class="ui-button ui-button-M" value="保存草稿" onclick="saveSponsorRough();">-->
+            <input type="button" class="ui-button ui-button-M" value="提交" onclick="saveSponsor();">
+        </div>
+    </div>
+    <div class="gq-tips">
+        <h4 class="xts-tips">小贴士：</h4>
+        <ol class="xts-lists">
+            <li>1.填写项目信息有哪些要求吗?<br><br>
+                答：对于必填选项，融资人应据实完整填写，对于选填选项应当据实尽量填写，建议信息填写完整度不低于80%。
+            </li>
+            <li>2.上传项目中项目标签有什么重要性呢？<br><br>
+                答：项目标签直接体现行业属性，精准的标签分类便于为您推荐更专业的接洽人。
+            </li>
+            <li>3.一定要上传我的商业计划书吗？<br><br>
+                答：优秀商业计划书能提升项目价值，提高审核通过率。
+            </li>
+            <li>4.对项目预计融资金额有什么要求吗？<br><br>
+                答：合理的预计融资金额可对项目审核期待积极作用。
+            </li>
+            <li>5.上传项目信息后要想修改了怎么办？<br><br>
+                答：信息通过审核后不能修改，请反复确认填写信息的准确度，这样才能确保项目上传成功哦。
+            </li>
+        </ol>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        'use strict';
+        var url = '/upload?type=item?temp='+ new Date().getTime();
+        var dataType='html';
+        imgFileupload(dataType,0);
+
+
+        $("#sendbtn").live("click", function() {
+            creatMask.hide();
+            var textValue = $(".popwin").find("textarea").val();
+            $(".popwin").remove();
+        });
+    });
+    function saveSponsor(){
+        //if( check()){
+        //    $("#flag").attr("value","100")
+        //    $("#frm").submit();
+        //}
+        $("#frm").submit();
+    }
+    function saveSponsorRough(){
+        if( check()){
+            $("#flag").attr("value","0")
+            $("#frm").submit();
+        }
+    }
+    function before(){
+        var projectId=$("#projectId").val();
+        var url="/item/finance/edit/"+projectId;
+        document.location.href=url;
+    }
+    function check(){
+        var realName = $.trim($("input[name='realName']").val());
+        var email = $.trim($("input[name='email']").val());
+        var phone = $.trim($("input[name='phone']").val());
+        var type = $("input[name='type']").val();
+        var cc=true;
+        var jumpflag=0;
+        var winHeight = document.documentElement.clientHeight;
+
+        $("#err_realName").html('');
+        if(realName==''){
+            $("#err_realName").html('请填写真实姓名.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_realName").height();
+                    $("html,body").animate({scrollTop: $("#err_realName").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        $("#err_email").html('');
+        if(email==''){
+            $("#err_email").html('请填写邮箱.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_email").height();
+                    $("html,body").animate({scrollTop: $("#err_email").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        if(!isEmail(email)){
+            $("#err_email").html('请填写正确的邮箱.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_email").height();
+                    $("html,body").animate({scrollTop: $("#err_email").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        $("#err_phone").html('');
+        if(phone==''){
+            $("#err_phone").html('请填写联系电话.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_phone").height();
+                    $("html,body").animate({scrollTop: $("#err_phone").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        if(!isMobile(phone)){
+            $("#err_phone").html('请填写正确的电话号.');
+            if(jumpflag==0){
+                setTimeout(function () {
+                    var objH = $("#err_phone").height();
+                    $("html,body").animate({scrollTop: $("#err_phone").offset().top-(winHeight - objH) / 2+ "px"}, 1000);
+                }, 200)
+                jumpflag=1;
+            }
+            cc= false;
+        }
+        if(jumpflag==1){
+            return false;
+        }
+        return true;
+    }
+    //验证手机号
+    function isMobile(text){
+        return ( /^(((13|15|17|18[0-9]{1}))+\d{8})/.test(text));
+    }
+    //验证email
+    function isEmail(text){
+        return (/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(text));
+    }
+    function saveTeam(i){
+        var teamImg = $.trim($("#teamImg"+i).val());
+        var teamName = $.trim($("#teamName"+i).val());
+        var teamTitle = $.trim($("#teamTitle"+i).val());
+        var teamIntroduce = $.trim($("#teamIntroduce"+i).val());
+        var projectId = $.trim($("#projectId").val());
+        var ptId = $.trim($("#ptId"+i).val());
+        if(teamImg == ""){
+            var btns = '<div class="submit t-center">' +
+                    '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                    '</div>';
+            var json = {
+                "text":"团队成员头像不能为空!",
+                "btns":btns
+            };
+            openWin(json);
+            return;
+        }
+        if(teamName == ""){
+            var btns = '<div class="submit t-center">' +
+                    '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                    '</div>';
+            var json = {
+                "text":"团队成员姓名不能为空!",
+                "btns":btns
+            };
+            openWin(json);
+            return;
+        }
+        if(teamName.length > 60){
+            var btns = '<div class="submit t-center">' +
+                    '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                    '</div>';
+            var json = {
+                "text":"团队成员姓名不能大于60个字符！",
+                "btns":btns
+            };
+            openWin(json);
+            return;
+        }
+        if(teamTitle == ""){
+            var btns = '<div class="submit t-center">' +
+                    '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                    '</div>';
+            var json = {
+                "text":"团队成员职位不能为空!",
+                "btns":btns
+            };
+            openWin(json);
+            return;
+        }
+        if(teamTitle.length > 40){
+            var btns = '<div class="submit t-center">' +
+                    '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                    '</div>';
+            var json = {
+                "text":"团队成员职位不能大于40个字符!",
+                "btns":btns
+            };
+            openWin(json);
+            return;
+        }
+        if(teamIntroduce == ""){
+            var btns = '<div class="submit t-center">' +
+                    '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                    '</div>';
+            var json = {
+                "text":"团队成员简介不能为空!",
+                "btns":btns
+            };
+            openWin(json);
+            return;
+        }
+        if(teamIntroduce.length > 300){
+            var btns = '<div class="submit t-center">' +
+                    '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                    '</div>';
+            var json = {
+                "text":"团队成员简介不能大于300个字符！",
+                "btns":btns
+            };
+            openWin(json);
+            return;
+        }
+        $.ajax({
+            url: "/item/member",
+            type: "post",
+            data: {teamImg:teamImg, teamName:teamName, teamTitle:teamTitle, teamIntroduce:teamIntroduce, ptId:ptId, projectId:projectId},
+            dataType: "json",
+            scriptCharset: "utf-8",
+            error: function(){
+                var btns = '<div class="submit t-center">' +
+                        '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                        '</div>';
+                var json = {
+                    "text":"保存失败!",
+                    "btns":btns
+                };
+                openWin(json);
+            },
+            success: function(data){
+                if(data != null && data.isSuccess){
+                    var btns = '<div class="submit t-center">' +
+                            '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                            '</div>';
+                    var json = {
+                        "text":"保存成功!",
+                        "btns":btns
+                    };
+                    openWin(json);
+                    var teamName = $.trim($("#teamName"+i).val());
+                    var teamTitle = $.trim($("#teamTitle"+i).val());
+                    var teamIntroduce = $.trim($("#teamIntroduce"+i).val());
+                    var temp = '<div class="show" node-type="show" style="display:block;"><div class="editor-infos-btn" node-type="editor"><a href="javascript:updateTeam('+i+');" node-type="j_edit" style="visibility:visible">编辑</a><a href="javascript:deleteTeam('+i+');" node-type="j_del" style="visibility:visible">删除</a></div><div class="add-member-infos fl"><div class="upload-pic fl"><img src="'+teamImg+'" width="100" height="100"/></div><div class="add-member-text"><div class="show-info"><p class="show-name" node-type="show-name">'+teamName+'</p><p class="show-position" node-type="show-position">'+teamTitle+'</p></div></div></div><div class="add-member-intro fl"><div class="v-line"></div><div class="intro-text ml15 mt10" node-type="show-intro">'+teamIntroduce+'</div></div></div>';
+                    $("#div"+i).html(temp);
+                    $("#ptId"+i).attr("value",data.code);
+                    $("#editTag"+i).attr("value","1");
+                    $("#teamImg"+i).attr("value",teamImg);
+                    $("#teamNames"+i).attr("value",teamName);
+                    $("#teamTitles"+i).attr("value",teamTitle);
+                    $("#teamIntroduces"+i).attr("value",teamIntroduce);
+                }else{
+                    var btns = '<div class="submit t-center">' +
+                            '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                            '</div>';
+                    var json = {
+                        "text":data.info,
+                        "btns":btns
+                    };
+                    openWin(json);
+                }
+            }
+        });
+    }
+    function updateTeam(i){
+        var ptId = $.trim($("#ptId"+i).val());
+        var teamName = $.trim($("#teamNames"+i).val());
+        var teamTitle = $.trim($("#teamTitles"+i).val());
+        var teamIntroduce = $.trim($("#teamIntroduces"+i).val());
+        var teamImg = $.trim($("#teamImg"+i).val());
+        var temp =  '<div class="add" node-type="add" style="display:block;">' +
+                    '<div class="editor-infos-btn" node-type="editor">' +
+                    '<a href="javascript:saveTeam('+i+');" node-type="j_confirm" style="visibility:visible">确定</a>' +
+                    '</div><div class="add-member-infos fl">' +
+                    '<div class="add-member-btn upload-btn upload-btn-L pr">' +
+                    '<img id="pti_Img'+i+'" src="'+teamImg+'" width="100" height="100" title=""/>'+
+                    '<input id="upload_teamImg'+i+'" class="type-file" style="height:100px" name="upload" type="file" data-url="/upload?type=item" multiple="">' +
+                    '<p class="upload-tips">头像100*100</p></div><div id="divPti_Img'+i+'" style="display: none"></div>' +
+                    '<div class="add-member-text">' +
+                    '<input type="text" class="ui-input ui-input-XM" name="teamName" id="teamName'+i+'" value="'+teamName+'" placeholder="姓名" node-type="i-name"/>' +
+                    '<input type="text" class="ui-input ui-input-XM" name="teamTitle" id="teamTitle'+i+'" value="'+teamTitle+'" placeholder="职位" node-type="i-position"/></div></div>' +
+                    '<div class="add-member-intro fl"><div class="v-line">' +
+                    '</div><textarea class="intro-textarea ml15 mt10" name="teamIntroduce" id="teamIntroduce'+i+'" placeholder="个人简介" node-type="t-intro">'+teamIntroduce+'</textarea></div></div>'
+                    $("#div"+i).html(temp);
+                    // 编辑状态
+                    $("#editTag"+i).attr("value","0");
+                     imgFileupload("",i);
+                   // $('#upload_teamImg'+i).parent().css('background-image', 'url('+teamImg+')');
+    }
+    function deleteTeam(i){
+        var ptId = $.trim($("#ptId"+i).val());
+        var projectId = $.trim($("#projectId").val());
+        $.ajax({
+            url: "/member/delete",
+            type: "post",
+            data: {ptId:ptId, projectId:projectId},
+            dataType: "json",
+            scriptCharset: "utf-8",
+            error: function(){
+                var btns = '<div class="submit t-center">' +
+                        '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                        '</div>';
+                var json = {
+                    "text":"删除失败!",
+                    "btns":btns
+                };
+                openWin(json);
+            },
+            success: function(data){
+                if(data != null && data.isSuccess){
+                    var btns = '<div class="submit t-center">' +
+                            '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                            '</div>';
+                    var json = {
+                        "text":"删除成功!",
+                        "btns":btns
+                    };
+                    openWin(json);
+                    $("#div"+i).remove();
+                }
+            }
+        });
+    }
+    var index=$("#tindex").val();
+    if(index==""||index==null){
+        var i = 1;
+    }else{
+       // var i = $tindex+1;
+       var i = index+1;
+    }
+    function addTeam(){
+        // 检查是否有编辑对象
+        var editTag = $("input[name='editTag']");
+        for (var a = 0; a < editTag.length; a++) {
+            if(editTag[a].value == 0){
+                var btns = '<div class="submit t-center">' +
+                        '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                        '</div>';
+                var json = {
+                    "text":"存在编辑对象，先保存再添加团队成员!",
+                    "btns":btns
+                };
+                openWin(json);
+                return;
+            }
+        };
+        if(i> 15){
+            var btns = '<div class="submit t-center">' +
+                    '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                    '</div>';
+            var json = {
+                "text":"团队成员只允许添加15个!",
+                "btns":btns
+            };
+            openWin(json);
+            return;
+        }
+        adddiv(i);
+        i++;
+    }
+    function adddiv(i){
+        var hm = '<input type="hidden" name="teamImg" id="teamImg'+i+'" value=""/> ' +
+                '<input type="hidden" name="ptId" id="ptId'+i+'" value=""/>' +
+                '<input type="hidden" name="editTag" id="editTag'+i+'" value="0"/>' +
+                '<input type="hidden" name="teamNames" id="teamNames'+i+'" value=""/>' +
+                 '<input type="hidden" name="teamTitles" id="teamTitles'+i+'" value=""/>' +
+                '<input type="hidden" name="teamIntroduces" id="teamIntroduces'+i+'" value=""/>' +
+                '<div class="add-member mt25" node-type="un-ready" id="div'+i+'">' +
+                '<div class="add" node-type="add" style="display:block;">' +
+                '<div class="editor-infos-btn" node-type="editor">' +
+                '<a href="javascript:saveTeam('+i+');" node-type="j_confirm" style="visibility:visible">确定</a></div>' +
+                '<div class="add-member-infos fl">' +
+                '<div class="add-member-btn upload-btn upload-btn-L pr">' +
+                '<img id="pti_Img'+i+'" src="" width="100" height="100">' +
+                '<input id="upload_teamImg'+i+'" class="type-file" style="height:100px" name="upload" type="file" data-url="/upload?type=item" multiple="">' +
+                '<p class="upload-tips">头像100*100</p></div>' +
+                '<div id="divPti_Img'+i+'" style="display: none">' +
+               /* '<img id="pti_Img'+i+'" src="" width="100px" height="100px" title=""/>*/'</div>' +
+                 '<div class="add-member-text">' +
+                 '<input type="text" class="ui-input ui-input-XM" name="teamName" id="teamName'+i+'" value="" placeholder="姓名" node-type="i-name"/>' +
+                ' <input type="text" class="ui-input ui-input-XM" name="teamTitle" id="teamTitle'+i+'" value="" placeholder="职位" node-type="i-position"/></div></div>' +
+                '<div class="add-member-intro fl">' +
+               '<div class="v-line"></div>' +
+                '<textarea class="intro-textarea ml15 mt10" name="teamIntroduce" id="teamIntroduce'+i+'" placeholder="个人简介" node-type="t-intro"></textarea></div></div></div>';
+               $("#actionAppend").append(hm);
+              imgFileupload("",i);
+    }
+    function imgFileupload(dataType,btnId){
+        $('#upload_teamImg'+btnId).fileupload({
+            dataType:'html',
+            done: function (e, data) {
+                var json=$.parseJSON(data.result);
+                if (json.url==undefined || json.url==null || json.code==1){
+                    var btns = '<div class="submit t-center">' +
+                                '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                                '</div>';
+                    var json = {
+                        "text":"上传失败:"+json.message+"!",
+                        "btns":btns
+                    };
+                    openWin(json);
+                    return;
+                }
+                if (json.code==0){
+                    $("#pti_Img"+btnId).attr("src",json.url);
+                    $("#teamImg"+btnId).val(json.url);
+                    var btns = '<div class="submit t-center">' +
+                            '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                            '</div>';
+                    var json = {
+                        "text":"上传成功!",
+                        "btns":btns
+                    };
+                    openWin(json);
+                    return;
+                }
+            },
+            error:function(e,data){
+                var json=data.result;
+                try{
+                    json=$.parseJSON(data.result);
+                }catch (err){
+                    json= e.responseText;
+                    if (json==null || json==undefined){
+                        var btns = '<div class="submit t-center">' +
+                                '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                                '</div>';
+                        var json = {
+                            "text":"上传失败!",
+                            "btns":btns
+                        };
+                        openWin(json);
+                        return;
+                    }
+                    json=json.substring(0,json.length-64);
+                    json=$.parseJSON(json);
+                }
+                if (json.code==0){
+                    $("#pti_Img"+btnId).attr("src",json.url);
+                    $("#teamImg"+btnId).val(json.url);
+                    var btns = '<div class="submit t-center">' +
+                            '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                            '</div>';
+                    var json = {
+                        "text":"上传成功!",
+                        "btns":btns
+                    };
+                    openWin(json);
+                }else{
+                    var btns = '<div class="submit t-center">' +
+                            '<input type="button" id="sendbtn" class="subbtn confirm" value="确定"/>' +
+                            '</div>';
+                    var json = {
+                        "text":"上传失败:"+json.message+"!",
+                        "btns":btns
+                    };
+                    openWin(json);
+                }
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+            }
+        }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+    }
+</script>

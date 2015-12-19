@@ -1,0 +1,70 @@
+<link href="/static/css/forgetpwd.css" rel="stylesheet" type="text/css" >
+<link href="/static/css/mycommon.css" rel="stylesheet" type="text/css" >
+
+$widget.setTemplate("common/errorTips").addParam('errMsg',$!{errMsg})
+
+<div class="wrap">
+	<div class="forget-password">
+	  <div class="forget_form">
+	  	<h5 class="clearfix">忘记密码</h5>
+	  	<form method="post" action="/findpwd" name="forgetForm" autocomplete="off">
+	  		<input type="text" placeholder="输入手机号" name="mobile" > 
+	  		       
+	  		<p class="verifity-code clearfix">
+	          <input type="text" name="verify" placeholder="请输入图形验证码">
+	          <img onclick="this.src='/verify/code?t='+new Date().getTime()" src="/verify/code">
+	        </p>
+	        
+	  		<p class="verifity-code clearfix">
+	  		  <input type="text" placeholder="手机验证码" name="code" >
+	  		  <a id="getValid" href="javascript:;">发送验证码</a>
+	  		</p>
+	  		
+	  		<a href="javascript:;" type="submit" class="a-register-btn">确定</a>
+	  	</form>
+	  </div>
+    </div>
+</div>
+
+<script>
+//找回密码提交
+$(".a-register-btn").click(function () {
+    var mobile = $("input[name='mobile']").val(),
+        code = $("input[name='code']").val(),
+        verify = $("input[name='verify']").val();
+    if(mobile==""){
+        $.tips("请输入手机号",$("input[name='mobile']"),2000);
+        return;
+    }else if(!(/^1[3|4|5|7|8][0-9]\d{8}$/.test(mobile))){
+        $.tips("请输入正确的手机号",$("input[name='mobile']"),2000);
+        return;
+    } 
+    if(code==""){
+        $.tips("请输入您的手机验证码",$("input[name='code']"),2000);
+        return;
+    }
+    if(verify==""){
+        $.tips("请输入图片验证码",$("input[name='verify']"),2000);
+        return;
+    }       
+    $("form[name='forgetForm']").get(0).submit();
+});
+$(function(){
+	$('#getValid').click(function(){
+		var phone = $("input[name='mobile']").val();
+		if(phone == ''){
+			$.tips("请输入手机号",$("input[name='mobile']"),2000);
+        	return;
+		}else if(!(/^1[3|4|5|7|8][0-9]\d{8}$/.test(phone))){
+	        $.tips("请输入正确的手机号",$("input[name='mobile']"),2000);
+	        return;
+	    }else{
+    		$.get("/findPwdSms?phone=" + phone,function(res){
+				$.tips(res.message,$("input[name='mobile']"),2000);
+        		return;
+			})
+		}
+	})
+})
+</script>
+

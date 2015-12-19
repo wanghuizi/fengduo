@@ -1,0 +1,38 @@
+<link href="/static/css/forgetpwd.css" rel="stylesheet" type="text/css" >
+<link href="/static/css/mycommon.css" rel="stylesheet" type="text/css" >
+
+$widget.setTemplate("common/errorTips").addParam('errMsg',$!{errMsg})
+
+<div class="wrap">
+	<div class="forget-password">
+	  <div class="forget_form">
+	  	<h5 class="clearfix">重设密码</h5>
+	  	<form method="post" action="/resetpwd" name="resetPassword" autocomplete="off">
+	        <input type="password" name="password" placeholder="输入密码">        
+		  	<input type="password" name="confirmPwd" placeholder="再次输入密码"> 	  		
+		  	<a href="javascript:;" type="submit" class="a-register-btn">确定</a>
+	  	</form>
+	  </div>
+    </div>
+</div>
+
+<script>
+//重置密码提交
+$(".a-register-btn").click(function () {
+    var password = $("input[name='password']").val(),
+        confirmPwd = $("input[name='confirmPwd']").val();
+    if(password==""){
+        $.tips("请输入密码",$("input[name='password']"),2000);
+        return;
+    }
+    if(confirmPwd==""){
+        $.tips("请输入确认密码",$("input[name='confirmPwd']"),2000);
+        return;
+    }
+    if(password!=confirmPwd){
+        $.tips("两次密码不一致,请重新输入",$("input[name='confirmPwd']"),2000);
+        return;
+    }
+    $("form[name='resetPassword']").get(0).submit();
+});
+</script>

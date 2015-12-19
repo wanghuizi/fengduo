@@ -1,0 +1,86 @@
+
+<!--public js&css start-->
+<link href="/static/css/yuanshihui/base.css?v=20150309" rel="stylesheet" type="text/css">
+<link href="/static/css/yuanshihui/common.css?v=20150309" rel="stylesheet" type="text/css">
+
+
+<link rel="stylesheet" type="text/css" href="http://istatic.yuanshihui.com/angelpc/v3/static/css/cashier.css?v=20150309">
+<div class="wrap-1024">
+    <div class="cashier" id="cashier">
+        <div class="cashier-top cashier-top2">
+            <div class="dd-top clearfix">
+                <div class="cashier-info">
+                    <h2>$!{item.name}</h2>
+                    <p>$!{item.introduce}</p>
+                </div>
+               
+                <div class="d-r">
+                    <span>投资金额<em><span id="js-zt-money" style="color: #f63;font-weight: bolder;">$!{sub.subAmount}</span></em>万元</span>
+                </div>
+                
+                <input type='hidden' name='order_id' value="4294">
+            </div>
+            <ul class="cashier-hd clearfix" id="Js-switch-tab">
+                <li class="selected" data-id="Js-switch-online">线上支付</li>
+                <li id="id_switch_offline" data-id="Js-switch-offline">线下支付</li>
+                <div class="cashier-order cashier-order2"><em>订单号</em>：<span id="js-order-num">$!{order.orderNo}</span></div>
+            </ul>
+            <!--线上支付-->
+            <div id="Js-switch-online" class="cashier-bd Js-switch-list">
+                <ul class="cashier-imgs clearfix" id="Js-bankList">
+                                                                                                    <li class="selected"  data-id='ICBC'><i></i><span class="alibank_types bk_typeICBC"></span></li>
+                                        <li   data-id='CMB'><i></i><span class="alibank_types bk_typeCMBCHINA"></span></li>
+                                        <li   data-id='CCB'><i></i><span class="alibank_types bk_typeCCB"></span></li>
+                                        <li   data-id='ABC'><i></i><span class="alibank_types bk_typeABC"></span></li>
+                                        <li   data-id='SPDB'><i></i><span class="alibank_types bk_typeSPDB"></span></li>
+                                        <li   data-id='CEB'><i></i><span class="alibank_types bk_typeCEB"></span></li>
+                                        <li   data-id='CMBC'><i></i><span class="alibank_types bk_typeCMBC"></span></li>
+                                        <li   data-id='GDB'><i></i><span class="alibank_types bk_typeGDB"></span></li>
+                                        <li   data-id='BOC'><i></i><span class="alibank_types bk_typeBOC"></span></li>
+                                        <li   data-id='BOCOM'><i></i><span class="alibank_types bk_typeBOCO"></span></li>
+                                        <li   data-id='PSBC'><i></i><span class="alibank_types bk_typePOST"></span></li>
+                    </ul>
+                <div class="cashier-footer">
+                    <div class="cashier-money clearfix">
+                        <input class="hidden" id="orderId" value="4294"/>
+                        <a href="/pay/go/orderId/4294/bankId/ICBC" target="_blank" class="btn bg-orange" id='Js-confirmPay'>确认付款</a>
+                        <p>支付<em>¥<span id="js-zt-money">$!{order.getActualAmount2User()}</span></em>万元</p>
+                    </div>
+                </div>
+            </div>
+            <!--线下支付-->
+            <div id="Js-switch-offline" class="Js-switch-list cashier-bd hidden">
+                <div class="offline-list">
+                    <!--<ul>
+                            <li><em>收款人：</em>先锋支付有限公司客户备付金</li>
+                            <li><em>收款账号：</em>21201501200053039817</li>
+                            <li><em>开户行：</em>中国建设银行大连市分行中山支行</li>
+                    </ul>
+                    <p>保存您的订单号和交易金额。<span><a href="javascript:void(0)" class="btn" id="js-send-msg">点此发送至手机</a>（免费）</span></p> -->
+                    <p class="p-grey">为保证网上支付的安全性，各银行对用户都有不同程度的单次或者单日限额</p>
+                    <p>如您无法通过线上完成支付，可通过<span style="color: #ff6633;font-weight:bold;">线下付款</span>方式完成订单支付</p>
+
+                </div>
+            
+                <div class="cashier-footer">
+                    <div class="cashier-money clearfix">
+                        <a href="/order/offline?itemId=$!{item.id}&orderId=$!{order.id}&subId=$!{sub.id}" class="btn bg-orange js-sure-btn">确认</a>
+                        <p>支付<em>¥<span>$!{order.getActualAmount2User()}</span></em>万元</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="http://istatic.yuanshihui.com/angelpc/v3/static/js/pay.js?v=20150309"></script>
+<script>
+$(function(){
+	$('#id_switch_offline').click(function(){
+		$('#Js-switch-online').hide();
+		$('#Js-switch-offline').removeClass('hidden')
+	})
+})
+</script>
+

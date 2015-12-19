@@ -1,0 +1,115 @@
+<link href="/static/css/mycommon.css" rel="stylesheet">
+
+<div class="wrap">
+    <div class="us-content link-content">
+        <h5>关于我们</h5>
+        <p class="us_logo"><img src="http://www.lagou.com/image1/M00/10/D4/Cgo8PFT_wW-AbPX8AACgv86nFR4308.jpg"></p>
+        <div class="us-text">
+            <h6>蜂朵股权众筹平台</h6>
+            <p>致力于为投资人和创业者提供创新型投融资解决方案。作为创业者，您可以在蜂朵网平台发起项目，展示靠谱的商业计划和优秀的团队，快速聚拢资金、资源、战略伙伴。作为投资人，您可以轻松发现优质项目，分享企业成长带来的资本溢价。同时，蜂朵网提供创业及融资辅导、路演推广、宣传策划、用户教育沙龙等优质增值服务。我们真诚希望，扶持优秀的创业团队和小微企业，协助投资人控制风险、积累财富！创业和投资之路，蜂朵网携手同行。</p>
+        </div>
+    </div>
+</div>
+
+<style>
+@charset "UTF-8";
+.us-content{
+	height: 504px;
+	width: 100%;
+	background: #ffffff;
+	border-radius: 5px;
+	margin:30px 0 42px;
+}
+.us-content h5{
+	font-size: 18px;
+	color:#333333;
+	border-bottom:2px solid #eaeef1;
+	margin:0 auto;	
+	width: 960px;
+	padding:28px 0 10px;
+	font-weight: bold;
+}
+.us-content .us_logo{
+	float: left;
+	width: 496px;
+	height: 344px;
+	margin: 56px 26px 0 30px;
+}
+.us-content .us_logo img{
+	width: 496px;
+	height: 344px;
+}
+.us-content .us-text{
+	float: left;
+	width: 374px;
+	margin-top: 90px;
+}
+.us-content .us-text h6{
+	font-size: 18px;
+	color: #51b6f2;
+	font-weight: bold;
+	margin-bottom: 24px;
+}
+.us-content .us-text p{
+	font-size: 13px;
+	color:#333333;
+	line-height: 32px;
+}
+/*link us*/
+.link_logo{
+	width: 485px;
+	height: 340px;
+	border:4px solid #02be9d;
+	float: left;
+	overflow: hidden;
+	margin:44px 30px 0 32px;
+}
+.link-method{
+	margin: 60px auto;
+	width: 420px;
+	
+}
+.link-method h4{
+	font-weight: bold;
+	font-size: 15px;
+	color: #333333;
+	margin-bottom: 20px;
+	
+}
+.link-method .p01{
+	margin-bottom: 74px;
+}
+.link-method ul li{
+	margin-bottom: 10px;
+	padding-left: 34px;
+	position: relative;
+}
+.link-method ul li i{
+	display: block;
+	background: url("../images/icon/us-icon.png") no-repeat;
+	width: 14px;
+	height: 14px;
+	top:6px;
+	left:0;
+	position: absolute;
+}
+.link-method ul li i.tel{
+	background-position: 0 -25px;
+}
+.link-method ul li i.mail{
+	background-position: 0 -49px;
+}
+.link-method ul li em{
+	font-size: 20px;
+	font-weight: bold;
+}
+.link-method ul li span.p12{
+   font-size: 12px;
+   color: #333333;
+   font-weight: bold;
+}
+.link-method ul li span.p14{
+	color:#333333;
+	font-size: 14px;
+}
+</style>

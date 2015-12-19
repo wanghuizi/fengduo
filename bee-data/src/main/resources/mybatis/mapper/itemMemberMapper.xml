@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fengduo.bee.data.dao.ItemMemberDao" >
+  	<resultMap id="BaseResultMap" type="com.fengduo.bee.model.entity.ItemMember" >
+  		<id 		column="ID" 			property="id" 				jdbcType="DECIMAL" />
+  		<result 	column="CREATE_DATE" 	property="createDate" 		jdbcType="TIMESTAMP" />
+  		
+  		<result 	column="ITEM_ID" 		property="itemId" 			jdbcType="DECIMAL" />
+  		<result 	column="NAME" 			property="name" 			jdbcType="VARCHAR" />
+  		<result 	column="AVATAR" 		property="avatar" 			jdbcType="VARCHAR" />
+  		<result 	column="TITLE" 			property="title" 			jdbcType="VARCHAR" />
+  		<result 	column="MEMO" 			property="memo" 			jdbcType="VARCHAR" />
+  	</resultMap>
+  	
+  	<sql id="table_columns_without_id">
+  		CREATE_DATE,ITEM_ID,NAME,AVATAR,TITLE,MEMO
+   	</sql>
+  
+  	<sql id="columns" >
+  		ID,<include refid="table_columns_without_id"/>
+  	</sql>
+  	
+  	<sql id="table_name" >
+  		item_member
+  	</sql>
+  	
+  	<sql id="orderby_clause">
+        <if test="sort !=null and sort == '' ">
+			order by ID DESC
+		</if>
+        <if test="sort !=null and sort == 'createDate' ">
+			order by CREATE_DATE DESC
+		</if>
+		<if test="sort !=null and sort == 'name' ">
+			order by NAME DESC
+		</if>
+    </sql>
+    
+  	<sql id="query_where_clause">
+  		<trim prefix="where" prefixOverrides="and|or"> 
+  			<if test="id !=null ">  
+	            ID = #{id, jdbcType=INTEGER}
+	        </if> 
+			<if test="itemId !=null">
+				and ITEM_ID = #{itemId, jdbcType=INTEGER}
+			</if>
+	        <if test="name != null and name != '' ">  
+	            and NAME = #{name, jdbcType=VARCHAR}
+	        </if> 
+          	<if test="title != null and title != '' ">  
+	            and TITLE = #{title, jdbcType=VARCHAR}
+	        </if>
+	    </trim> 
+  	</sql>
+  		
+  	<sql id="update_where_clause">
+		<trim prefix="where" prefixOverrides="and|or"> 
+	        <if test="id !=null ">  
+	            ID = #{id, jdbcType=INTEGER}
+	        </if> 
+			<if test="itemId !=null ">
+				and ITEM_ID = #{itemId, jdbcType=INTEGER}
+			</if>
+	        <if test="name !=null and name != '' ">
+				and NAME = #{name, jdbcType=VARCHAR}
+			</if>
+			<if test="title !=null and title != '' ">
+				and TITLE = #{title, jdbcType=VARCHAR}
+			</if>
+	    </trim>
+   	</sql>
+   	
+  	<sql id="update_set_clause">
+  		<trim prefix="set " suffixOverrides=",">  
+	        <if test="name !=null and name != ''">  
+	            NAME = #{name, jdbcType=VARCHAR},
+	        </if>
+	        <if test="avatar !=null and avatar != '' ">  
+	            AVATAR = #{avatar, jdbcType=VARCHAR},
+	        </if>
+	        <if test="title !=null and title != '' ">  
+	            TITLE = #{title, jdbcType=VARCHAR},
+	        </if>
+	        <if test="memo !=null and memo != '' ">  
+	            MEMO = #{memo, jdbcType=VARCHAR},
+	        </if>
+   		</trim>
+  	</sql>
+  	
+	<insert id="insert" parameterType="com.fengduo.bee.model.entity.ItemMember" useGeneratedKeys="true" keyProperty="id" keyColumn="ID" >
+	   	insert into <include refid="table_name" /> (<include refid="table_columns_without_id"/>)
+        values (  now(),
+        		#{itemId,jdbcType=INTEGER},
+                #{name,jdbcType=VARCHAR},
+                #{avatar,jdbcType=VARCHAR},
+                #{title,jdbcType=VARCHAR},
+                #{memo,jdbcType=VARCHAR}
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+            SELECT last_insert_id() as id
+        </selectKey> 
+   	</insert>
+  		
+  	<select id="list" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+   		select  <include refid="columns" /> 
+   		from <include refid="table_name" /> 
+   		<include refid="query_where_clause"/>
+   		<include refid="orderby_clause"/>
+  	</select>
+  	
+  	<select id="find" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter" >
+  		select <include refid="columns"/>
+        from <include refid="table_name" />
+        <include refid="query_where_clause"/>
+        <include refid="orderby_clause"/>
+        limit 1
+  	</select>
+  
+  	<select id="listPagination" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+		select <include refid="columns"/>
+		from <include refid="table_name" /> 
+		<include refid="query_where_clause"/>
+		<include refid="orderby_clause"/>
+		<include refid="PAGINATION.MYSQL_PAGINATION" />
+  	</select>
+  	
+  	<select id="count" resultType="java.lang.Integer" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+  		select count(1)
+        from <include refid="table_name" />  
+       	<include refid="query_where_clause"/>
+   	</select>
+  	
+   	<update id="update" parameterType="com.fengduo.bee.model.entity.ItemMember">
+   		update <include refid="table_name" /> 
+       	<include refid="update_set_clause"/>
+       	<include refid="update_where_clause"/>
+  	</update>
+  	
+  	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Number" >
+  		select <include refid="columns" /> 
+  		from <include refid="table_name" /> 
+  		where ID = #{id,jdbcType=INTEGER}
+  	</select>
+  
+   	<update id="updateById" parameterType="com.fengduo.bee.model.entity.ItemMember">
+   		update <include refid="table_name" /> 
+   		<include refid="update_set_clause"/>
+	    where ID = #{id,jdbcType=INTEGER}
+  	</update>
+  	
+  	<delete id="deleteById" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where ID = #{id,jdbcType=INTEGER}
+  	</delete>
+   	
+  	<delete id="deleteByUserId" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where USER_ID = #{userId,jdbcType=INTEGER}
+  	</delete>
+</mapper>

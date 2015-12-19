@@ -1,0 +1,74 @@
+<link href="/static/css/user.css" rel="stylesheet">
+
+<div class="bg-grey bg-grey-padding clearfix">
+    <div class="wrap" style="min-width: 1324px;">
+        <div class="user_l">
+	        <div class="head-info">
+	            #set($u=${webUser.getPrincipal().getUser()})
+	            <a href="javascript:void(0);" class="head-box">
+	            	<img #if($!{u.avatar}) src="$!{u.avatar}" #else src="/static/images/defaultUser1.png" #end>
+	            </a>
+	            <p class="user-name">$!{u.displayName}</p>
+	            <div class="clearfix project-action">
+	                <p class="p-wf p-l">
+	                    <a href="/user/identity" class="identiy">实名认证</a>
+	                    <a href="/user/setting" class="person-info">个人资料</a>
+	                </p>
+	                <p class="p-wf p-r">
+	                    <a href="/address/index" class="message">地址</a>
+	                    <a href="/user/resetpwd" class="set">设置</a>
+	                </p>
+	            </div>
+	        </div>
+	        <div class="project-info">
+		        <ul>
+		            <li ><a href="/my/launch/1">我发起的项目</a></li>
+		            <li><a href="/my/invest/1">我认购的项目</a></li>
+		            <li class="selected selected-radius-t"><a href="/my/order/1">我的订单</a></li>
+		            <li><a href="/my/follow/1">关注的项目</a></li>
+		        </ul>
+	    	</div>
+		</div>
+		<div class="user_r" style="width: 1032px;">
+		    <ul class="project-list-nav clearfix">
+		        <li class="cell01">项目</li>
+		        <li class="cell02">项目名称</li>
+		        <li class="cell02">订单编号</li>
+		        <li class="cell03">金额</li>
+		        <li class="cell03">手续费</li>
+		        <li class="cell03">支付状态</li>
+		        <li class="cell03">支付类型</li>
+		        <li class="cell07">操作</li>
+		    </ul>
+		    <div class="project-list-content clearfix">
+		    	#foreach($!order in $!orderList)
+		        <ul>
+		            <li class="cell01">
+		            	<a target="_blank" href="/$!{order.itemId}/project">
+		            		<img src="$!{order.itemLogo}">
+		            	</a>
+		            </li>
+		            <li class="cell02">
+		                <h4>
+		                	<a target="_blank" href="#">$!{order.itemName}</a>
+		                </h4>
+		            </li>
+		              <li class="cell02">$!{order.orderNo}<p></p></li>
+		            <li class="cell03"><em>$!{order.amount}万元</em></li>
+		            <li class="cell03"><em>$!{order.handlingCost}万元</em></li>
+		            <li class="cell03">$!{enumViewTools.orderStatusEnumName($!{order.status})}</li>
+		            <li class="cell03">$!{enumViewTools.payTypeEnumName($!{order.payType})}</li>
+		            <li class="cell07">
+					   #if($!{enumViewTools.isNonPay($!{order.status})})
+		               <a target="_blank" href="/order/index?itemId=$!{order.itemId}&subId=$!{order.subId}&orderId=$!{order.id}">去支付</a>
+					   #end
+		            </li>
+
+		        </ul>
+		        #end
+		    </div>
+		    <div class="line-dashed"></div>
+			<div class="pager"> </div>
+		</div>
+	</div>
+</div>

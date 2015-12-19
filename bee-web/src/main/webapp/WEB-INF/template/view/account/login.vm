@@ -1,0 +1,60 @@
+<link href="/static/css/login_register.css" rel="stylesheet" type="text/css" >
+<link href="/static/css/mycommon.css" rel="stylesheet" type="text/css" >
+
+$widget.setTemplate("common/errorTips").addParam('errMsg',$!{errMsg})
+
+<div class="wrap">
+	<div class="logo-content">
+	  <p class="login_logo">
+         <img width="537" height="368" src="http://www.lagou.com/image1/M00/10/D4/Cgo8PFT_wW-AbPX8AACgv86nFR4308.jpg">
+      </p>
+	  <div class="logo_form">
+	  	<h5 class="clearfix">
+	  		<span>登录</span> 
+	  		<em>没有账号，<a href="/register">马上注册</a></em>
+	  	</h5>
+	  	<form action="/login" name="loginForm" method="post" >
+	  		<div id="error" class="error-text"></div>
+	  		<input type="text" name="username" placeholder="手机号/邮箱/用户名">
+	  		<input type="password" name="password" placeholder="密码">
+	        <p class="verifity-code clearfix">
+	          <input type="text" name="captcha"  placeholder="请输入图形验证码">
+	          <img src="/verify/code" id="codeImg" onclick="this.src='/verify/code?t='+new Date().getTime()">
+	        </p>
+            <p>
+                <input type="checkbox" name="rememberMe" value="true">记住用户
+            </p>
+        	<span id="wx-validator-verify-required" class="error-text hidden">不能为空</span>
+	  		<p class="p-login">
+	  			<a href="javascript:;" type="submit" class="a-login-btn">立即登录</a>
+	  			<a href="/findpwd" class="forget-password">忘记密码</a>
+	  		</p>
+	  	</form>
+	  </div>
+    </div>
+</div>
+
+<script>
+//登录提交
+$(".a-login-btn").click(function () {
+    var username = $("input[name='username']").val(),
+        password = $("input[name='password']").val(),
+        verify = $("input[name='captcha']").val();
+    if(username==""){
+        $.tips("请输入手机号",$("input[name='username']"),2000);
+        return;
+    }else if(!(/^1[3|4|5|7|8][0-9]\d{8}$/.test(username))){
+        $.tips("请输入正确的手机号",$("input[name='username']"),2000);
+        return;
+    } 
+    if(password==""){
+        $.tips("请输入您的密码",$("input[name='password']"),2000);
+        return;
+    }
+    if(verify==""){
+        $.tips("请输入图片验证码",$("input[name='captcha']"),2000);
+        return;
+    }       
+    $("form[name='loginForm']").get(0).submit();
+});
+</script>

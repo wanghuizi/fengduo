@@ -1,0 +1,69 @@
+<link href="/static/css/news.css" rel="stylesheet">
+<link href="/static/css/mycommon.css" rel="stylesheet">
+
+<style type="text/css">
+    .news-detail span{
+        font-weight: normal;
+    }
+</style>
+
+<div class="wrap">
+    <div class="news-content clearfix">
+        
+        $widget.setTemplate("cms/nav").addParam('name',$!{name})
+        
+        <div class="news-r">
+            <div class="news-detail">
+                <p class="MsoNormal">
+                    <b><span style="font-size:11.5pt;font-family:Microsoft YaHei;font-weight:bold;">什么是保证金？</span></b><b><span style="font-size:11.5pt;"></span></b> 
+                </p>
+                <p class="MsoNormal">
+                    <span style="font-size:11.5pt;font-family:Microsoft YaHei;">1.保证金是投资人在预约融资项目股权时按照平台的要求缴纳的认购意向保证金。保证金的基本计算公式为每笔认购意向金额的百分之一。当单笔认购意向金额大于或等于五百万元时，保证金金额统一为五万元。</span><span style="font-size:11.5pt;"></span> 
+                </p>
+                 <p class="MsoNormal">
+                    <span style="font-size:11.5pt;font-family:Microsoft YaHei;">2.预约阶段成功支付保证金的投资人，在项目进入发行阶段时拥有七天的优先认购权，来完成该项目的首单认购。首单认购金额不得大于预约的投资意向金额。</span><span style="font-size:11.5pt;"></span> 
+                </p>
+                <p class="MsoNormal">
+                    <span style="font-size:11.5pt;font-family:Microsoft YaHei;">&nbsp;</span> 
+                </p>
+                <p class="MsoNormal">
+                    <b><span style="font-size:11.5pt;font-family:Microsoft YaHei;font-weight:bold;">保证金的使用方法</span></b><b><span style="font-size:11.5pt;"></span></b> 
+                </p>
+                <p class="MsoNormal">
+                    <span style="font-size:11.5pt;font-family:Microsoft YaHei;">1.投资人在参与预约融资项目股权时，按照每笔认购意向金额的百分之一缴纳保证金，通过平台冻结在第三方托管账户中。当项目进入发行阶段时，投资人按照不高于预约金额进行认购支付，支付时将从中扣除已支付的保证金。</span><span style="font-size:11.5pt;"></span> 
+                </p>
+                 <p class="MsoNormal">
+                    <span style="font-size:11.5pt;font-family:Microsoft YaHei;">2.若投资人不存在放弃认购等违约行为，但最终众筹失败，保证金将解冻并退还给该投资人。</span><span style="font-size:11.5pt;"></span> 
+                </p>
+
+                <p class="MsoNormal">
+                    <span style="font-size:11.5pt;font-family:Microsoft YaHei;">&nbsp;</span> 
+                </p>
+                <p class="MsoNormal">
+                    <b><span style="font-size:11.5pt;font-family:Microsoft YaHei;font-weight:bold;">领投人的保证金</span></b><b><span style="font-size:11.5pt;"></span></b> 
+                </p>
+                <p class="MsoNormal">
+                    <span style="font-size:11.5pt;font-family:Microsoft YaHei;">1.通过平台合格认证的投资人可以申请成为项目的领投人。领投人对一个融资项目的认购金额通常应不低于该融资项目目标募集金额的百分之二十。在申请成为领投人时，需支付意向投资额的百分之十作为领投人保证金。</span><span style="font-size:11.5pt;"></span> 
+                </p>
+                 <p class="MsoNormal">
+                    <span style="font-size:11.5pt;font-family:Microsoft YaHei;">2.提交领投申请未通过后，领投订单将自动变为普通预约订单。当项目进入发行阶段时，投资人按照不高于预约金额进行认购支付，支付时将从中扣除已支付的保证金。</span><span style="font-size:11.5pt;"></span> 
+                </p>
+                <p class="MsoNormal">
+                    <span style="font-size:11.5pt;font-family:Microsoft YaHei;">&nbsp;</span> 
+                </p>
+                 <p class="MsoNormal">
+                    <b><span style="font-size:11.5pt;font-family:Microsoft YaHei;font-weight:bold;">免除支付保证金的用户</span></b><b><span style="font-size:11.5pt;"></span></b> 
+                </p>
+                <p class="MsoNormal">
+                    <span style="font-size:11.5pt;font-family:Microsoft YaHei;">1.订单中心中有一次及以一次以上成功支付的认购订单的投资人，预约时可免除保证金。</span><span style="font-size:11.5pt;"></span> 
+                </p>
+                 <p class="MsoNormal">
+                    <span style="font-size:11.5pt;font-family:Microsoft YaHei;">2.如果产生放弃认购等违约行为，投资人的免除保证金资格将取消。</span><span style="font-size:11.5pt;"></span> 
+                </p>
+                <p class="MsoNormal">
+                    <span style="font-size:11.5pt;font-family:Microsoft YaHei;">&nbsp;</span> 
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

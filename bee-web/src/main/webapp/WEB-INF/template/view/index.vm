@@ -1,0 +1,266 @@
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+<div id="myCarousel" class="carousel slide">
+   <!-- 轮播（Carousel）指标 -->
+   <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <!--<li data-target="#myCarousel" data-slide-to="2"></li>
+      <li data-target="#myCarousel" data-slide-to="3"></li>-->
+   </ol>   
+   <!-- 轮播（Carousel）项目 -->
+   <div class="carousel-inner">
+      <!--<div class="item active">
+         <img src="/static/images/banner4.jpg" alt="First slide">
+      </div>-->
+      <div class="item active">
+         <img src="/static/images/banner1.png" alt="Second slide">
+      </div>
+      <div class="item">
+         <img src="/static/images/banner2.png" alt="Third slide">
+      </div>
+      <!--<div class="item">
+         <img src="/static/images/banner3.jpg" alt="Third slide">
+      </div>-->
+   </div>
+   <!-- 轮播（Carousel）导航 -->
+   <a class="carousel-control left" href="#myCarousel" 
+      data-slide="prev">&lsaquo;</a>
+   <a class="carousel-control right" href="#myCarousel" 
+      data-slide="next">&rsaquo;</a>
+</div> 
+
+<div class="i-g-showLists">
+    <div class="chip_sel">
+        <span class="chip_con">
+        <a href="javascript:void(0);" code_status="" class="active">所有项目</a>
+        <a href="javascript:void(0);" code_status="500">预热中</a>
+        <a href="javascript:void(0);" code_status="700">基石投资进入期</a>
+        <a href="javascript:void(0);" code_status="700">预售期</a>
+        <a href="javascript:void(0);" code_status="900">众筹成功</a>
+        <a href="javascript:void(0);" code_status="1100">众筹失败</a>
+        </span>
+    </div>
+    
+    #set($list=[1,2,3,4])
+    #foreach($i in $list)
+    <div class="showlist">
+            <a clstag="jr|keycount|gq_sy|gq_xmlb" class="showlist-pic" href="http://dj.jd.com/funding/details/1869.html" target="_blank">
+                <img src="http://img30.360buyimg.com/cf/jfs/t1219/219/302611473/790543/9d3e9526/551557dfN592adb28.jpg" height="342" width="762">
+                <div class="status green status-ing">众筹成功</div>
+            </a>
+            <div class="show-text">
+                <a clstag="jr|keycount|gq_sy|gq_xmlb" href="http://dj.jd.com/funding/details/1869.html" target="_blank"><h3 class="show-name mb10">车悦宝</h3></a>
+                <p class="show-detail mb10">聚合音乐、有声资讯订阅为基础的车载娱乐功能，打造以车载对讲、行车咨询为核心的车载智能语音互助社区。</p>
+                <div class="s-speed-infos mt10">
+                    <div class="holder" data-value="105" data-complete="off">
+                    <svg height="96" version="1.1" width="96" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;">
+                        <desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc>
+                        <defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs>
+                        <circle cx="48" cy="48" r="40" fill="none" stroke="#e5e5e5" stroke-width="8" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle>
+                        <path fill="none" stroke="#eb544b" d="M48,8A40,40,0,1,1,47.99,8" stroke-width="8" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                    <span style="font-size: 22px; top: 33px;">105<i style="font-size:12px">%</i></span>
+                </div>
+                <ul class="show-every">
+                    <li>
+                        <span class="i-tit">融资目标:</span>
+                        <span class="i-num">￥500.00万</span>
+                    </li>
+                    <li>
+                        <span class="i-tit">已 募 &nbsp;集:</span>
+                        <span class="i-num">￥528.50万</span>
+                    </li>
+                    <li>
+                        <span class="i-tit">剩余时间:</span>
+                        <span class="i-num"> 已经结束</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div> 
+    #end
+            
+</div>
+
+<script>
+	$('#myCarousel').carousel({
+	  interval: 2000
+	})
+</script>
+<style>
+.i-g-showLists {
+width: 1154px;
+margin: 0 auto;
+}
+.chip_sel {
+margin: 70px 0px 40px 0px;
+height: 43px;
+line-height: 43px;
+position: relative;
+}
+.chip_con {
+margin-left: 0px;
+height: 43px;
+line-height: 43px;
+font-size: 20px;
+color: #999;
+position: absolute;
+left: 0px;
+top: 0px;
+}
+.chip_con a.active, .chip_con a:hover {
+color: #ff6600;
+display: inline-block;
+text-align: center;
+border-bottom: 1px solid #ff6600;
+-webkit-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+-ms-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+transition: all 0.5s ease;
+}
+.chip_con a {
+font-size: 18px;
+color: #999;
+margin: 0px 15px;
+}
+a {
+cursor: pointer;
+outline: 0;
+}
+.i-g-showLists .showlist {
+position: relative;
+border: 1px solid #ccc;
+overflow: hidden;
+margin-bottom: 10px;
+}
+.i-g-showLists .showlist-pic {
+float: left;
+}
+a, img {
+border: 0;
+}
+.status.green {
+background: #40adfa;
+}
+.i-g-showLists .show-name {
+font-size: 24px;
+font-weight: 700;
+color: #333;
+}
+.i-g-showLists .show-detail {
+font-size: 12px;
+color: #888;
+line-height: 20px;
+}
+.i-g-showLists .holder {
+position: absolute;
+left: 5px;
+top: 35px;
+width: 96px;
+height: 96px;
+color: #eb544b;
+}
+* {
+margin: 0;
+padding: 0;
+list-style-type: none;
+}
+.i-g-showLists .holder span {
+position: absolute;
+left: 0;
+top: 30px;
+width: 100px;
+height: 30px;
+font-size: 30px;
+text-align: center;
+}
+.i-g-showLists .holder i {
+font-style: normal;
+}
+.i-g-showLists .show-every li {
+font-size: 14px;
+line-height: 22px;
+}
+li {
+list-style-type: none;
+}
+.i-g-showLists .show-every li .i-tit {
+font-weight: 700;
+color: #333;
+padding-right: 5px;
+}
+.i-g-showLists .holder {
+position: absolute;
+left: 5px;
+top: 35px;
+width: 96px;
+height: 96px;
+color: #eb544b;
+}
+svg[Attributes Style] {
+height: 96px;
+width: 96px;
+}
+circle[Attributes Style] {
+fill: none;
+stroke: rgb(229, 229, 229);
+stroke-width: 8px;
+}
+path[Attributes Style] {
+fill: none;
+stroke: rgb(235, 84, 75);
+stroke-width: 8px;
+}
+.i-g-showLists .s-speed-infos {
+position: relative;
+padding-left: 115px;
+padding-top: 40px;
+border-top: 1px solid #ccc;
+}
+.i-g-showLists .show-every li {
+font-size: 14px;
+line-height: 22px;
+}
+.i-g-showLists .holder i {
+font-style: normal;
+}
+.i-g-showLists .show-text {
+padding: 60px 40px 0 830px;
+}
+.status.green {
+background: #40adfa;
+}
+.status {
+position: absolute;
+left: 0;
+top: 0;
+width: 120px;
+height: 40px;
+color: #fff;
+font-size: 18px;
+text-align: center;
+line-height: 40px;
+}
+.chip_con a.active, .chip_con a:hover {
+color: #ff6600;
+display: inline-block;
+text-align: center;
+border-bottom: 1px solid #ff6600;
+-webkit-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+-ms-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+transition: all 0.5s ease;
+}
+.chip_con a {
+font-size: 18px;
+color: #999;
+margin: 0px 15px;
+}
+a:hover, a:link, a:visited {
+text-decoration: none;
+}
+</style>

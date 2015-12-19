@@ -1,0 +1,40 @@
+<nav class="navbar navbar-inverse navbar-blue">
+	<div class="container">
+		<a class="navbar-brand" href="/">蜂朵众筹</a>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/projects">浏览项目</a></li>
+				<li><a href="/item/create">发起项目</a></li>
+				<li><a href="/">投资人</a></li>
+				<li><a href="/help/help">帮助</a></li>
+				<li>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right ">
+				<li>
+					<form class="navbar-form">
+						<div class="form-group">
+							<input type="text" style="height:30px;"placeholder="输入你感兴趣的项目" class="form-control">
+						</div>
+						<button type="submit" style="padding-top:8px;" class="btn btn-primary">搜索</button>
+					</form>
+				</li>
+				#set($u=$webUser.getPrincipal())
+				
+				#if($u)
+					<ul>
+    					<li><a href="#" >您好，${u.displayName}</a></li>
+    					<li><a href="/my/launch/1" >个人中心</a></li>
+    					<li><a href="/user/setting" >设置</a></li>
+    					<li><a href="/user/identity" >实名认证</a></li>
+    					<li><a href="/logout" >退出</a></li>
+					</ul>
+				#else
+					<li><a href="/login" id="login-button">登录</a></li>
+					<li><a href="/register">注册</a></li>
+				#end
+			</ul>
+		</div>
+	</div>
+</nav>

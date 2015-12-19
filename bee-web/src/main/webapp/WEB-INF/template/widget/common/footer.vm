@@ -1,0 +1,16 @@
+<footer class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7">
+				<h3>联系方式</h1>
+				<address>
+					<p>地址: 上海市闵行区浦江镇万科VMO</p>
+					<p>电话 : 136 8162 1958</p>
+					<p>邮件 : <a href="javascript:;">system@fengduo.co</a></p>
+					<br/>
+				</address>
+			</div>
+		</div>
+	</div>
+	<center>Copyright 2015.上海蜂朵互联网金融信息服务有限公司 沪ICP备15013711</center>
+</footer>

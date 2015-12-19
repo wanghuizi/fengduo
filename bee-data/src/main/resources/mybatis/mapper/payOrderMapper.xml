@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fengduo.bee.data.dao.PayOrderDao">
+	<resultMap id="BaseResultMap" type="com.fengduo.bee.model.entity.PayOrder">
+		<id column="id" property="id" />
+		<result column="create_date" property="createDate" />
+		<result column="update_date" property="updateDate" />
+		<result column="order_no" property="orderNo" />
+		<result column="item_id" property="itemId" />
+		<result column="user_id" property="userId" />
+		<result column="sub_id" property="subId" />
+		<result column="sub_user_type" property="subUserType" />
+		<result column="type" property="type" />
+		<result column="amount" property="amount" />
+		<result column="handling_cost" property="handlingCost" />
+		<result column="platform_cost" property="platformCost" />
+		<result column="bank_type" property="bankType" />
+		<result column="status" property="status" />
+		<result column="deal_date" property="dealDate" />
+		<result column="item_name" property="itemName" />
+		<result column="item_logo" property="itemLogo" />
+		<result column="pay_type" property="payType" />
+		<result column="operator_id" property="operatorId" />
+		<result column="operate_date" property="operateDate" />
+	</resultMap>
+
+  	<sql id="table_columns_without_id">
+  		`create_date`,`update_date`,`order_no`,`item_id`,`user_id`,`sub_id`,`sub_user_type`,`type`,`amount`,
+  		`handling_cost`,`platform_cost`,`bank_type`,`status`,`deal_date`,`item_name`,`item_logo`,
+  		`pay_type`,`operator_id`,`operate_date`
+   	</sql>
+  
+  	<sql id="columns" >
+  		ID,<include refid="table_columns_without_id"/>
+  	</sql>
+
+	<sql id="table_name" >
+  		pay_order
+  	</sql>
+  	
+	<insert id="insert" parameterType="com.fengduo.bee.model.entity.PayOrder" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO <include refid="table_name"/> (<include refid="columns"/>)
+		VALUES (#{id},now(),now(),#{orderNo},#{itemId},#{userId},#{subId},#{subUserType},#{type},#{amount},
+		       #{handlingCost},#{platformCost},#{bankType},#{status},#{dealDate},
+		       #{itemName},#{itemLogo},
+		       #{payType},#{operatorId},#{operateDate})
+	</insert>
+  	
+  	<sql id="orderby_clause">
+        <if test="sort !=null and sort == '' ">
+			order by ID DESC
+		</if>
+        <if test="sort !=null and sort == 'id' ">
+			order by ID DESC
+		</if>
+    </sql>
+    
+  	<sql id="query_where_clause">
+  		<trim prefix="where" prefixOverrides="and|or"> 
+  			<if test="id !=null ">  
+	            ID = #{id}
+	        </if> 
+	         <if test="orderNo != null and orderNo != '' ">  
+	            and order_no = #{orderNo}
+	        </if> 
+	        <if test="itemId != null">  
+	           and item_id = #{itemId}
+	        </if> 
+	         <if test="userId != null">  
+	           and user_id = #{userId}
+	        </if> 
+	        <if test="subId != null">  
+	           and sub_id = #{subId}
+	        </if> 
+	        <if test="subUserType != null">  
+	           and sub_user_type = #{subUserType}
+	        </if> 
+	         <if test="type != null">  
+	           and type = #{type}
+	        </if> 
+	         <if test="bankType != null">  
+	           and bank_type = #{bankType}
+	        </if> 
+	         <if test="status != null">  
+	           and status = #{status}
+	        </if> 
+	         <if test="payType != null">  
+	           and pay_type = #{payType}
+	        </if>
+	         <if test="operateDate != null">  
+	           and operate_date = #{operateDate}
+	        </if> 
+	    </trim> 
+  	</sql>
+  		
+  	<sql id="update_where_clause">
+		<trim prefix="where" prefixOverrides="and|or"> 
+	        <if test="id !=null ">  
+	            ID = #{id}
+	        </if> 
+	        <if test="userId !=null ">  
+	           and user_id = #{userId}
+	        </if> 
+	        <if test="subId !=null ">  
+	          and  sub_id = #{subId}
+	        </if> 
+	        <if test="orderNo !=null ">  
+	          and  order_no = #{orderNo}
+	        </if> 
+	    </trim>
+   	</sql>
+  		
+  	<sql id="update_set_clause">
+  		<trim prefix="set" suffixOverrides=",">  
+  			update_date = now(),
+	          <if test="type != null">  
+	            type = #{type},
+	        </if> 
+	         <if test="bankType != null">  
+	            bank_type = #{bankType},
+	        </if> 
+	         <if test="status != null">  
+	            status = #{status},
+	        </if> 
+	         <if test="payType != null">  
+	            pay_type = #{payType},
+	        </if>
+	         <if test="operatorId != null">  
+	            operator_id = #{operatorId},
+	        </if> 
+	        <if test="operateDate != null">  
+	            operate_date = #{operateDate},
+	        </if> 
+	         <if test="itemName != null and itemName != '' ">  
+	            item_name = #{itemName},
+	        </if> 
+	         <if test="itemLogo != null and itemLogo != '' ">  
+	            item_logo = #{itemLogo},
+	        </if> 
+	          
+   		</trim>
+  	</sql>
+  	
+  		
+  	<select id="list" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+   		select  <include refid="columns" /> 
+   		from <include refid="table_name" /> 
+   		<include refid="query_where_clause"/>
+   		<include refid="orderby_clause"/>
+  	</select>
+  	
+  	<select id="find" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter" >
+  		select <include refid="columns"/>
+        from <include refid="table_name" />
+        <include refid="query_where_clause"/>
+        <include refid="orderby_clause"/>
+        limit 1
+  	</select>
+  
+  	<select id="listPagination" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+		select <include refid="columns"/>
+		from <include refid="table_name" /> 
+		<include refid="query_where_clause"/>
+		<include refid="orderby_clause"/>
+		<include refid="PAGINATION.MYSQL_PAGINATION" />
+  	</select>
+  	
+  	<select id="count" resultType="java.lang.Integer" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+  		select count(1)
+        from <include refid="table_name" />  
+       	<include refid="query_where_clause"/>
+   	</select>
+  	
+   	<update id="update" parameterType="com.fengduo.bee.model.entity.PayOrder">
+   		update <include refid="table_name" /> 
+       	<include refid="update_set_clause"/>
+       	<include refid="update_where_clause"/>
+  	</update>
+  	
+  	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Number" >
+  		select <include refid="columns" /> 
+  		from <include refid="table_name" /> 
+  		where ID = #{id}
+  	</select>
+  
+   	<update id="updateById" parameterType="com.fengduo.bee.model.entity.PayOrder">
+   		update <include refid="table_name" /> 
+   		<include refid="update_set_clause"/>
+	    where ID = #{id}
+  	</update>
+  	
+  	
+  	<delete id="deleteById" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where ID = #{id}
+  	</delete>
+   	
+ 	<select id="getOrderByOrderNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+ 		select <include refid="columns" /> 
+  		from <include refid="table_name" /> 
+  		where order_no = #{value}
+ 	</select>
+</mapper>

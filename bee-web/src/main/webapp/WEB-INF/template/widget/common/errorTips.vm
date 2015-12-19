@@ -1,0 +1,44 @@
+<style>
+.uk-close {
+-webkit-appearance: none;
+margin: 0;
+border: none;
+overflow: visible;
+font: inherit;
+color: inherit;
+text-transform: none;
+padding: 0;
+background: 0 0;
+display: inline-block;
+-moz-box-sizing: content-box;
+box-sizing: content-box;
+width: 20px;
+line-height: 20px;
+text-align: center;
+vertical-align: middle;
+opacity: .3;
+}
+.uk-alert {
+margin-bottom: 15px;
+padding: 10px;
+background: #ebf7fd;
+color: #2d7091;
+border: 1px solid rgba(45,112,145,.3);
+border-radius: 4px;
+text-shadow: 0 1px 0 #fff;
+}
+.uk-alert-danger {
+background: #fff1f0;
+color: #d85030;
+border-color: rgba(216,80,48,.3);
+width: 500px;
+margin-left: 150px;
+}
+</style>
+
+#if($!{errMsg})
+<div class="uk-alert uk-alert-danger" data-uk-alert="">
+    <a href="" class="uk-alert-close uk-close"></a>
+    <span>$!{errMsg}</span>
+</div>
+#end

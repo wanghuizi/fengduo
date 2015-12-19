@@ -1,0 +1,14 @@
+<div class="news-l">
+    <ul>
+    	<li #if($!{name}=='fengduo') class="selected" #end><a href="/help/fengduo">蜂朵股权众筹简介</a></li>
+        <li #if($!{name}=='user') class="selected" #end><a href="/help/user">用户协议</a></li>
+        <li #if($!{name}=='platform') class="selected" #end><a href="/help/platform">平台协议</a></li>
+        <li #if($!{name}=='role') class="selected" #end><a href="/help/role">投资规则</a></li>
+        <li #if($!{name}=='service') class="selected" #end><a href="/help/service">融资服务</a></li>
+        <li #if($!{name}=='tips') class="selected" #end><a href="/help/tips">风险提示</a></li>
+        <li #if($!{name}=='new') class="selected" #end><a href="/help/new">新手指南</a></li>
+        <li #if($!{name}=='bail') class="selected" #end><a href="/help/bail">关于保证金</a></li>
+        <li #if($!{name}=='item') class="selected" #end><a href="/help/item">融资人信息披露规则</a></li>
+        <li #if($!{name}=='mode') class="selected" #end><a href="/help/mode">基石投资者-跟投者模式简介</a></li>
+    </ul>
+</div>

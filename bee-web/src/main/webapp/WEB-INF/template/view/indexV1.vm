@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>蜂朵众筹 - 蜂朵金服旗下大型股权众筹平台</title>
+
+<link href="/static/v1/css/css.css" rel="stylesheet" type="text/css" />
+<link href="/static/v1/css/style.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="/static/jquery/jquery.js"></script>
+<script type="text/javascript" src="/static/v1/js/main.js"></script>
+<script type="text/javascript">
+        $(document).ready(function() {
+            $(".signin").mouseover(function(e) {          
+				e.preventDefault();
+                $("fieldset#signin_menu").toggle();
+				$(".signin").toggleClass("menu-open");
+            });
+			$("fieldset#signin_menu").mouseup(function() {
+				return false
+			});
+			$(document).mouseup(function(e) {
+				if($(e.target).parent("a.signin").length==0) {
+					$(".signin").removeClass("menu-open");
+					$("fieldset#signin_menu").hide();
+				}
+			});			
+        });
+</script>
+</head>
+
+<body>
+<!--网站头部-->
+<div class="header">
+<div class="header1">
+
+<div class="logo"><a href="/"><img src="/static/v1/img/logo.png" /></a></div>
+
+<div class="in_ser"><input name="keyword" value="输入您感兴趣的项目" onfocus="this.value='';" onblur="if(this.value==''){this.value='输入您感兴趣的项目'}"><a href="#"><img src="/static/v1/img/in_ser.png" /></a></div>
+
+<!--登录前-->
+<div class="in_dlq" style="display:none;"><a href="/register">注册</a><a href="/login">登录</a></div>
+<!--登录前-->
+<!--登录后-->
+<div class="in_dlh">
+<div class="in_dlh1">
+<span>您好！</span><i class="signin"><a href="login">RTMAZD</a></i>
+<fieldset id="signin_menu">
+<dl><dt><img src="/static/v1/img/in_grico.png" /></dt><dd><a href="/my/launch/1">个人中心</a></dd></dl>
+<dl><dt><img src="/static/v1/img/in_grico1.png" /></dt><dd><a href="/user/setting">设置</a></dd></dl>
+<dl><dt><img src="/static/v1/img/in_grico2.png" /></dt><dd><a href="/user/identity">实名认证</a></dd></dl>
+<dl style="border:none;"><dt><img src="/static/v1/img/in_grico3.png" /></dt><dd><a href="/logout">退出</a></dd></dl>
+</fieldset>
+</div>
+</div>
+<!--登录后-->
+
+</div>
+</div>
+<!--网站头部结束-->
+
+<!--menu开始-->
+<div class="menu">
+	<p>
+		<a href="/" class="have">首页</a>
+		<a href="/projects">浏览项目</a>
+		<a href="/item/create">发起项目</a>
+		<a href="/help/help">帮助</a>
+	</p>
+</div>
+<!--menu结束-->
+
+<!--焦点图-->
+<div class="slide-main" id="touchMain">
+	<div class="slide-box" id="slideContent">
+		<div class="slide" id="bgstylea" style="display: block; opacity: 1; z-index: 0; background:url(/static/v1/img/ban1.jpg) no-repeat center; ">
+			<a stat="sslink-1" href="#">
+                <div class="obj-e"><img src="/static/v1/img/baomi-t-1.png"></div>
+				<div class="obj-f"><img src="/static/v1/img/baomi-kl.png"></div>
+			</a>		</div>
+		<div class="slide" id="bgstyleb" style="display: none; opacity: 1; z-index: 8; background:url(/static/v1/img/ban.jpg) no-repeat center; "></div>
+		<div class="slide" id="bgstylec" style="display: none; opacity: 1; z-index: 0; background:url(/static/v1/img/ban2.jpg) no-repeat center; "></div>
+	</div>
+	<div class="item">
+		<a href="javascript:; stat="item1001"" class="cur"></a><a href="javascript:;" stat="item1002" class=""></a><a href="javascript:;" stat="item1003"></a>	</div>
+</div>
+
+<!--焦点图结束-->
+
+<!--新闻-->
+<div class="news">
+<div class="news1">
+
+<div class="tzxz">
+<div class="tzxzt"><p><i>投资须知</i></p><a href="#"><img src="/static/v1/img/in_more.gif" /></a></div>
+<div class="tzxzc">
+<p><img src="/static/v1/img/1.jpg" /></p>
+<ul>
+<li><a href="#">东家公告---6月26日</a><img src="/static/v1/img/new.gif" /></li>
+<li><a href="#">蜂朵股权众筹平台融资人规则</a></li>
+<li><a href="#">蜂朵股权众筹平台融资人规则</a></li>
+<li><a href="#">蜂朵过生日，邀你做东家</a></li>
+<li><a href="#">东家公告---6月26日</a></li>
+</ul>
+</div>
+</div>
+
+<div class="fddt">
+<div class="fddtt"><p><i>蜂朵动态</i></p><a href="#"><img src="/static/v1/img/in_more.gif" /></a></div>
+<div class="fddtc">
+<p><img src="/static/v1/img/1.jpg" /></p>
+<ul>
+<li><a href="#">东家公告---6月26日</a><img src="/static/v1/img/new.gif" /></li>
+<li><a href="#">蜂朵股权众筹平台融资人规则</a></li>
+<li><a href="#">蜂朵股权众筹平台融资人规则</a></li>
+<li><a href="#">蜂朵过生日，邀你做东家</a></li>
+<li><a href="#">东家公告---6月26日</a></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<!--新闻结束-->
+
+<!--项目列表-->
+<div class="inpro">
+
+<div class="inprot"><a href="#" class="have">所有项目</a><a href="#">预热中</a><a href="#">基石投资进入期</a><a href="#">预售期</a><a href="#">众筹成功</a><a href="#">众筹失败</a></div>
+
+<div class="inproc">
+<div class="inprocl"><a href="#"><img src="/static/v1/img/2.jpg" /></a></div>
+<div class="inprocr">
+<div class="xmname"> 
+<dl>
+<dt>车悦宝</dt>
+<dd>聚合音乐、有声资讯订阅为基础的车载娱乐功能，打造以车载对讲机、行车咨询为核心的车载智能语音互助社区。</dd>
+</dl>
+</div>
+<div class="jindu">                                            
+<svg height="96" version="1.1" width="96" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><circle cx="48" cy="48" r="40" fill="none" stroke="#cccccc" stroke-width="8" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><path fill="none" stroke="#fd2727" d="M48,8A40,40,0,1,1,22.50304041005242,17.179470288968425" stroke-width="8" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg>
+<span style=" color:#ff0000;">89<i style="font-size:12px">%</i></span>                                                 
+</div>
+<div class="xmqk">
+<p>
+融资目标：￥500.00万</br>
+已募集：￥528.50万</br>
+剩余时间：已经结束</br>
+</p>
+</div>
+</div>
+<div class="inprocg"><i>预热期</i></div>
+</div>
+
+<div class="inproc">
+<div class="inprocl"><a href="#"><img src="/static/v1/img/2.jpg" /></a></div>
+<div class="inprocr">
+<div class="xmname"> 
+<dl>
+<dt>车悦宝</dt>
+<dd>聚合音乐、有声资讯订阅为基础的车载娱乐功能，打造以车载对讲机、行车咨询为核心的车载智能语音互助社区。</dd>
+</dl>
+</div>
+<div class="jindu">                                            
+<svg height="96" version="1.1" width="96" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><circle cx="48" cy="48" r="40" fill="none" stroke="#e5e5e5" stroke-width="8" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><path fill="none" stroke="#eb544b" d="M48,8A40,40,0,1,1,47.99,8" stroke-width="8" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg>
+<span style=" color:#ff0000;">103<i style="font-size:12px">%</i></span>                                                 
+</div>
+<div class="xmqk">
+<p>
+融资目标：￥500.00万</br>
+已募集：￥528.50万</br>
+剩余时间：已经结束</br>
+</p>
+</div>
+</div>
+<div class="inprocg"><i>众筹成功</i></div>
+</div>
+
+<div class="inproc">
+<div class="inprocl"><a href="#"><img src="/static/v1/img/2.jpg" /></a></div>
+<div class="inprocr">
+<div class="xmname"> 
+<dl>
+<dt>车悦宝</dt>
+<dd>聚合音乐、有声资讯订阅为基础的车载娱乐功能，打造以车载对讲机、行车咨询为核心的车载智能语音互助社区。</dd>
+</dl>
+</div>
+<div class="jindu">                                            
+<svg height="96" version="1.1" width="96" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><circle cx="48" cy="48" r="40" fill="none" stroke="#cccccc" stroke-width="8" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><path fill="none" stroke="#fd2727" d="M48,8A40,40,0,1,1,22.50304041005242,17.179470288968425" stroke-width="8" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg>
+<span style=" color:#ff0000;">89<i style="font-size:12px">%</i></span>                                                 
+</div>
+<div class="xmqk">
+<p>
+融资目标：￥500.00万</br>
+已募集：￥528.50万</br>
+剩余时间：已经结束</br>
+</p>
+</div>
+</div>
+<div class="inprocg"><i>基石投资进入期</i></div>
+</div>
+
+</div>
+<!--项目列表结束-->
+
+<!--服务流程-->
+<div class="service"><img src="/static/v1/img/in_ser.jpg" /></div>
+<!--服务流程结束-->
+
+<!--底部信息-->
+<div class="footer">
+<div class="footer1">
+
+<div class="footerl">
+	<p>
+		<a href="/help/help">关于蜂朵股权众筹</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="/aboutus">关于我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="#">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="#">免责声明</a>
+	</p>
+	<p>Copyright 2015-2020 蜂朵 fengduo.co 版权所有 沪ICP备15013711 </p>
+	<p>投资有风险，购买需谨慎</p>
+</div>
+
+<div class="footerc">
+联系方式<br />
+地址: 上海市闵行区浦江镇万科VMO<br />
+电话 : 136 8162 1958<br />
+邮件 : system@fengduo.co</div>
+
+<div class="footerr">
+<span><img src="/static/v1/img/wx.png" /></span>
+<span><a href="#"><img src="/static/v1/img/wb.png" /></a></span>
+<p><a href="#">400客服</a></p>
+<p><a href="#">投诉邮箱</a></p>
+</div>
+
+</div>
+</div>
+<!--底部信息结束-->
+
+</body>
+</html>

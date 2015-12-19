@@ -1,0 +1,31 @@
+<style>
+*, *:before, *:after {
+-webkit-box-sizing: none;
+-moz-box-sizing: border-box;
+ box-sizing: none;
+}
+</style>
+
+<div class="f-copyright" style="position: relative; top: 0px;">
+    <div class="grid-1200 footerHolder">
+        <div class="footer-nav">
+            <p>
+                <a href="/help/help" target="_blank" clstag="jr|keycount|jr_shouye|footer1">关于蜂朵股权众筹</a><span class="footer-nav-cut">|</span>
+                <a href="/aboutus" target="_blank" clstag="jr|keycount|jr_shouye|footer2">关于我们</a><span class="footer-nav-cut">|</span>
+                <a href="#" target="_blank" clstag="jr|keycount|jr_shouye|footer4" rel="nofollow">联系我们</a><span class="footer-nav-cut">|</span>
+                <a href="#" target="_blank" clstag="jr|keycount|jr_shouye|footer5" rel="nofollow">免责声明</a></p>
+            <p>Copyright © 2015-2020 蜂朵 fengduo.co 版权所有 沪ICP备15013711 <span class="footer-nav-cut">|</span>投资有风险，购买需谨慎</p>
+        </div>
+        <div class="footer-contact">
+            <div class="f-contact-time">联系我们<span></span></div>
+            <div class="f-contact-way">
+                <span class="f-contact-tel">地址</span>
+                <span class="f-contact-type">上海市闵行区浦江镇万科VMO</span></br>
+                <span class="f-contact-tel">电话</span>
+                <span class="f-contact-type">136 8162 1958</span></br>
+                <span class="f-contact-tel">邮件</span>
+                <span class="f-contact-type">system@fengduo.co</span>
+            </div>
+        </div>
+    </div>
+</div>

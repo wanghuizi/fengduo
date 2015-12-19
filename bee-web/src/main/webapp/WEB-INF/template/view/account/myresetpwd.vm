@@ -1,0 +1,128 @@
+<link href="/static/css/user.css" rel="stylesheet" type="text/css" >
+<link href="/static/css/control.css" rel="stylesheet" type="text/css" >
+
+<style>
+.btn {
+border-width: 1px;
+border-style: solid;
+border-radius: 5px;
+display: inline-block;
+vertical-align: middle;
+text-align: center;
+}
+.bg-orange:hover {
+background-color: #f35621;
+color: #fff;
+}
+.bg-orange {
+background-color: #f63;
+color: #fff;
+}
+</style>
+
+$widget.setTemplate("common/errorTips").addParam('errMsg',$!{errMsg})
+
+<div class="bg-grey bg-grey-padding">
+    <div class="wrap clearfix">
+        <div class="user_l">
+	        <div class="head-info">
+	            <a href="javascript:void(0);" class="head-box">
+	            	<img src="/static/images/defaultUser1.png">
+	            </a>
+	            #set($u=$webUser.getPrincipal())
+	            <p class="user-name">$!{u.displayName}</p>
+	            <div class="clearfix project-action">
+	                <p class="p-wf p-l">
+	                    <a href="/user/identity" class="identiy">实名认证</a>
+	                    <a href="/user/setting" class="person-info">个人资料</a>
+	                </p>
+	                <p class="p-wf p-r">
+	                    <a href="/address/index" class="message">地址</a>
+	                    <a href="/user/resetpwd" class="set">设置</a>
+	                </p>
+	            </div>
+	        </div>
+	        <div class="project-info">
+		        <ul>
+		            <li><a href="/my/launch/1">我发起的项目</a></li>
+		            <li><a href="/my/invest/1">我认购的项目</a></li>
+		            <li><a href="/my/order/1">我的订单</a></li>
+		            <li><a href="/my/follow/1">关注的项目</a></li>
+		        </ul>
+	    	</div>
+		</div>
+		<div class="user_r">
+	   		<ul class="authen-hd clearfix">
+           		<li> <a style="display:block;width:148px" href="/user/setting">个人信息设置</a></li>
+               	<li> <a style="display:block;width:148px" href="/user/identity">实名认证</a></li>
+               	<li class="selected"> <a style="display:block;width:148px" href="/user/resetpwd">修改密码</a></li>
+               	<li> <a style="display:block;width:148px" href="/address/index">收货地址管理</a></li>
+			</ul>
+			<div class="form-wrap">
+	 			<form action="/user/savepwd" name="resetForm" method="post" autocomplete="off">
+				    <div class="form-list form-list-phone">
+	    				<label for="">旧密码<i>＊</i></label>
+	    				<div class="inp">
+	        				<input name="oldPassword" id="old_password" type="password" placeholder="请输入旧密码" value="">
+	        				<div class="clearfix"></div>
+	    				</div>
+	    			</div>
+	    			<div class="form-list form-list-phone">
+	    				<label for="">新密码<i>＊</i></label>
+	    				<div class="inp">
+	        				<input name="password" id="new_password" type="password" placeholder="请输入新密码" value="">
+	        				<div class="clearfix"></div>
+	   					</div>
+	    			</div>
+	    			<div class="form-list form-list-phone">
+	    				<label for="">确认密码<i>＊</i></label>
+	    				<div class="inp">
+	        				<input name="confirmPwd" id="confirm_password" type="password" placeholder="请输入新密码" value="">
+	        				<div class="clearfix"></div>
+	    				</div>
+	    			</div>
+	        		<div class="save-next">
+	            		<a type="submit" class="btn bg-orange">保存</a>
+	    			</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+//登录提交
+$(".bg-orange").click(function () {
+    var oldPassword = $("input[name='oldPassword']").val(),
+        password = $("input[name='password']").val(),
+        confirmPwd = $("input[name='confirmPwd']").val();
+    if(oldPassword==""){
+        $.tips("请输入您的旧密码",$("input[name='oldPassword']"),2000);
+        return;
+    }
+    if(password==""){
+        $.tips("请输入您的密码",$("input[name='password']"),2000);
+        return;
+    }
+    if(confirmPwd==""){
+        $.tips("请再次输入您的密码",$("input[name='confirmPwd']"),2000);
+        return;
+    }
+    if(password!=confirmPwd){
+        $.tips("两次输入的新密码不一样,请重新输入",$("input[name='password']"),2000);
+        return;
+    }       
+    
+    $("form[name='resetForm']").get(0).submit();
+    var F = $("form[name='resetForm']");
+	$.post('/user/savepwd',F.serialize(),function(res){
+		if(res.code == 0){
+			$.message('信息提示',res.message,function(){
+				window.location.reload(true);
+			});
+		}else{
+			$.message('信息提示',res.message);
+		}
+	})
+});
+</script>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fengduo.bee.data.dao.EmailNotifyDao">
+	<resultMap id="BaseResultMap" type="com.fengduo.bee.model.entity.EmailNotify">
+		<id column="id" property="id" />
+		<result column="create_date" property="createDate" />
+		<result column="update_date" property="updateDate" />
+		<result column="status"      property="status" />
+		<result column="item_id" property="itemId" />
+		<result column="receiver_id" property="receiverId" />
+		<result column="operator_id" property="operatorId" />
+		<result column="handle_type" property="handleType" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="memo" property="memo" />
+	</resultMap>
+
+  	<sql id="table_columns_without_id">
+  		`create_date`,`update_date`,`status`,`item_id`,`receiver_id`,`operator_id`,`handle_type`,`title`,
+  		`content`,`memo`
+   	</sql>
+  
+  	<sql id="columns" >
+  		ID,<include refid="table_columns_without_id"/>
+  	</sql>
+
+	<sql id="table_name" >
+  		email_notify
+  	</sql>
+  	
+	<insert id="insert" parameterType="com.fengduo.bee.model.entity.EmailNotify" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO <include refid="table_name"/> (<include refid="columns"/>)
+		VALUES (#{id},now(),now(),0,#{itemId},#{receiverId},#{operatorId},#{handleType},#{title},
+		       #{content},#{memo})
+	</insert>
+  	
+  	<sql id="orderby_clause">
+        <if test="sort !=null and sort == '' ">
+			order by ID DESC
+		</if>
+        <if test="sort !=null and sort == 'id' ">
+			order by ID DESC
+		</if>
+    </sql>
+    
+  	<sql id="query_where_clause">
+  		<trim prefix="where" prefixOverrides="and|or"> 
+  			<if test="id !=null ">  
+	            ID = #{id}
+	        </if> 
+	         <if test="itemId != null">  
+	            and item_id = #{itemId}
+	        </if> 
+	        <if test="receiverId != null">  
+	           and receiver_id = #{receiverId}
+	        </if> 
+	         <if test="operatorId != null">  
+	           and operator_id = #{operatorId}
+	        </if> 
+	         <if test="handleType != null">  
+	           and handle_type = #{handleType}
+	        </if> 
+	    </trim> 
+  	</sql>
+  		
+  	<sql id="update_where_clause">
+		<trim prefix="where" prefixOverrides="and|or"> 
+	        <if test="id !=null ">  
+	            ID = #{id}
+	        </if> 
+	    </trim>
+   	</sql>
+  		
+  	<sql id="update_set_clause">
+  		<trim prefix="set" suffixOverrides=",">  
+  			update_date = now(),
+	         <if test="receiverId !=null">  
+	            receiver_id = #{receiverId},
+	        </if>
+	        <if test="operatorId !=null">  
+	            operator_id = #{operatorId},
+	        </if>
+	         <if test="handleType !=null">  
+	            handle_type = #{handleType}
+	        </if>
+	        <if test="status !=null">  
+	            status = #{status}
+	        </if>
+   		</trim>
+  	</sql>
+  	
+  		
+  	<select id="list" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+   		select  <include refid="columns" /> 
+   		from <include refid="table_name" /> 
+   		<include refid="query_where_clause"/>
+   		<include refid="orderby_clause"/>
+  	</select>
+  	
+  	<select id="find" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter" >
+  		select <include refid="columns"/>
+        from <include refid="table_name" />
+        <include refid="query_where_clause"/>
+        <include refid="orderby_clause"/>
+        limit 1
+  	</select>
+  
+  	<select id="listPagination" resultMap="BaseResultMap" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+		select <include refid="columns"/>
+		from <include refid="table_name" /> 
+		<include refid="query_where_clause"/>
+		<include refid="orderby_clause"/>
+		<include refid="PAGINATION.MYSQL_PAGINATION" />
+  	</select>
+  	
+  	<select id="count" resultType="java.lang.Integer" parameterType="com.fengduo.bee.commons.persistence.Parameter">
+  		select count(1)
+        from <include refid="table_name" />  
+       	<include refid="query_where_clause"/>
+   	</select>
+  	
+   	<update id="update" parameterType="com.fengduo.bee.model.entity.EmailNotify">
+   		update <include refid="table_name" /> 
+       	<include refid="update_set_clause"/>
+       	<include refid="update_where_clause"/>
+  	</update>
+  	
+  	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Number" >
+  		select <include refid="columns" /> 
+  		from <include refid="table_name" /> 
+  		where ID = #{id}
+  	</select>
+  
+   	<update id="updateById" parameterType="com.fengduo.bee.model.entity.EmailNotify">
+   		update <include refid="table_name" /> 
+   		<include refid="update_set_clause"/>
+	    where ID = #{id}
+  	</update>
+  	
+  	
+  	<delete id="deleteById" parameterType="java.lang.Number">
+  		delete from <include refid="table_name" /> where ID = #{id}
+  	</delete>
+   	
+ 
+</mapper>
